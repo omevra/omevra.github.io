@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>NGS Pipeline Atlas — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.4%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="NGS Pipeline Atlas by Evidra: a reproducible Nextflow bacterial WGS pipeline with per-sample QC gates — 27 of 33 E. coli samples passed to variant calling, 130,614 variant records, and two end-to-end runs with byte-identical cohort reports." />
+<link rel="canonical" href="https://variant-evidence-agent.netlify.app/ngs-pipeline-atlas/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="NGS Pipeline Atlas — Evidra" />
+<meta property="og:description" content="NGS Pipeline Atlas by Evidra: a reproducible Nextflow bacterial WGS pipeline with per-sample QC gates — 27 of 33 E. coli samples passed to variant calling, 130,614 variant records, and two end-to-end runs with byte-identical cohort reports." />
+<meta property="og:url" content="https://variant-evidence-agent.netlify.app/ngs-pipeline-atlas/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "NGS Pipeline Atlas by Evidra: a reproducible Nextflow bacterial WGS pipeline with per-sample QC gates \u2014 27 of 33 E. coli samples passed to variant calling, 130,614 variant records, and two end-to-end runs with byte-identical cohort reports.", "name": "NGS Pipeline Atlas", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/ngs-pipeline-atlas/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/evidra/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+    </nav>
+    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · Product four</p>
+    <h1>NGS Pipeline <span>Atlas</span></h1>
+    <p class="subtitle">A reproducible bacterial whole-genome sequencing pipeline — paired-end reads in, per-sample QC-gated variant calls out — run on a public E. coli cohort, and run twice to prove it reproduces.</p>
+  </header>
+
+  <section id="pipeline">
+    <div class="sec-head"><h2>The pipeline, drawn</h2></div>
+    <p>One Nextflow workflow (<code>main.nf</code>) takes a samplesheet of paired-end FASTQ files and a reference genome, and processes every sample through the same stages. The run cohort is ENA study <strong>PRJNA234495</strong> — <em>Escherichia coli</em> K-12 whole-genome resequencing, Illumina HiSeq 2000 paired-end — aligned against the MG1655 complete genome, <strong>NC_000913.3</strong>. A sample that fails a gate has its BAM removed inside the gate step and never reaches variant calling; the reason is written to its gate log.</p>
+    <div class="chart-box"><svg viewBox="0 0 920 168" width="100%" role="img"><defs><marker id="arr-ngs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#424245"/></marker></defs><rect x="4" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="60" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">FETCH</text><text x="60" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">MD5-verified</text><line x1="118" y1="37" x2="133" y2="37" stroke="#424245" stroke-width="2" marker-end="url(#arr-ngs)"/><rect x="135" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="191" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">SANITIZE</text><text x="191" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">pair integrity</text><line x1="249" y1="37" x2="264" y2="37" stroke="#424245" stroke-width="2" marker-end="url(#arr-ngs)"/><rect x="266" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="322" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">FASTQC/FASTP</text><text x="322" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">QC + trimming</text><line x1="380" y1="37" x2="395" y2="37" stroke="#424245" stroke-width="2" marker-end="url(#arr-ngs)"/><rect x="397" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="453" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">ALIGN</text><text x="453" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">BWA-MEM</text><line x1="511" y1="37" x2="526" y2="37" stroke="#424245" stroke-width="2" marker-end="url(#arr-ngs)"/><rect x="528" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#b91c1c"/><text x="584" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">GATE</text><text x="584" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">3 fixed gates</text><line x1="642" y1="37" x2="657" y2="37" stroke="#424245" stroke-width="2" marker-end="url(#arr-ngs)"/><rect x="659" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="715" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">CALL</text><text x="715" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">bcftools</text><line x1="773" y1="37" x2="788" y2="37" stroke="#424245" stroke-width="2" marker-end="url(#arr-ngs)"/><rect x="790" y="10" width="112" height="54" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="846" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">REPORT</text><text x="846" y="52" text-anchor="middle" font-size="9.5" fill="#6e6e73">own Python</text><path d="M584 64 L584 100" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr-ngs)"/><rect x="414" y="104" width="340" height="40" rx="10" fill="#ffffff" stroke="#b91c1c"/><text x="584" y="121" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">STOPPED AT THE GATE — 6 samples</text><text x="584" y="137" text-anchor="middle" font-size="10" fill="#6e6e73">BAM removed inside the gate step; never reaches calling</text></svg></div>
+    <p class="takeaway"><strong>Every sample travels the same path.</strong> The only exit is the gate: pass all three thresholds and the sample is called; fail one and it stops there, with the reason logged.</p>
+    <h3 style="margin-top:26px">Per-stage timing — median task time, run 1 trace</h3>
+    <div class="table-wrap"><table><thead><tr><th>Stage</th><th>Tasks</th><th>Median task time</th></tr></thead><tbody><tr><td>FETCH</td><td data-label="Tasks">33</td><td data-label="Median task time">6 s (local mirror)</td></tr><tr><td>SANITIZE</td><td data-label="Tasks">33</td><td data-label="Median task time">66 s</td></tr><tr><td>FASTQC</td><td data-label="Tasks">33</td><td data-label="Median task time">11 s</td></tr><tr><td>FASTP</td><td data-label="Tasks">33</td><td data-label="Median task time">20 s</td></tr><tr><td>ALIGN</td><td data-label="Tasks">33</td><td data-label="Median task time">44 s</td></tr><tr><td>GATE</td><td data-label="Tasks">33</td><td data-label="Median task time">4 s</td></tr><tr><td>CALL</td><td data-label="Tasks">27</td><td data-label="Median task time">24 s</td></tr><tr><td>REPORT</td><td data-label="Tasks">1</td><td data-label="Median task time">1 s</td></tr></tbody></table></div>
+    <p class="table-note">FETCH's median reflects the local mirror the reproducibility runs ingested from (see “Fetching from the archive” below), not the throttled archive itself.</p>
+  </section>
+
+  <section id="gates">
+    <div class="sec-head"><h2>QC gates — the cohort outcome</h2></div>
+    <p>A sample passes only if all three hold — thresholds fixed before the cohort run, at standard bacterial WGS values: <strong>mean coverage ≥ 10.0×</strong> (samtools coverage), <strong>reads mapped ≥ 80%</strong> (samtools flagstat), <strong>Q30 bases ≥ 70%</strong> (fastp, post-filtering).</p>
+    <div class="stats" aria-label="Cohort numbers">
+      <div class="stat"><b>33</b><span>Samples attempted — 32 screened cohort runs plus the deliberate bad input BADINPUT01</span></div>
+      <div class="stat"><b>27</b><span>Passed all three gates and reached variant calling</span></div>
+      <div class="stat"><b>6</b><span>Stopped at the gates — every one on the coverage gate</span></div>
+      <div class="stat"><b>130,614</b><span>Variant records across the passed samples — 81,810 unique sites</span></div>
+    </div>
+    <h3 style="margin-top:26px">Passed vs stopped</h3>
+    <div class="chart-box"><div class="donut-flex"><svg viewBox="0 0 230 230" width="230" role="img"><circle cx="115" cy="115" r="84" fill="none" stroke="#0b7a37" stroke-width="30" stroke-dasharray="428.8 527.8" transform="rotate(-90.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#b91c1c" stroke-width="30" stroke-dasharray="93.0 527.8" transform="rotate(204.5 115 115)"/><text x="115" y="111" text-anchor="middle" font-size="30" font-weight="700" fill="#1d1d1f">27 of 33</text><text x="115" y="135" text-anchor="middle" font-size="12.5" fill="#6e6e73">samples passed the gates</text></svg><div class="donut-legend"><div class="donut-row"><i class="dot" style="background:#0b7a37"></i><span class="donut-lab">Passed all three gates — went on to variant calling</span><b>27</b></div><div class="donut-row"><i class="dot" style="background:#b91c1c"></i><span class="donut-lab">Stopped at the coverage gate</span><b>6</b></div></div></div></div>
+    <h3 style="margin-top:26px">The six stops — mean coverage against the 10.0× gate</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 214" width="100%" role="img"><text x="0" y="27.0" font-size="13.5" fill="#1d1d1f">BADINPUT01 (deliberate bad input)</text><rect x="250" y="10" width="2" height="22" rx="5" fill="#b91c1c"/><text x="262" y="27.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">0.01×</text><text x="0" y="61.0" font-size="13.5" fill="#1d1d1f">SRR1121841</text><rect x="250" y="44" width="512" height="22" rx="5" fill="#b45309"/><text x="772" y="61.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">8.82×</text><text x="0" y="95.0" font-size="13.5" fill="#1d1d1f">SRR1121895</text><rect x="250" y="78" width="524" height="22" rx="5" fill="#b45309"/><text x="784" y="95.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9.03×</text><text x="0" y="129.0" font-size="13.5" fill="#1d1d1f">SRR1121918</text><rect x="250" y="112" width="541" height="22" rx="5" fill="#b45309"/><text x="801" y="129.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9.33×</text><text x="0" y="163.0" font-size="13.5" fill="#1d1d1f">SRR1121923</text><rect x="250" y="146" width="563" height="22" rx="5" fill="#b45309"/><text x="823" y="163.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9.70×</text><text x="0" y="197.0" font-size="13.5" fill="#1d1d1f">SRR1121929</text><rect x="250" y="180" width="579" height="22" rx="5" fill="#b45309"/><text x="839" y="197.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9.99×</text></svg></div>
+    <p class="takeaway"><strong>Coverage was the deciding metric.</strong> All six stopped samples had ~98% of reads mapped and Q30 of 96% — they failed on depth alone, five genuine samples landing between 8.82× and 9.99×, just under the line.</p>
+    <div class="table-wrap"><table><thead><tr><th>Sample</th><th>Mean coverage</th><th>Coverage gate</th><th>Note</th></tr></thead><tbody><tr><td>BADINPUT01 (deliberate bad input)</td><td data-label="Mean coverage">0.01×</td><td data-label="Coverage gate">≥ 10.0×</td><td data-label="Note">deliberate bad input</td></tr><tr><td>SRR1121841</td><td data-label="Mean coverage">8.82×</td><td data-label="Coverage gate">≥ 10.0×</td><td data-label="Note">genuine cohort sample</td></tr><tr><td>SRR1121895</td><td data-label="Mean coverage">9.03×</td><td data-label="Coverage gate">≥ 10.0×</td><td data-label="Note">genuine cohort sample</td></tr><tr><td>SRR1121918</td><td data-label="Mean coverage">9.33×</td><td data-label="Coverage gate">≥ 10.0×</td><td data-label="Note">genuine cohort sample</td></tr><tr><td>SRR1121923</td><td data-label="Mean coverage">9.70×</td><td data-label="Coverage gate">≥ 10.0×</td><td data-label="Note">genuine cohort sample</td></tr><tr><td>SRR1121929</td><td data-label="Mean coverage">9.99×</td><td data-label="Coverage gate">≥ 10.0×</td><td data-label="Note">genuine cohort sample</td></tr></tbody></table></div>
+    <p>The gate step's own log line for the deliberate bad input, verbatim — identical in both runs:</p>
+    <p><code>[GATE] BADINPUT01 STOPPED reason: mean_coverage=0.01x &lt; gate 10.00x (mean_coverage=0.01x pct_mapped=97.42 q30_pct=96.00)</code></p>
+    <p>BADINPUT01 is the first 400 read pairs of a cohort sample (~0.02× coverage), included in the samplesheet to prove the coverage gate stops under-covered samples. No BADINPUT01 VCF exists in either run's output.</p>
+  </section>
+
+  <section id="variants">
+    <div class="sec-head"><h2>Variant totals</h2></div>
+    <p>Calling (bcftools mpileup + call) ran on the 27 passed samples only. Across them the cohort holds <strong>130,614 variant records</strong> at <strong>81,810 unique sites</strong>, with per-sample counts from 3,259 to 7,689. The full per-sample table — coverage, mapped percentage, Q30 and variants called for all 33 samples — is in the cohort reports under Downloads.</p>
+  </section>
+
+  <section id="reproducibility">
+    <div class="sec-head"><h2>Reproducibility — two runs, byte-identical</h2></div>
+    <p>The pipeline was executed twice end to end from the same samplesheet, in fully separate work and output directories — run 2 in an isolated launch directory, so no task result could be reused from run 1's cache. Inputs are content-addressed (FETCH refuses any payload whose MD5 differs from the samplesheet) and the environment is locked to exact tool builds (<code>environment-explicit.txt</code>).</p>
+    <ul>
+      <li>Cohort reports: <strong>byte-identical</strong> — MD5 <code>822aad36…</code> for both runs, with the same attempted / passed / stopped counts, stop reasons, 130,614 records and 81,810 unique sites.</li>
+      <li>Per-sample variant tables (<code>vcf/*.calls.tsv</code>): <strong>27 of 27 byte-identical</strong> between run 1 and run 2.</li>
+      <li>Sanitize statistics and gate decisions: identical in both runs, for all 33 samples, including all six stops.</li>
+    </ul>
+    <p>Given the MD5-pinned inputs and the locked environment, two independent executions produce identical variant calls and identical reports.</p>
+  </section>
+
+  <section id="sanitize">
+    <div class="sec-head"><h2>The sanitize finding — corruption inside authentic files</h2></div>
+    <p>The legacy files in this study are corrupt in two ways, and the corruption is in the archive, not the transfer: the files' MD5 checksums match the archive's published values. A structural pre-screen of 50 candidate runs admitted 32 and rejected 18 — every rejection a mate-2 record-structure desync. A full-content validation pass then found in-line byte garbage (non-IUPAC bytes inside sequence lines, concentrated in mate 2) even inside admitted files, so that second corruption class is handled at read level by the pipeline's own sanitize stage (<code>bin/sanitize_pairs.py</code>): it parses tolerantly, validates every record — IUPAC sequence alphabet, printable quality bytes, matched lengths — drops corrupt pairs, writes canonical 4-line FASTQ, and counts everything it drops, per sample.</p>
+    <div class="chart-box"><svg viewBox="0 0 920 112" width="100%" role="img"><text x="0" y="27.0" font-size="13.5" font-weight="700" fill="#1d1d1f">Read pairs processed</text><rect x="210" y="10" width="620" height="22" rx="5" fill="#0b7a37"/><text x="840" y="27.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">27,175,960</text><text x="0" y="61.0" font-size="13.5" fill="#1d1d1f">Pairs kept</text><rect x="210" y="44" width="618" height="22" rx="5" fill="#8fce9f"/><text x="838" y="61.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">27,071,276</text><text x="0" y="95.0" font-size="13.5" fill="#1d1d1f">Corrupt pairs dropped</text><rect x="210" y="78" width="2" height="22" rx="5" fill="#b91c1c"/><text x="222" y="95.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">104,684 (0.39%)</text></svg></div>
+    <p class="takeaway"><strong>104,684 corrupt pairs dropped (0.39%)</strong> out of 27,175,960 processed — identical totals in both runs, and 0 unparseable fragments. BADINPUT01: 400 pairs in, 390 kept.</p>
+  </section>
+
+  <section id="archive">
+    <div class="sec-head"><h2>Fetching from the archive — the honest note</h2></div>
+    <p>The archive rate-limits sustained fetching hard: HTTP 403 pages under load, and transfers that occasionally truncate or stall. FETCH is built for exactly that — downloads retry with backoff until the payload is byte-identical to the samplesheet's MD5, and a payload that differs is refused, never silently accepted. Because the throttling was hard enough to stall the cohort's 66-file download set, the files were additionally staged in a local mirror with resumable, MD5-verified downloads; the reproducibility runs ingest from the mirror, while the canonical <code>samples.tsv</code> keeps the original archive URLs and FETCH performs the same MD5 verification either way.</p>
+  </section>
+
+  <section id="downloads">
+    <div class="sec-head"><h2>Downloads</h2></div>
+    <p>The project's own results documents, byte-identical to the files in the project:</p>
+    <ul>
+      <li><a href="/evidra/ngs-pipeline-atlas/assets/RESULTS.md" download>RESULTS.md</a> — the full results document behind every figure on this page</li>
+      <li><a href="/evidra/ngs-pipeline-atlas/assets/cohort_report_run1.txt" download>cohort_report_run1.txt</a> — run 1's cohort report (130,614 records, 81,810 unique sites)</li>
+      <li><a href="/evidra/ngs-pipeline-atlas/assets/cohort_report_run2.txt" download>cohort_report_run2.txt</a> — run 2's cohort report, byte-identical to run 1's (MD5 822aad36…)</li>
+    </ul>
+  </section>
+
+  <section id="limits">
+    <div class="sec-head"><h2>What this does not claim</h2></div>
+    <ul>
+      <li>One study and one reference: PRJNA234495 <em>E. coli</em> K-12 against MG1655 NC_000913.3. Nothing here is a claim about other organisms, other references, or human data.</li>
+      <li>The gates are fixed, standard thresholds — six of 33 samples stopping is the gates doing their job, and stopped samples contribute no variant calls.</li>
+      <li>The reproducibility runs ingested from a local mirror of the archive files — identical bytes, MD5-pinned, with the same verification FETCH applies to live downloads.</li>
+      <li>Timing medians are from run 1's trace on one machine; they describe this pipeline on this hardware, not a benchmark against other pipelines.</li>
+    </ul>
+    <p>Every figure on this page is taken from the project's <code>RESULTS.md</code> and the two runs' cohort reports, and is cross-checked against both at build time.</p>
+  </section>
+
+  <footer>
+    <p class="name">Evidra</p>
+    <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
+    <div class="links">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/evidra/methods/calibration/">Methods — calibration</a>
+      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/evidra/tools/">Tools — every usable tool</a>
+      <a href="/evidra/">Evidra — home</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/evidra/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Multi-Agent Evidence — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.4%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="Multi-Agent Evidence by Evidra: a three-agent system for genetic-variant evidence work (Retriever, Synthesiser, Critic) measured head-to-head against a single-agent baseline on 36 variants — identical citation accuracy, completeness and decline correctness, at 2.7 times the tokens and latency." />
+<link rel="canonical" href="https://variant-evidence-agent.netlify.app/multi-agent-evidence/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="Multi-Agent Evidence — Evidra" />
+<meta property="og:description" content="Multi-Agent Evidence by Evidra: a three-agent system for genetic-variant evidence work (Retriever, Synthesiser, Critic) measured head-to-head against a single-agent baseline on 36 variants — identical citation accuracy, completeness and decline correctness, at 2.7 times the tokens and latency." />
+<meta property="og:url" content="https://variant-evidence-agent.netlify.app/multi-agent-evidence/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Multi-Agent Evidence by Evidra: a three-agent system for genetic-variant evidence work (Retriever, Synthesiser, Critic) measured head-to-head against a single-agent baseline on 36 variants \u2014 identical citation accuracy, completeness and decline correctness, at 2.7 times the tokens and latency.", "name": "Multi-Agent Evidence", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/multi-agent-evidence/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/evidra/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+    </nav>
+    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · Product five</p>
+    <h1>Multi-Agent <span>Evidence</span></h1>
+    <p class="subtitle">A three-agent system for genetic-variant evidence work — Retriever, Synthesiser, Critic — measured head-to-head against the single-agent baseline it has to beat. The tie is the finding.</p>
+  </header>
+
+  <section id="architecture">
+    <div class="sec-head"><h2>The system, drawn</h2></div>
+    <p>Build 1 (the Variant Evidence Agent) showed a single evidence agent can be kept honest with a hard rule — <em>cite, or decline</em> — enforced in code. This project asks the follow-up question: does splitting the work across cooperating agents produce better evidence summaries than one model writing in one pass? Three agents, one guarantee layer, orchestrated as a LangGraph state graph:</p>
+    <div class="chart-box"><svg viewBox="0 0 920 168" width="100%" role="img"><defs><marker id="arr-mae" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#424245"/></marker></defs><rect x="4" y="10" width="164" height="58" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="86" y="34" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">RETRIEVER</text><text x="86" y="50" text-anchor="middle" font-size="9.5" fill="#6e6e73">deterministic — builds</text><text x="86" y="62" text-anchor="middle" font-size="9.5" fill="#6e6e73">the evidence packet</text><line x1="170" y1="39" x2="185" y2="39" stroke="#424245" stroke-width="2" marker-end="url(#arr-mae)"/><rect x="188" y="10" width="164" height="58" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="270" y="34" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">SYNTHESISER</text><text x="270" y="50" text-anchor="middle" font-size="9.5" fill="#6e6e73">model — drafts cited</text><text x="270" y="62" text-anchor="middle" font-size="9.5" fill="#6e6e73">claims, or declines</text><line x1="354" y1="39" x2="369" y2="39" stroke="#424245" stroke-width="2" marker-end="url(#arr-mae)"/><rect x="372" y="10" width="164" height="58" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="454" y="34" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">CRITIC</text><text x="454" y="50" text-anchor="middle" font-size="9.5" fill="#6e6e73">model — checks every claim</text><text x="454" y="62" text-anchor="middle" font-size="9.5" fill="#6e6e73">against the packet</text><line x1="538" y1="39" x2="553" y2="39" stroke="#424245" stroke-width="2" marker-end="url(#arr-mae)"/><rect x="556" y="10" width="164" height="58" rx="10" fill="#ffffff" stroke="#d2d2d7"/><text x="638" y="34" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">REVISE</text><text x="638" y="50" text-anchor="middle" font-size="9.5" fill="#6e6e73">rejected draft returns</text><text x="638" y="62" text-anchor="middle" font-size="9.5" fill="#6e6e73">with findings attached</text><line x1="722" y1="39" x2="737" y2="39" stroke="#424245" stroke-width="2" marker-end="url(#arr-mae)"/><rect x="740" y="10" width="164" height="58" rx="10" fill="#ffffff" stroke="#b91c1c"/><text x="822" y="34" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">FINALISE</text><text x="822" y="50" text-anchor="middle" font-size="9.5" fill="#6e6e73">code — gate enforced,</text><text x="822" y="62" text-anchor="middle" font-size="9.5" fill="#6e6e73">uncited claims removed</text><path d="M454 68 L454 108 L270 108 L270 70" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arr-mae)"/><text x="362" y="126" text-anchor="middle" font-size="10.5" fill="#6e6e73">the critic loop — at most 2 revisions, then finalise decides</text><text x="362" y="143" text-anchor="middle" font-size="10.5" fill="#6e6e73">an accepted draft skips REVISE and goes straight from CRITIC to FINALISE</text></svg></div>
+    <ul>
+      <li><strong>Retriever</strong> (deterministic, no model) — gathers the records for a variant from Build 1's local evidence universe: AlphaMissense, the ClinVar record frozen at the evaluation cutoff, the gene prior, and the calibrated model probability. For variants outside that universe it goes live, to ClinVar and PubMed, and marks what it brings back as live context. It assembles the <em>evidence packet</em>.</li>
+      <li><strong>Synthesiser</strong> (model) — drafts the evidence summary from the packet, one cited claim per bullet, or declines when the packet cannot meet the gate: a calibrated probability plus at least three local evidence records.</li>
+      <li><strong>Critic</strong> (model) — checks every drafted claim against the packet: does the cited record exist, and does its text support the claim as written, without added strength? Rejected drafts go back with the findings attached; the Synthesiser revises, at most twice.</li>
+      <li><strong>Finalise</strong> (deterministic, no model) — enforces in code what a prompt can only request: if the gate is not met, the output is the decline whatever the draft said, and any claim citing a record that is not in the packet is removed.</li>
+    </ul>
+    <p>The baseline it has to beat is the <strong>same model, the same packet, the same task text, in a single pass</strong> — no critic, no revision, no code guard. The packet for each variant was built once and given, identical, to both systems.</p>
+  </section>
+
+  <section id="comparison">
+    <div class="sec-head"><h2>The measured comparison — a tie</h2></div>
+    <p>The evaluation set is a fixed 36 variants: 12 that Build 1's gate summarises, 12 it declines, and 12 real ClinVar variants outside its universe entirely. Both systems are scored by a deterministic checker (does every stated value appear in the record it cites?) plus a manual rubric audit of all 96 claims against their cited records, on citation accuracy, evidence completeness, decline correctness, and cost and latency per variant.</p>
+    <div class="stats" aria-label="Comparison numbers">
+      <div class="stat"><b>1.00 vs 1.00</b><span>Citation accuracy after the manual audit — 48 of 48 claims supported, both systems</span></div>
+      <div class="stat"><b>36/36</b><span>Decline correctness against the Build 1 gate — both systems, all 36 variants</span></div>
+      <div class="stat"><b>2.7×</b><span>The multi-agent system's token and latency cost to reach the same scores</span></div>
+      <div class="stat"><b>36</b><span>Fixed variants — 12 summarised, 12 declined, 12 outside the universe</span></div>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Measure</th><th>Single-agent baseline</th><th>Multi-agent system</th></tr></thead><tbody><tr><td>Citation accuracy (final, after manual audit of all 96 claims)</td><td data-label="Single-agent baseline">48/48 = 1.00</td><td data-label="Multi-agent system">48/48 = 1.00</td></tr><tr><td>Citation accuracy (deterministic checker only)</td><td data-label="Single-agent baseline">48/48 = 1.00</td><td data-label="Multi-agent system">46/48 = 0.96</td></tr><tr><td>Evidence completeness (mean, summaries)</td><td data-label="Single-agent baseline">1.00</td><td data-label="Multi-agent system">1.00</td></tr><tr><td>Decline correctness (vs the Build 1 gate)</td><td data-label="Single-agent baseline">36/36</td><td data-label="Multi-agent system">36/36</td></tr><tr><td>Model calls</td><td data-label="Single-agent baseline">36</td><td data-label="Multi-agent system">94</td></tr><tr><td>Tokens (prompt + completion)</td><td data-label="Single-agent baseline">17,062</td><td data-label="Multi-agent system">46,225</td></tr><tr><td>Mean latency per variant</td><td data-label="Single-agent baseline">1.40 s</td><td data-label="Multi-agent system">3.74 s</td></tr><tr><td>Estimated cost for the 36 variants</td><td data-label="Single-agent baseline">$0.0096</td><td data-label="Multi-agent system">$0.0264</td></tr></tbody></table></div>
+    <h3 style="margin-top:26px">Tokens for the 36 variants</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 78" width="100%" role="img"><text x="0" y="27.0" font-size="13.5" fill="#1d1d1f">Single-agent baseline</text><rect x="190" y="10" width="236" height="22" rx="5" fill="#424245"/><text x="436" y="27.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">17,062 tokens</text><text x="0" y="61.0" font-size="13.5" font-weight="700" fill="#1d1d1f">Multi-agent system</text><rect x="190" y="44" width="640" height="22" rx="5" fill="#17a34a"/><text x="840" y="61.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">46,225 tokens</text></svg></div>
+    <h3 style="margin-top:26px">Mean latency per variant</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 78" width="100%" role="img"><text x="0" y="27.0" font-size="13.5" fill="#1d1d1f">Single-agent baseline</text><rect x="190" y="10" width="240" height="22" rx="5" fill="#424245"/><text x="440" y="27.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">1.40 s</text><text x="0" y="61.0" font-size="13.5" font-weight="700" fill="#1d1d1f">Multi-agent system</text><rect x="190" y="44" width="640" height="22" rx="5" fill="#17a34a"/><text x="840" y="61.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3.74 s</text></svg></div>
+    <p class="takeaway"><strong>The finding is the tie.</strong> On this evaluation the multi-agent system did not beat the baseline on any quality axis — citation accuracy, completeness and decline correctness are identical, both systems at the ceiling of what this task, as specified, can measure — and the multi-agent system cost 2.7× the tokens and 2.7× the latency to get there. That is the result, and it stands.</p>
+    <p><strong>The 0.96 note, stated plainly:</strong> the deterministic checker alone scores the multi-agent system 46/48 = 0.96. The two claims it fails restated a gene prior as a percentage (0.485 → “48.5%”, 0.542 → “54.2%”); the strict checker fails any value not literally in the record. The manual audit rules a fraction and its percentage the same quantity and reclassifies both as supported, which is why the audited figure is 1.00. The baseline never used the percentage form. Both numbers are reported, here and in the project's results.</p>
+    <p>The task is deliberately well-specified — a small structured packet, an explicit gate rule in the shared task text — and a single strong pass is already reliable in that regime. This evaluation does not show coordination is useless; it shows where its value does and does not appear at this scale. Where it appeared is the next section.</p>
+  </section>
+
+  <section id="critic">
+    <div class="sec-head"><h2>What the critic loop demonstrably did</h2></div>
+    <p>The critic worked — it just had nothing left to fix in the final outputs. Across the 36 variants it ran <strong>47 rounds and rejected drafts 16 times</strong>. Its rejections never changed a final verdict in this run, because finalise enforces the gate regardless — but the loop itself was exercised, counted, and caught real problems in process:</p>
+    <ul>
+      <li><strong>13 of 16 rejections policed out-of-universe drafts.</strong> There, the packet holds a live ClinVar record with a definite current significance, and the Synthesiser repeatedly drafted as if that live record could carry a summary — or asserted “remains VUS” as a record-backed claim, which the packet does not support either. The critic caught the gate violation every time; on five variants the argument ran the full revision budget (3 critic rounds), after which finalise issued the correct decline anyway. The lesson, stated plainly: persuasion between agents was the expensive path; the code guarantee was the reliable one.</li>
+      <li><strong>3 rejections were false positives</strong> on one summarised variant (ASNS), where the critic kept rejecting the phrase “likely pathogenic” for the AlphaMissense class — stricter than the record, which literally carries <code>class=likely_pathogenic</code>. Two extra rounds spent, outcome unchanged.</li>
+      <li><strong>The sabotaged-claim catch</strong> (failure exercise FM2 below) is the one case where the loop, not the code guard, did the work: a false claim carrying a valid-looking citation, which the guard alone cannot detect.</li>
+    </ul>
+  </section>
+
+  <section id="failures">
+    <div class="sec-head"><h2>Failure modes — exercised, not described</h2></div>
+    <div class="table-wrap"><table><thead><tr><th>Exercise</th><th>Outcome</th></tr></thead><tbody>
+      <tr><td>FM1 — Conflicting records: one packet given its frozen ClinVar record (“Uncertain significance”, at the cutoff) and a live ClinVar record (“Likely benign”, evaluated later)</td><td data-label="Outcome"><strong>No confusion, but no surfacing either.</strong> Zero cross-citation violations — no claim mixed the two statuses up. But the final summary never cited the live record at all: the conflict passed silently. <strong>Recorded as a design gap:</strong> the architecture has no step whose job is to raise a disagreement between frozen and live records; the critic only reviews claims that exist.</td></tr>
+      <tr><td>FM2 — Critic rejection loop: the Synthesiser sabotaged (exercise-only instruction) into adding an ACMG PS3 claim citing the AlphaMissense record</td><td data-label="Outcome"><strong>Handled by the loop.</strong> The critic rejected round 1 (unsupported), the revision removed the claim, round 2 accepted. PS3 is absent from the final output. This is the failure class the code guard cannot catch — the citation was real, the claim was not.</td></tr>
+      <tr><td>FM3 — Stale + duplicate evidence: the frozen ClinVar record duplicated (same id twice) plus a superseded older record (“Likely benign”) in one packet</td><td data-label="Outcome"><strong>Handled.</strong> The final summary claimed the variant's status exactly once, citing the current frozen record; the stale record was never cited. Duplication cannot flip the gate: the gate also requires a model record, which duplicates do not create.</td></tr>
+      <tr><td>FM4 — Forced tool failure: live ClinVar and PubMed forced to raise for an out-of-universe variant</td><td data-label="Outcome"><strong>Handled.</strong> The run completed and declined, and the outage is visible in the run's event log and the packet's error list. No exception escaped, and no record was fabricated to fill the gap.</td></tr>
+    </tbody></table></div>
+    <p>The four exercises cost 10 model calls and 6,583 tokens; their full records ship in the project's <code>eval/results/failure_modes.jsonl</code>.</p>
+  </section>
+
+  <section id="bugs">
+    <div class="sec-head"><h2>Two bugs this build found in itself — disclosed</h2></div>
+    <ul>
+      <li><strong>The ClinVar live parser read the wrong field.</strong> The first live implementation read <code>clinical_significance</code> from ClinVar's esummary response; the current API carries the classification in <code>germline_classification</code>, so live records arrived with significance “not stated”. Found when a tour of the numbers looked empty — before any results were published. Fixed in the live retrieval code; the 12 out-of-universe variants were then re-run with corrected packets (the 24 in-universe pairs never touch live retrieval and stand as first run). This disclosure is also why the critic-rejection counts concentrate on out-of-universe variants: with real live significances in the packets, there was finally something to argue about.</li>
+      <li><strong>Checker false positive on transcript accessions.</strong> The citation checker's numeric extraction initially treated the digits of an accession like NM_005327.7 as a stated value. Fixed by stripping accessions and HGVS tokens before extraction, and verified against the smoke set.</li>
+    </ul>
+  </section>
+
+  <section id="cost">
+    <div class="sec-head"><h2>What the whole build cost</h2></div>
+    <p>All token counts are the API's own usage figures, summed per run — not estimates. Prices are the model's list prices and are labelled estimates wherever used. The evaluation itself (36 variants × 2 systems) used <strong>63,287 tokens ≈ $0.036</strong>; the failure-mode exercises 6,583 tokens ≈ $0.004; development smoke tests and probes ≈ 7,400 tokens. <strong>The whole build: ≈ 77,000 tokens, ≈ $0.045 of API credit</strong> — the multi-agent system at $0.0264 against the baseline's $0.0096 for the same 36 variants.</p>
+  </section>
+
+  <section id="downloads">
+    <div class="sec-head"><h2>Downloads</h2></div>
+    <p>The project's own results document, byte-identical to the file in the project:</p>
+    <ul>
+      <li><a href="/evidra/multi-agent-evidence/assets/RESULTS.md" download>RESULTS.md</a> — the full results document behind every figure on this page: the comparison, the critic log, the failure-mode record, the token accounting, the disclosed bugs and the limitations</li>
+    </ul>
+  </section>
+
+  <section id="limits">
+    <div class="sec-head"><h2>Limitations</h2></div>
+    <ul>
+      <li><strong>One run per variant per system.</strong> No variance estimate; a different sampling of the model could move individual claims. The comparison is of these runs, not of distributions.</li>
+      <li><strong>API-default temperature.</strong> The model-access helper's interface does not expose temperature, so all calls ran at API defaults. Prompts, packets and the eval set are fixed and shipped, which bounds — but does not eliminate — this.</li>
+      <li><strong>Ceiling regime.</strong> Packets hold 1–4 short records and the gate rule is stated in the task text. The interesting differences between the architectures appeared in process (rejections, sabotage, conflicts), not in final-output quality. A harder regime — larger, messier packets, conflicting sources as the norm — is where a difference would be expected to show, and is the obvious next evaluation.</li>
+      <li><strong>Live data moves.</strong> Out-of-universe packets were retrieved from ClinVar and PubMed at run time; re-running later may fetch updated records. The frozen-universe results are exactly reproducible; the live ones are reproducible in method, not to the byte.</li>
+      <li><strong>The manual audit is one reader</strong>, applying the rubric shipped with the project; its two reclassifications are individually documented in the audit file.</li>
+    </ul>
+    <p>Every figure on this page is taken from the project's <code>RESULTS.md</code> and its evaluation result files, and is cross-checked against both at build time.</p>
+  </section>
+
+  <footer>
+    <p class="name">Evidra</p>
+    <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
+    <div class="links">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/evidra/methods/calibration/">Methods — calibration</a>
+      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/evidra/tools/">Tools — every usable tool</a>
+      <a href="/evidra/">Evidra — home</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/evidra/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>web-agent — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.4%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="web-agent by Evidra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on and 27/36 with recovery off." />
+<link rel="canonical" href="https://variant-evidence-agent.netlify.app/web-agent/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="web-agent — Evidra" />
+<meta property="og:description" content="web-agent by Evidra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on and 27/36 with recovery off." />
+<meta property="og:url" content="https://variant-evidence-agent.netlify.app/web-agent/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "web-agent by Evidra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on and 27/36 with recovery off.", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/web-agent/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/evidra/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live</a>
+    </nav>
+    <a class="bar-btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+  </div>
+  <div class="subnav">
+    <div class="sub-in">
+      <nav aria-label="Sections">
+        <a href="#results">Results</a>
+        <a href="#charts">Charts</a>
+        <a href="#method">Method</a>
+        <a href="#record">Full record</a>
+        <a href="#evaluation">Evaluation v1.0</a>
+        <a href="#demo">Live demo</a>
+        <a href="#howto">How to use</a>
+        <a href="#methods">Methods</a>
+        <a href="#architecture">Architecture</a><!-- evidra-build:subnav-wa -->
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · Product two</p>
+    <h1>web-<span>agent</span></h1>
+    <p class="subtitle">An autonomous agent that operates web interfaces end to end — observe, act, verify, recover — measured with an ablation, not adjectives.</p>
+    <div class="cta-row">
+      <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+      <a class="btn ghost" href="#charts">See the results, drawn ›</a>
+    </div>
+    <div class="stats" aria-label="Key numbers">
+      <div class="stat"><b>36/36</b><span>Tasks passed with recovery on — the full evaluation set</span></div>
+      <div class="stat"><b>27/36</b><span>Tasks passed with recovery off — the ablation control</span></div>
+      <div class="stat"><b>9/9 vs 0/9</b><span>Adversarial tasks passed, recovery on vs off</span></div>
+      <div class="stat"><b>27/27</b><span>Control tasks passed both ways, recovery on and off</span></div>
+    </div>
+  </header>
+
+  <section id="results">
+    <div class="sec-head"><h2>Results</h2></div>
+    <p class="lead">The same agent, the same 36 tasks, run twice: once with the recovery half of its loop switched on, once with it switched off.</p>
+    <p>Twenty-seven of the tasks are controls — forms, tables, wizards, business workflows and portal navigation that a competent agent should pass either way. Nine are adversarial: the page mutates or obstructs mid-task — a button is renamed after a field is typed into, an overlay rises over the control, a same-label decoy appears. Every number on this page is computed from the raw run files of that evaluation (<code>results/run_on.json</code> and <code>results/run_off.json</code>); nothing is hand-entered.</p>
+    <div class="table-wrap"><table><thead><tr><th>Category</th><th>Tasks</th><th>Recovery on</th><th>Recovery off</th></tr></thead><tbody><tr><td>Forms &amp; wizards</td><td data-label="Tasks">10</td><td data-label="Recovery on">10/10 (100.0%)</td><td data-label="Recovery off">10/10 (100.0%)</td></tr><tr><td>Tables, lists &amp; cart</td><td data-label="Tasks">6</td><td data-label="Recovery on">6/6 (100.0%)</td><td data-label="Recovery off">6/6 (100.0%)</td></tr><tr><td>Adversarial recovery</td><td data-label="Tasks">9</td><td data-label="Recovery on">9/9 (100.0%)</td><td data-label="Recovery off">0/9 (0.0%)</td></tr><tr><td>Widgets &amp; dialogs</td><td data-label="Tasks">5</td><td data-label="Recovery on">5/5 (100.0%)</td><td data-label="Recovery off">5/5 (100.0%)</td></tr><tr><td>Business workflows</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr><tr><td>Portal navigation</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr></tbody></table></div>
+    <p class="table-note">Recovery on passed all 36 tasks. Recovery off passed the 27 controls and failed all nine adversarial tasks — renamed targets were never found, covered buttons’ clicks timed out, and decoys failed their postconditions.</p>
+  </section>
+
+  <section id="charts">
+    <div class="sec-head"><h2>The results, drawn</h2></div>
+
+    <h3>Pass rate by category — recovery on vs off</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 370" width="100%" role="img"><text x="0" y="25.0" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — recovery on</text><rect x="300" y="10" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="25.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10 · 100%</text><text x="0" y="55.0" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — recovery off</text><rect x="300" y="40" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="55.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10 · 100%</text><text x="0" y="85.0" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — recovery on</text><rect x="300" y="70" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="85.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6 · 100%</text><text x="0" y="115.0" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — recovery off</text><rect x="300" y="100" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="115.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6 · 100%</text><text x="0" y="145.0" font-size="13.5" fill="#1d1d1f">Adversarial recovery — recovery on</text><rect x="300" y="130" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="145.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9/9 · 100%</text><text x="0" y="175.0" font-size="13.5" fill="#1d1d1f">Adversarial recovery — recovery off</text><rect x="300" y="160" width="2" height="18" rx="5" fill="#b91c1c"/><text x="312" y="175.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">0/9 · 0%</text><text x="0" y="205.0" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — recovery on</text><rect x="300" y="190" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="205.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5 · 100%</text><text x="0" y="235.0" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — recovery off</text><rect x="300" y="220" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="235.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5 · 100%</text><text x="0" y="265.0" font-size="13.5" fill="#1d1d1f">Business workflows — recovery on</text><rect x="300" y="250" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="265.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text><text x="0" y="295.0" font-size="13.5" fill="#1d1d1f">Business workflows — recovery off</text><rect x="300" y="280" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="295.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text><text x="0" y="325.0" font-size="13.5" fill="#1d1d1f">Portal navigation — recovery on</text><rect x="300" y="310" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="325.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text><text x="0" y="355.0" font-size="13.5" fill="#1d1d1f">Portal navigation — recovery off</text><rect x="300" y="340" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="355.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text></svg></div>
+    <p class="takeaway"><strong>The whole difference sits in one group.</strong> Controls pass either way; adversarial tasks go 9/9 with recovery on and 0/9 with it off.</p>
+
+    <h3>What the outcomes are made of</h3>
+    <div class="chart-box"><div class="donut-pair"><div><h4>Recovery on</h4><div class="donut-flex"><svg viewBox="0 0 230 230" width="230" role="img"><circle cx="115" cy="115" r="84" fill="none" stroke="#0b7a37" stroke-width="30" stroke-dasharray="392.8 527.8" transform="rotate(-90.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#8fce9f" stroke-width="30" stroke-dasharray="128.9 527.8" transform="rotate(180.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#b91c1c" stroke-width="30" stroke-dasharray="0.0 527.8" transform="rotate(270.0 115 115)"/><text x="115" y="111" text-anchor="middle" font-size="30" font-weight="700" fill="#1d1d1f">36</text><text x="115" y="135" text-anchor="middle" font-size="12.5" fill="#6e6e73">tasks</text></svg><div class="donut-legend"><div class="donut-row"><i class="dot" style="background:#0b7a37"></i><span class="donut-lab">Passed, no recovery needed</span><b>27 tasks</b></div><div class="donut-row"><i class="dot" style="background:#8fce9f"></i><span class="donut-lab">Passed after recovering</span><b>9 tasks</b></div><div class="donut-row"><i class="dot" style="background:#b91c1c"></i><span class="donut-lab">Failed</span><b>0 tasks</b></div></div></div></div><div><h4>Recovery off</h4><div class="donut-flex"><svg viewBox="0 0 230 230" width="230" role="img"><circle cx="115" cy="115" r="84" fill="none" stroke="#0b7a37" stroke-width="30" stroke-dasharray="392.8 527.8" transform="rotate(-90.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#8fce9f" stroke-width="30" stroke-dasharray="0.0 527.8" transform="rotate(180.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#b91c1c" stroke-width="30" stroke-dasharray="128.9 527.8" transform="rotate(180.0 115 115)"/><text x="115" y="111" text-anchor="middle" font-size="30" font-weight="700" fill="#1d1d1f">36</text><text x="115" y="135" text-anchor="middle" font-size="12.5" fill="#6e6e73">tasks</text></svg><div class="donut-legend"><div class="donut-row"><i class="dot" style="background:#0b7a37"></i><span class="donut-lab">Passed, no recovery needed</span><b>27 tasks</b></div><div class="donut-row"><i class="dot" style="background:#8fce9f"></i><span class="donut-lab">Passed after recovering</span><b>0 tasks</b></div><div class="donut-row"><i class="dot" style="background:#b91c1c"></i><span class="donut-lab">Failed</span><b>9 tasks</b></div></div></div></div></div></div>
+    <p class="takeaway"><strong>Recovery on, every task passes</strong> — 27 without a single recovery, 9 after recovering. Recovery off, the 9 failures are exactly the adversarial nine.</p>
+
+    <h3>The adversarial nine — attempts, both modes</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 496" width="100%" role="img"><text x="0" y="23.5" font-size="13.5" fill="#1d1d1f">adversarial_banner_reappears — off (fails)</text><rect x="330" y="10" width="250" height="15" rx="5" fill="#b91c1c"/><text x="590" y="23.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · FAIL</text><text x="0" y="50.5" font-size="13.5" fill="#1d1d1f">adversarial_banner_reappears — on (passes)</text><rect x="330" y="37" width="333" height="15" rx="5" fill="#0b7a37"/><text x="673" y="50.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · 1 recovery · PASS</text><text x="0" y="77.5" font-size="13.5" fill="#1d1d1f">adversarial_decoy_button — off (fails)</text><rect x="330" y="64" width="250" height="15" rx="5" fill="#b91c1c"/><text x="590" y="77.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · FAIL</text><text x="0" y="104.5" font-size="13.5" fill="#1d1d1f">adversarial_decoy_button — on (passes)</text><rect x="330" y="91" width="333" height="15" rx="5" fill="#0b7a37"/><text x="673" y="104.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · 1 recovery · PASS</text><text x="0" y="131.5" font-size="13.5" fill="#1d1d1f">adversarial_double_label_change — off (fails)</text><rect x="330" y="118" width="167" height="15" rx="5" fill="#b91c1c"/><text x="507" y="131.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2 attempts · FAIL</text><text x="0" y="158.5" font-size="13.5" fill="#1d1d1f">adversarial_double_label_change — on (passes)</text><rect x="330" y="145" width="500" height="15" rx="5" fill="#0b7a37"/><text x="840" y="158.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6 attempts · 2 recoveries · PASS</text><text x="0" y="185.5" font-size="13.5" fill="#1d1d1f">adversarial_label_change — off (fails)</text><rect x="330" y="172" width="250" height="15" rx="5" fill="#b91c1c"/><text x="590" y="185.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · FAIL</text><text x="0" y="212.5" font-size="13.5" fill="#1d1d1f">adversarial_label_change — on (passes)</text><rect x="330" y="199" width="333" height="15" rx="5" fill="#0b7a37"/><text x="673" y="212.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · 1 recovery · PASS</text><text x="0" y="239.5" font-size="13.5" fill="#1d1d1f">adversarial_late_overlay — off (fails)</text><rect x="330" y="226" width="167" height="15" rx="5" fill="#b91c1c"/><text x="507" y="239.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2 attempts · FAIL</text><text x="0" y="266.5" font-size="13.5" fill="#1d1d1f">adversarial_late_overlay — on (passes)</text><rect x="330" y="253" width="250" height="15" rx="5" fill="#0b7a37"/><text x="590" y="266.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · 1 recovery · PASS</text><text x="0" y="293.5" font-size="13.5" fill="#1d1d1f">adversarial_moved_button — off (fails)</text><rect x="330" y="280" width="167" height="15" rx="5" fill="#b91c1c"/><text x="507" y="293.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2 attempts · FAIL</text><text x="0" y="320.5" font-size="13.5" fill="#1d1d1f">adversarial_moved_button — on (passes)</text><rect x="330" y="307" width="250" height="15" rx="5" fill="#0b7a37"/><text x="590" y="320.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · 1 recovery · PASS</text><text x="0" y="347.5" font-size="13.5" fill="#1d1d1f">adversarial_overlay_move — off (fails)</text><rect x="330" y="334" width="250" height="15" rx="5" fill="#b91c1c"/><text x="590" y="347.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · FAIL</text><text x="0" y="374.5" font-size="13.5" fill="#1d1d1f">adversarial_overlay_move — on (passes)</text><rect x="330" y="361" width="333" height="15" rx="5" fill="#0b7a37"/><text x="673" y="374.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · 1 recovery · PASS</text><text x="0" y="401.5" font-size="13.5" fill="#1d1d1f">adversarial_rename_under_overlay — off (fails)</text><rect x="330" y="388" width="250" height="15" rx="5" fill="#b91c1c"/><text x="590" y="401.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · FAIL</text><text x="0" y="428.5" font-size="13.5" fill="#1d1d1f">adversarial_rename_under_overlay — on (passes)</text><rect x="330" y="415" width="417" height="15" rx="5" fill="#0b7a37"/><text x="757" y="428.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5 attempts · 2 recoveries · PASS</text><text x="0" y="455.5" font-size="13.5" fill="#1d1d1f">adversarial_renamed_field — off (fails)</text><rect x="330" y="442" width="167" height="15" rx="5" fill="#b91c1c"/><text x="507" y="455.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2 attempts · FAIL</text><text x="0" y="482.5" font-size="13.5" fill="#1d1d1f">adversarial_renamed_field — on (passes)</text><rect x="330" y="469" width="333" height="15" rx="5" fill="#0b7a37"/><text x="673" y="482.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · 1 recovery · PASS</text></svg></div>
+    <p class="takeaway"><strong>Off, each trap task fails in 2–3 attempts. On, each passes in 3–6</strong> — 11 recoveries spent across the nine, none anywhere else.</p>
+
+    <h3>Attempts per task — the distribution</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 330" width="100%" role="img"><line x1="70" y1="280" x2="890" y2="280" stroke="#e6e6e8"/><text x="58" y="284" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><line x1="70" y1="235" x2="890" y2="235" stroke="#e6e6e8"/><text x="58" y="239" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">2</text><line x1="70" y1="189" x2="890" y2="189" stroke="#e6e6e8"/><text x="58" y="193" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">4</text><line x1="70" y1="144" x2="890" y2="144" stroke="#e6e6e8"/><text x="58" y="148" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">6</text><line x1="70" y1="98" x2="890" y2="98" stroke="#e6e6e8"/><text x="58" y="102" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">8</text><line x1="70" y1="53" x2="890" y2="53" stroke="#e6e6e8"/><text x="58" y="57" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">10</text><rect x="90" y="257" width="36" height="23" rx="4" fill="#0b7a37"/><text x="108" y="250" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">1</text><rect x="130" y="257" width="36" height="23" rx="4" fill="#424245"/><text x="148" y="250" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">1</text><text x="128" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">1</text><rect x="190" y="212" width="36" height="68" rx="4" fill="#0b7a37"/><text x="208" y="205" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3</text><rect x="230" y="121" width="36" height="159" rx="4" fill="#424245"/><text x="248" y="114" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">7</text><text x="228" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">2</text><rect x="290" y="98" width="36" height="182" rx="4" fill="#0b7a37"/><text x="308" y="91" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">8</text><rect x="330" y="30" width="36" height="250" rx="4" fill="#424245"/><text x="348" y="23" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">11</text><text x="328" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">3</text><rect x="390" y="98" width="36" height="182" rx="4" fill="#0b7a37"/><text x="408" y="91" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">8</text><rect x="430" y="212" width="36" height="68" rx="4" fill="#424245"/><text x="448" y="205" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3</text><text x="428" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">4</text><rect x="490" y="189" width="36" height="91" rx="4" fill="#0b7a37"/><text x="508" y="182" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4</text><rect x="530" y="212" width="36" height="68" rx="4" fill="#424245"/><text x="548" y="205" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3</text><text x="528" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">5</text><rect x="590" y="98" width="36" height="182" rx="4" fill="#0b7a37"/><text x="608" y="91" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">8</text><rect x="630" y="121" width="36" height="159" rx="4" fill="#424245"/><text x="648" y="114" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">7</text><text x="628" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">6–8</text><rect x="690" y="235" width="36" height="45" rx="4" fill="#0b7a37"/><text x="708" y="228" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2</text><rect x="730" y="235" width="36" height="45" rx="4" fill="#424245"/><text x="748" y="228" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2</text><text x="728" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">9–12</text><rect x="790" y="235" width="36" height="45" rx="4" fill="#0b7a37"/><text x="808" y="228" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2</text><rect x="830" y="235" width="36" height="45" rx="4" fill="#424245"/><text x="848" y="228" text-anchor="middle" font-size="13" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">2</text><text x="828" y="302" text-anchor="middle" font-size="12.5" font-family="'IBM Plex Mono',monospace" fill="#424245">13+</text><text x="90" y="328" font-size="12.5" fill="#6e6e73">Attempts per task · green = recovery on · grey = recovery off</text></svg></div>
+    <p class="takeaway"><strong>Total attempts: 185 with recovery on, 171 off.</strong> On the 27 control tasks the two modes spend identical attempts (148 each); every extra attempt sits in the adversarial group.</p>
+
+    <h3>Steps against attempts</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 420" width="100%" role="img"><line x1="70" y1="360" x2="880" y2="360" stroke="#d2d2d7"/><line x1="70" y1="360" x2="70" y2="40" stroke="#d2d2d7"/><line x1="70" y1="360" x2="832" y2="59" stroke="#d2d2d7" stroke-dasharray="5 5"/><text x="682" y="49" font-size="12" fill="#6e6e73">attempts = steps (no retries)</text><text x="70" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><text x="165" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">2</text><text x="261" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">4</text><text x="356" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">6</text><text x="451" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">8</text><text x="546" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">10</text><text x="642" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">12</text><text x="737" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">14</text><text x="832" y="382" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">16</text><text x="58" y="364" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><text x="58" y="326" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">2</text><text x="58" y="289" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">4</text><text x="58" y="251" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">6</text><text x="58" y="213" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">8</text><text x="58" y="176" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">10</text><text x="58" y="138" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">12</text><text x="58" y="100" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">14</text><text x="58" y="63" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">16</text><circle cx="213" cy="304" r="7" fill="#0b7a37" fill-opacity="0.85"><title>login — 3 steps, 3 attempts</title></circle><circle cx="165" cy="322" r="7" fill="#0b7a37" fill-opacity="0.85"><title>table_filter — 2 steps, 2 attempts</title></circle><circle cx="404" cy="228" r="7" fill="#0b7a37" fill-opacity="0.85"><title>multistep_form — 7 steps, 7 attempts</title></circle><circle cx="261" cy="285" r="7" fill="#0b7a37" fill-opacity="0.85"><title>settings_form — 4 steps, 4 attempts</title></circle><circle cx="308" cy="266" r="7" fill="#0b7a37" fill-opacity="0.85"><title>todo_list — 5 steps, 5 attempts</title></circle><circle cx="118" cy="341" r="7" fill="#0b7a37" fill-opacity="0.85"><title>sort_table — 1 steps, 1 attempts</title></circle><circle cx="213" cy="285" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_label_change — 3 steps, 4 attempts</title></circle><circle cx="213" cy="285" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_overlay_move — 3 steps, 4 attempts</title></circle><circle cx="594" cy="153" r="7" fill="#0b7a37" fill-opacity="0.85"><title>checkout_full — 11 steps, 11 attempts</title></circle><circle cx="546" cy="172" r="7" fill="#0b7a37" fill-opacity="0.85"><title>validation_form — 10 steps, 10 attempts</title></circle><circle cx="308" cy="266" r="7" fill="#0b7a37" fill-opacity="0.85"><title>paginated_table — 5 steps, 5 attempts</title></circle><circle cx="356" cy="247" r="7" fill="#0b7a37" fill-opacity="0.85"><title>dependent_settings — 6 steps, 6 attempts</title></circle><circle cx="261" cy="285" r="7" fill="#0b7a37" fill-opacity="0.85"><title>stacked_modals — 4 steps, 4 attempts</title></circle><circle cx="213" cy="304" r="7" fill="#0b7a37" fill-opacity="0.85"><title>delayed_render — 3 steps, 3 attempts</title></circle><circle cx="165" cy="322" r="7" fill="#0b7a37" fill-opacity="0.85"><title>date_picker — 2 steps, 2 attempts</title></circle><circle cx="165" cy="322" r="7" fill="#0b7a37" fill-opacity="0.85"><title>autocomplete_select — 2 steps, 2 attempts</title></circle><circle cx="404" cy="228" r="7" fill="#0b7a37" fill-opacity="0.85"><title>wizard_backtrack — 7 steps, 7 attempts</title></circle><circle cx="213" cy="304" r="7" fill="#0b7a37" fill-opacity="0.85"><title>dependent_dropdowns — 3 steps, 3 attempts</title></circle><circle cx="213" cy="304" r="7" fill="#0b7a37" fill-opacity="0.85"><title>cart_update — 3 steps, 3 attempts</title></circle><circle cx="356" cy="247" r="7" fill="#0b7a37" fill-opacity="0.85"><title>tabbed_panels — 6 steps, 6 attempts</title></circle><circle cx="404" cy="228" r="7" fill="#0b7a37" fill-opacity="0.85"><title>accordion_form — 7 steps, 7 attempts</title></circle><circle cx="213" cy="304" r="7" fill="#0b7a37" fill-opacity="0.85"><title>inline_edit_table — 3 steps, 3 attempts</title></circle><circle cx="308" cy="266" r="7" fill="#0b7a37" fill-opacity="0.85"><title>otp_code_entry — 5 steps, 5 attempts</title></circle><circle cx="261" cy="247" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_double_label_change — 4 steps, 6 attempts</title></circle><circle cx="165" cy="304" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_moved_button — 2 steps, 3 attempts</title></circle><circle cx="213" cy="285" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_banner_reappears — 3 steps, 4 attempts</title></circle><circle cx="165" cy="304" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_late_overlay — 2 steps, 3 attempts</title></circle><circle cx="213" cy="285" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_renamed_field — 3 steps, 4 attempts</title></circle><circle cx="213" cy="285" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_decoy_button — 3 steps, 4 attempts</title></circle><circle cx="213" cy="266" r="7" fill="#b45309" fill-opacity="0.85"><title>adversarial_rename_under_overlay — 3 steps, 5 attempts</title></circle><circle cx="356" cy="247" r="7" fill="#0b7a37" fill-opacity="0.85"><title>crm_record_update — 6 steps, 6 attempts</title></circle><circle cx="737" cy="96" r="7" fill="#0b7a37" fill-opacity="0.85"><title>vendor_application — 14 steps, 14 attempts</title></circle><circle cx="832" cy="59" r="7" fill="#0b7a37" fill-opacity="0.85"><title>lead_entry — 16 steps, 16 attempts</title></circle><circle cx="213" cy="304" r="7" fill="#0b7a37" fill-opacity="0.85"><title>portal_customer_drilldown — 3 steps, 3 attempts</title></circle><circle cx="356" cy="247" r="7" fill="#0b7a37" fill-opacity="0.85"><title>portal_edit_and_verify — 6 steps, 6 attempts</title></circle><circle cx="261" cy="285" r="7" fill="#0b7a37" fill-opacity="0.85"><title>portal_settings_flow — 4 steps, 4 attempts</title></circle><text x="70" y="414" font-size="12.5" fill="#6e6e73">Steps in the task (x) against attempts the agent needed (y), recovery on · green = control task · amber = adversarial task</text></svg></div>
+    <p class="takeaway"><strong>9 of the 9 adversarial tasks needed more attempts than they have steps</strong> — the points above the line are retries spent recovering. Control tasks sit on the line in both modes.</p>
+
+    <h3>Every task, both modes</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 1304" width="100%" role="img"><text x="450.0" y="24" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#424245">RECOVERY ON</text><text x="750.0" y="24" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#424245">RECOVERY OFF</text><text x="0" y="60" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">FORMS &amp; WIZARDS</text><text x="0" y="90" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">login</text><rect x="303" y="73" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="90" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="73" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="90" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="120" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">multistep_form</text><rect x="303" y="103" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="120" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><rect x="603" y="103" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="120" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><text x="0" y="150" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">settings_form</text><rect x="303" y="133" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="150" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><rect x="603" y="133" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="150" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><text x="0" y="180" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">checkout_full</text><rect x="303" y="163" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="180" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">11 attempts</text><rect x="603" y="163" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="180" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">11 attempts</text><text x="0" y="210" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">validation_form</text><rect x="303" y="193" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="210" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">10 attempts</text><rect x="603" y="193" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="210" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">10 attempts</text><text x="0" y="240" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">dependent_settings</text><rect x="303" y="223" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="240" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="223" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="240" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="270" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">wizard_backtrack</text><rect x="303" y="253" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="270" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><rect x="603" y="253" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="270" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><text x="0" y="300" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">dependent_dropdowns</text><rect x="303" y="283" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="300" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="283" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="300" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="330" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">accordion_form</text><rect x="303" y="313" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="330" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><rect x="603" y="313" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="330" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><text x="0" y="360" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">otp_code_entry</text><rect x="303" y="343" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="360" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><rect x="603" y="343" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="360" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><text x="0" y="390" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">TABLES, LISTS &amp; CART</text><text x="0" y="420" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">table_filter</text><rect x="303" y="403" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="420" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><rect x="603" y="403" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="420" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><text x="0" y="450" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">todo_list</text><rect x="303" y="433" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="450" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><rect x="603" y="433" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="450" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><text x="0" y="480" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">sort_table</text><rect x="303" y="463" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="480" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">1 attempts</text><rect x="603" y="463" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="480" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">1 attempts</text><text x="0" y="510" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">paginated_table</text><rect x="303" y="493" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="510" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><rect x="603" y="493" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="510" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><text x="0" y="540" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">cart_update</text><rect x="303" y="523" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="540" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="523" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="540" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="570" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">inline_edit_table</text><rect x="303" y="553" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="570" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="553" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="570" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="600" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">ADVERSARIAL RECOVERY</text><text x="0" y="630" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_label_change</text><rect x="303" y="613" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="630" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="613" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="630" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="660" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_overlay_move</text><rect x="303" y="643" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="660" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="643" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="660" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="690" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_double_label_change</text><rect x="303" y="673" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="690" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6 attempts · ↺ 2</text><rect x="603" y="673" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="690" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="720" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_moved_button</text><rect x="303" y="703" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="720" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · ↺ 1</text><rect x="603" y="703" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="720" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="750" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_banner_reappears</text><rect x="303" y="733" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="750" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="733" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="750" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="780" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_late_overlay</text><rect x="303" y="763" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="780" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · ↺ 1</text><rect x="603" y="763" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="780" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="810" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_renamed_field</text><rect x="303" y="793" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="810" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="793" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="810" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="840" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_decoy_button</text><rect x="303" y="823" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="840" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="823" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="840" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="870" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_rename_under_overlay</text><rect x="303" y="853" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="870" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5 attempts · ↺ 2</text><rect x="603" y="853" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="870" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="900" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">WIDGETS &amp; DIALOGS</text><text x="0" y="930" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">stacked_modals</text><rect x="303" y="913" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="930" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><rect x="603" y="913" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="930" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><text x="0" y="960" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">delayed_render</text><rect x="303" y="943" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="960" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="943" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="960" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="990" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">date_picker</text><rect x="303" y="973" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="990" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><rect x="603" y="973" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="990" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><text x="0" y="1020" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">autocomplete_select</text><rect x="303" y="1003" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1020" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><rect x="603" y="1003" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1020" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><text x="0" y="1050" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">tabbed_panels</text><rect x="303" y="1033" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1050" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="1033" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1050" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="1080" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">BUSINESS WORKFLOWS</text><text x="0" y="1110" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">crm_record_update</text><rect x="303" y="1093" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1110" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="1093" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1110" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="1140" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">vendor_application</text><rect x="303" y="1123" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1140" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">14 attempts</text><rect x="603" y="1123" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1140" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">14 attempts</text><text x="0" y="1170" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">lead_entry</text><rect x="303" y="1153" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1170" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">16 attempts</text><rect x="603" y="1153" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1170" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">16 attempts</text><text x="0" y="1200" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">PORTAL NAVIGATION</text><text x="0" y="1230" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">portal_customer_drilldown</text><rect x="303" y="1213" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1230" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="1213" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1230" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="1260" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">portal_edit_and_verify</text><rect x="303" y="1243" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1260" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="1243" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1260" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="1290" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">portal_settings_flow</text><rect x="303" y="1273" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1290" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><rect x="603" y="1273" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1290" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text></svg></div>
+    <p class="takeaway"><strong>All 36 tasks as one picture:</strong> the recovery-on column is green end to end; the recovery-off column turns red on exactly the nine adversarial rows. ↺ counts the recoveries a task used.</p>
+  </section>
+
+  <section id="method">
+    <div class="sec-head"><h2>Method</h2></div>
+    <p>The agent drives headless Chromium (Playwright) through the task suite. Each task is a sequence of steps, and every step carries an explicit postcondition written against the page. For each step the agent runs one loop:</p>
+    <div class="chart-box"><svg viewBox="0 0 920 150" width="100%" role="img">
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#424245"/></marker></defs>
+  <rect x="20" y="30" width="150" height="58" rx="12" fill="#ffffff" stroke="#d2d2d7"/><text x="95" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">OBSERVE</text><rect x="200" y="30" width="150" height="58" rx="12" fill="#ffffff" stroke="#d2d2d7"/><text x="275" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">GROUND</text><rect x="380" y="30" width="150" height="58" rx="12" fill="#ffffff" stroke="#d2d2d7"/><text x="455" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">ACT</text><rect x="560" y="30" width="150" height="58" rx="12" fill="#ffffff" stroke="#d2d2d7"/><text x="635" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">VERIFY</text><rect x="740" y="30" width="150" height="58" rx="12" fill="#ffffff" stroke="#d2d2d7"/><text x="815" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d1d1f">RECOVER</text>
+  <line x1="170" y1="59" x2="196" y2="59" stroke="#424245" stroke-width="2" marker-end="url(#arr)"/><line x1="350" y1="59" x2="376" y2="59" stroke="#424245" stroke-width="2" marker-end="url(#arr)"/><line x1="530" y1="59" x2="556" y2="59" stroke="#424245" stroke-width="2" marker-end="url(#arr)"/><line x1="710" y1="59" x2="736" y2="59" stroke="#424245" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M830 92 C 830 128, 470 128, 470 96" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="650" y="142" text-anchor="middle" font-size="12.5" fill="#424245">on any failure — recovery on only: re-ground, dismiss overlay, retry (at most 2 per step)</text>
+</svg></div>
+    <div class="items">
+      <div class="item">
+        <h3>Observe and ground</h3>
+        <p><strong>Observe</strong> takes a fresh DOM snapshot: every interactive element with a reference, role, text, id, name, label, form and visibility. <strong>Ground</strong> matches the step’s semantic target — role plus text, label or name — against that snapshot. <strong>Act</strong> clicks, fills, selects or checks via the element’s locator recipe. <strong>Verify</strong> checks the step’s postcondition: visible text, row counts, field values, checked state.</p>
+      </div>
+      <div class="item">
+        <h3>Recover — re-grounding</h3>
+        <p>When a step fails — target not found, an action error, or a postcondition not met — recovery first <strong>re-grounds</strong>: the target is looked up again in a fresh snapshot with fallback strategies instead of the exact text or id — for example the submit control of the named form, or the only visible element of that role in scope. That is what survives a button being renamed mid-task (“Pay now” → “Confirm payment”, new id) or moved in the page.</p>
+      </div>
+      <div class="item">
+        <h3>Recover — overlay dismissal and the retry budget</h3>
+        <p>If the click error says another element intercepts pointer events, the agent finds the overlay’s dismiss control (Accept / Close / ×), clicks it, and retries. Retries are budgeted — <strong>at most 2 per step</strong> — then the task fails and the failure is reported as-is. Every observe, failure and recovery is written to the run log.</p>
+      </div>
+      <div class="item">
+        <h3>The ablation</h3>
+        <p>Recovery off disables all three mechanisms: no re-grounding, no overlay dismissal, no retries — the first failure ends the task. The evaluation runs the identical suite in both modes, so the difference between the two columns on this page is the measured worth of the recovery half of the loop.</p>
+      </div>
+      <div class="item">
+        <h3>Scope, stated plainly</h3>
+        <p>The evaluation runs against deterministic local fixture pages in headless Chromium — pages styled as real product surfaces (a CRM portal, a store checkout, settings and admin flows) rather than bare HTML. The live session operates the same pages. Seven adversarial tasks needed exactly one recovery with recovery on; the two double-mutation tasks needed two.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- evidra-build:wa-eval:start -->
+
+<!-- evidra-build:wa-demo:start -->
+
+  <section id="demo">
+    <div class="sec-head"><h2>Live demo</h2></div>
+    <p>The live application, embedded — the same fixture pages the evaluation runs on. The standalone application stays at <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">evidra-web-agent.hf.space</a>.</p>
+    <div class="chart-box"><iframe src="https://evidra-web-agent.hf.space" title="web-agent — live application" loading="lazy" style="width:100%;height:640px;border:0;background:#fff" ></iframe></div>
+  </section>
+
+  <section id="howto">
+    <div class="sec-head"><h2>How to use</h2></div>
+    <div class="items">
+      <div class="item">
+        <h3>1 · Pick a task</h3>
+        <p>Choose one of the 36 fixture tasks — a form, a checkout, a CRM or portal flow, or one of the nine adversarial tasks where the page mutates mid-task. In the live session you can also point the agent at a public page.</p>
+      </div>
+      <div class="item">
+        <h3>2 · Toggle recovery</h3>
+        <p>Run the task with recovery on, then switch recovery off and run the same task again. Recovery off disables re-grounding, overlay dismissal and retries — the first failure ends the task.</p>
+      </div>
+      <div class="item">
+        <h3>3 · Read the results panel and the trace</h3>
+        <p>The results panel reports pass or fail against the task's step postconditions, with attempts and recoveries counted. The trace shows every step as it happens — observe, ground, act, verify, and each recovery — with screenshots along the way.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- evidra-build:wa-demo:end -->
+  <section id="evaluation">
+    <div class="sec-head"><h2>Evaluation v1.0 — 36-task suite</h2></div>
+    <p>The current result set on this page is <strong>Evaluation v1.0</strong>: the full 36-task suite, both modes run. The raw outputs ship with this site as downloadable files, byte-identical to the lab's own copies:</p>
+    <ul>
+      <li><a href="/evidra/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
+      <li><a href="/evidra/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>
+      <li><a href="/evidra/web-agent/assets/RESULTS.md" download>RESULTS.md</a> — the generated results document</li>
+    </ul>
+    <h3 style="margin-top:28px">Changelog</h3>
+    <p><strong>v1.0</strong> — the 36-task suite, in six categories:</p>
+    <ul><li>Forms &amp; wizards — 10 tasks</li><li>Tables, lists &amp; cart — 6 tasks</li><li>Adversarial recovery — 9 tasks</li><li>Widgets &amp; dialogs — 5 tasks</li><li>Business workflows — 3 tasks</li><li>Portal navigation — 3 tasks</li></ul>
+    <p>Both modes run for every task: recovery on and recovery off, scored by the same step postconditions.</p>
+  </section>
+
+<!-- evidra-build:wa-eval:end -->
+  <section id="record">
+    <div class="sec-head"><h2>Full record</h2></div>
+    <p>Every task, both modes — attempts and recoveries counted from the run files.</p>
+    <div class="table-wrap"><table><thead><tr><th>Task</th><th>Category</th><th>Adversarial</th><th>Recovery on</th><th>Attempts (on)</th><th>Recoveries (on)</th><th>Recovery off</th><th>Attempts (off)</th></tr></thead><tbody><tr><td>login</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">3</td></tr><tr><td>multistep_form</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">7</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">7</td></tr><tr><td>settings_form</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">4</td></tr><tr><td>checkout_full</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">11</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">11</td></tr><tr><td>validation_form</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">10</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">10</td></tr><tr><td>dependent_settings</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">6</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">6</td></tr><tr><td>wizard_backtrack</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">7</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">7</td></tr><tr><td>dependent_dropdowns</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">3</td></tr><tr><td>accordion_form</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">7</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">7</td></tr><tr><td>otp_code_entry</td><td data-label="Category">Forms &amp; wizards</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">5</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">5</td></tr><tr><td>table_filter</td><td data-label="Category">Tables, lists &amp; cart</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">2</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">2</td></tr><tr><td>todo_list</td><td data-label="Category">Tables, lists &amp; cart</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">5</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">5</td></tr><tr><td>sort_table</td><td data-label="Category">Tables, lists &amp; cart</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">1</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">1</td></tr><tr><td>paginated_table</td><td data-label="Category">Tables, lists &amp; cart</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">5</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">5</td></tr><tr><td>cart_update</td><td data-label="Category">Tables, lists &amp; cart</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">3</td></tr><tr><td>inline_edit_table</td><td data-label="Category">Tables, lists &amp; cart</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">3</td></tr><tr><td>adversarial_label_change</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">3</td></tr><tr><td>adversarial_overlay_move</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">3</td></tr><tr><td>adversarial_double_label_change</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">6</td><td data-label="Recoveries (on)">2</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">2</td></tr><tr><td>adversarial_moved_button</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">2</td></tr><tr><td>adversarial_banner_reappears</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">3</td></tr><tr><td>adversarial_late_overlay</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">2</td></tr><tr><td>adversarial_renamed_field</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">2</td></tr><tr><td>adversarial_decoy_button</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">1</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">3</td></tr><tr><td>adversarial_rename_under_overlay</td><td data-label="Category">Adversarial recovery</td><td data-label="Adversarial">yes</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">5</td><td data-label="Recoveries (on)">2</td><td data-label="Recovery off">FAIL</td><td data-label="Attempts (off)">3</td></tr><tr><td>stacked_modals</td><td data-label="Category">Widgets &amp; dialogs</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">4</td></tr><tr><td>delayed_render</td><td data-label="Category">Widgets &amp; dialogs</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">3</td></tr><tr><td>date_picker</td><td data-label="Category">Widgets &amp; dialogs</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">2</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">2</td></tr><tr><td>autocomplete_select</td><td data-label="Category">Widgets &amp; dialogs</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">2</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">2</td></tr><tr><td>tabbed_panels</td><td data-label="Category">Widgets &amp; dialogs</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">6</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">6</td></tr><tr><td>crm_record_update</td><td data-label="Category">Business workflows</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">6</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">6</td></tr><tr><td>vendor_application</td><td data-label="Category">Business workflows</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">14</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">14</td></tr><tr><td>lead_entry</td><td data-label="Category">Business workflows</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">16</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">16</td></tr><tr><td>portal_customer_drilldown</td><td data-label="Category">Portal navigation</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">3</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">3</td></tr><tr><td>portal_edit_and_verify</td><td data-label="Category">Portal navigation</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">6</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">6</td></tr><tr><td>portal_settings_flow</td><td data-label="Category">Portal navigation</td><td data-label="Adversarial">no</td><td data-label="Recovery on">PASS</td><td data-label="Attempts (on)">4</td><td data-label="Recoveries (on)">0</td><td data-label="Recovery off">PASS</td><td data-label="Attempts (off)">4</td></tr></tbody></table></div>
+    <h3 style="margin-top:28px">The nine failures, recovery off</h3>
+    <p>With recovery on there are no failures to list. With it off, the run log records:</p>
+    <ul><li><strong>adversarial_label_change</strong> — step 3: target_not_found</li><li><strong>adversarial_overlay_move</strong> — step 3: action_error: Locator.click: Timeout 3000ms exceeded.</li><li><strong>adversarial_double_label_change</strong> — step 2: target_not_found</li><li><strong>adversarial_moved_button</strong> — step 2: verify_failed</li><li><strong>adversarial_banner_reappears</strong> — step 3: action_error: Locator.click: Timeout 3000ms exceeded.</li><li><strong>adversarial_late_overlay</strong> — step 2: action_error: Locator.click: Timeout 3000ms exceeded.</li><li><strong>adversarial_renamed_field</strong> — step 2: target_not_found</li><li><strong>adversarial_decoy_button</strong> — step 3: verify_failed</li><li><strong>adversarial_rename_under_overlay</strong> — step 3: target_not_found</li></ul>
+  </section>
+
+<!-- evidra-build:wa-methods:start -->
+
+  <section id="methods">
+    <div class="sec-head"><h2>Methods and write-up</h2></div>
+
+    <div class="items">
+      <div class="item">
+        <h3>Methods library</h3>
+        <p><a href="/evidra/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/evidra/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/evidra/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
+      </div>
+    </div>
+
+    <div class="items">
+      <div class="item">
+        <h3>The recovery ablation — article</h3>
+        <p><a href="/evidra/articles/recovery-ablation/">The recovery ablation</a> — what was measured, what recovery does mechanically, the nine recorded failures, and the limits.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- evidra-build:wa-methods:end -->
+<!-- evidra-build:wa-archlink:start -->
+
+  <section id="architecture">
+    <div class="sec-head"><h2>Architecture</h2></div>
+    <p>How the agent is built, from the code itself: the observe → ground → act → verify → recover state machine, the grounding rules, the retry budgets and timeouts, the failure taxonomy, and the safety rails that bound the public-page mode.</p>
+    <p><a href="/evidra/web-agent/architecture/">web-agent architecture ›</a></p>
+  </section>
+
+<!-- evidra-build:wa-archlink:end -->
+  <footer>
+    <p class="name">Evidra</p>
+    <p>web-agent — an autonomous agent that operates web interfaces, measured on 36 tasks with recovery on and off. Every figure on this page is computed from the evaluation’s raw run files.</p>
+    <div class="links">
+      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a>
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent — full system</a>
+      <a href="/evidra/">Evidra — both products</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/evidra/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>

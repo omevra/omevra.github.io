@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://umeshlinga.github.io/evidra/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/vus-evidence-agent/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/vus-evidence-agent/architecture/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/web-agent/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/web-agent/architecture/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/hybrid-perturb-bench/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/methods/evaluation/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/methods/calibration/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/methods/temporal-evaluation/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/articles/recovery-ablation/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/tools/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/ngs-pipeline-atlas/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/multi-agent-evidence/</loc></url>
+</urlset>

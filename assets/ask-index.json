@@ -1,0 +1,561 @@
+{
+ "decline": "That's outside what this site documents.",
+ "chunks": [
+  {
+   "id": "vus-what",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 what it does",
+   "keywords": [
+    "variant evidence agent",
+    "what does the variant",
+    "vus",
+    "variant of uncertain significance",
+    "reclassification"
+   ],
+   "answer": "The Variant Evidence Agent performs calibrated VUS reclassification with an evidence-citing agent. For each variant of uncertain significance it retrieves the records behind a call and writes an evidence summary in which every claim is cited \u2014 under a hard rule: cite, or decline. Never invent. Where the evidence is not there, the answer is \u201cinsufficient evidence \u2014 remains VUS.\u201d"
+  },
+  {
+   "id": "wa-what",
+   "source": "/evidra/web-agent/",
+   "title": "web-agent \u2014 what it does",
+   "keywords": [
+    "web-agent",
+    "what does web-agent do",
+    "browser agent",
+    "operates web interfaces"
+   ],
+   "answer": "web-agent is an autonomous agent that operates web interfaces end to end. It drives headless Chromium through a task suite with an observe \u2192 ground \u2192 act \u2192 verify \u2192 recover loop: take a fresh snapshot of the page, act on it, verify the result against the step's postcondition \u2014 and when the page fights back, re-ground and recover instead of failing silently."
+  },
+  {
+   "id": "wa-headline",
+   "source": "/evidra/web-agent/",
+   "title": "web-agent \u2014 headline results",
+   "keywords": [
+    "how many tasks",
+    "tasks pass",
+    "pass with recovery on",
+    "36/36",
+    "headline results"
+   ],
+   "answer": "With recovery on, web-agent passes 36/36 tasks \u2014 the full evaluation set. With recovery off, the same agent passes 27/36. The difference is the recovery system, measured as an ablation on the same 36 tasks."
+  },
+  {
+   "id": "wa-off",
+   "source": "/evidra/web-agent/",
+   "title": "web-agent \u2014 recovery off",
+   "keywords": [
+    "recovery off",
+    "what happens when recovery is off",
+    "ablation control"
+   ],
+   "answer": "Recovery off disables all three recovery mechanisms \u2014 no re-grounding, no overlay dismissal, no retries \u2014 so the first failure ends the task. The same agent then passes 27/36 tasks: the 27 controls still pass, and all nine adversarial tasks fail (0/9)."
+  },
+  {
+   "id": "adv",
+   "source": "/evidra/web-agent/",
+   "title": "web-agent \u2014 adversarial vs control tasks",
+   "keywords": [
+    "adversarial",
+    "control tasks",
+    "decoy",
+    "mutates"
+   ],
+   "answer": "Nine of the 36 tasks are adversarial: the page mutates or obstructs mid-task \u2014 a button is renamed after a field is typed into, an overlay rises over the control, a same-label decoy appears. Adversarial tasks pass 9/9 with recovery on and 0/9 with it off. The 27 control tasks pass 27/27 both ways."
+  },
+  {
+   "id": "auroc",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 final model scores",
+   "keywords": [
+    "auroc",
+    "final model score",
+    "discrimination",
+    "brier"
+   ],
+   "answer": "The final model (Ensemble + REVEL + isotonic) reaches AUROC 0.968 on the post-freeze temporal test set, with calibration error (ECE) 0.023 and Brier 0.066. Discrimination and calibration are reported as separate claims for every model variant."
+  },
+  {
+   "id": "ece",
+   "source": "/evidra/methods/calibration/",
+   "title": "Calibration \u2014 ECE of the final model",
+   "keywords": [
+    "ece",
+    "calibration error",
+    "expected calibration error",
+    "final model"
+   ],
+   "answer": "The final model's expected calibration error is ECE 0.023 (AUROC 0.968, Brier 0.066). ECE is computed in 10 equal-width bins as the bin-size-weighted average gap between mean predicted probability and observed fraction pathogenic."
+  },
+  {
+   "id": "universe",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 the test set",
+   "keywords": [
+    "test set",
+    "how many variants",
+    "27,748",
+    "universe",
+    "training set"
+   ],
+   "answer": "The temporal test set holds 27,748 variants that were uncertain at the Jan 2024 freeze and reclassified after it (8,856 pathogenic, 18,892 benign). The frozen training set holds 1,103,657 labelled variants. No test label existed at train time."
+  },
+  {
+   "id": "summdecl",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 summarised vs declined",
+   "keywords": [
+    "summarise",
+    "summarises",
+    "summarised",
+    "decline",
+    "declines",
+    "declined",
+    "10,373",
+    "17,375",
+    "insufficient evidence"
+   ],
+   "answer": "On the test set the agent summarises 10,373 variants (37.4%) with cited evidence and declines 17,375 (62.6%). A decline \u2014 \u201cinsufficient evidence \u2014 remains VUS\u201d \u2014 is a designed output, not an error."
+  },
+  {
+   "id": "recovery-how",
+   "source": "/evidra/methods/evaluation/",
+   "title": "Evaluation method \u2014 how recovery works",
+   "keywords": [
+    "how does recovery work",
+    "re-grounding",
+    "regrounding",
+    "recovery work",
+    "overlay dismissal",
+    "retry budget"
+   ],
+   "answer": "When a step fails \u2014 target not found, an action error, or a postcondition not met \u2014 recovery does three things. Re-grounding: the target is looked up again in a fresh snapshot with fallback strategies instead of the exact text or id. Overlay dismissal: if another element intercepts pointer events, the agent clicks the overlay's dismiss control and retries. Retry budget: at most 2 retries per step, then the task fails and the failure is reported as-is."
+  },
+  {
+   "id": "isotonic",
+   "source": "/evidra/methods/calibration/",
+   "title": "Calibration \u2014 isotonic vs Platt",
+   "keywords": [
+    "isotonic",
+    "how does calibration work",
+    "platt",
+    "calibrated"
+   ],
+   "answer": "Two calibration maps are compared: Platt scaling and isotonic regression, each fitted on train data only \u2014 never on the test set. Platt fitted on the training window made probabilities worse on the temporal test (ECE 0.040 uncalibrated \u2192 0.157). Isotonic calibration fitted on the train holdout is the map the final model ships, at ECE 0.023."
+  },
+  {
+   "id": "pergene",
+   "source": "/evidra/methods/calibration/",
+   "title": "Calibration \u2014 per-gene, worst first",
+   "keywords": [
+    "per gene",
+    "per-gene",
+    "worst gene",
+    "ush2a",
+    "gene calibration"
+   ],
+   "answer": "Calibration is reported per gene for the fifteen genes with n \u2265 50 scored test variants, ordered worst first. Fourteen sit between 0.016 and 0.117; USH2A, at 0.290, is a calibration failure by the project's own standard and stays in the table."
+  },
+  {
+   "id": "temporal-how",
+   "source": "/evidra/methods/temporal-evaluation/",
+   "title": "Temporal evaluation \u2014 the freeze/test design",
+   "keywords": [
+    "temporal",
+    "freeze",
+    "frozen",
+    "cutoff",
+    "random split",
+    "leak",
+    "leakage"
+   ],
+   "answer": "Classifications are frozen at the Jan 2024 cutoff: train on the 1,103,657 variants labelled at the cutoff, test only on the 27,748 variants reclassified after it. Random splits leak \u2014 a reclassified variant reappears, with the scores used to reclassify it as features, in both train and test. A near-duplicate guard removes test rows sharing gene + name with train; it removed 0 rows in this build."
+  },
+  {
+   "id": "batch",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 batch pack",
+   "keywords": [
+    "batch",
+    "evidence pack",
+    "many variants",
+    "multiple variants",
+    "set of variants"
+   ],
+   "answer": "Submit a set of variants and receive an evidence pack: one cited summary per variant that clears the evidence bar, with each remaining variant declined individually rather than summarised on thin evidence. On the temporal test set the agent summarises 10,373 of 27,748 variants and declines 17,375."
+  },
+  {
+   "id": "lookup-how",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 single lookup",
+   "keywords": [
+    "look up",
+    "lookup",
+    "single variant",
+    "search a variant",
+    "one variant"
+   ],
+   "answer": "Enter one variant and read its stored report: the calibrated probability from the final model and the evidence summary in which every claim is cited to a retrieved record \u2014 or an explicit decline, \u201cinsufficient evidence \u2014 remains VUS\u201d, where the evidence is not there."
+  },
+  {
+   "id": "live-evidence",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 live-evidence mode",
+   "keywords": [
+    "live evidence",
+    "live-evidence",
+    "live mode",
+    "live retrieval"
+   ],
+   "answer": "In live-evidence mode the agent gathers the records that bear on a variant and applies the same rule \u2014 cite, or decline. A minimum of 3 distinct evidence items is required before the agent says anything at all; below that, the verdict is fixed: \u201cinsufficient evidence \u2014 remains VUS.\u201d"
+  },
+  {
+   "id": "wa-howto",
+   "source": "/evidra/web-agent/",
+   "title": "web-agent \u2014 how to use",
+   "keywords": [
+    "how do i use web-agent",
+    "use web-agent",
+    "run a task",
+    "toggle recovery",
+    "results panel",
+    "trace"
+   ],
+   "answer": "Pick one of the 36 fixture tasks (or point the agent at a public page in the live session), run it with recovery on, then toggle recovery off and run the same task again. The results panel reports pass or fail against the task's step postconditions, with attempts and recoveries counted; the trace shows every step \u2014 observe, ground, act, verify, and each recovery \u2014 with screenshots along the way."
+  },
+  {
+   "id": "vus-limits",
+   "source": "/evidra/vus-evidence-agent/",
+   "title": "Variant Evidence Agent \u2014 limits",
+   "keywords": [
+    "limits of the variant",
+    "variant tool limits",
+    "research only",
+    "clinical",
+    "medical use",
+    "not for clinical"
+   ],
+   "answer": "This is a research system, not a certified medical product, and not for clinical use: a calibrated probability is not a clinical classification, and ACMG classification remains a human, guideline-driven judgement. Coverage is partial by construction \u2014 the predictor scores are missense-only and precomputed, covering 37.4% of the test set \u2014 and the evaluation labels themselves are partly predictor-influenced."
+  },
+  {
+   "id": "wa-limits",
+   "source": "/evidra/articles/recovery-ablation/",
+   "title": "The recovery ablation \u2014 limits",
+   "keywords": [
+    "web-agent limits",
+    "fixture",
+    "scope of web-agent",
+    "scope of the evaluation",
+    "live websites"
+   ],
+   "answer": "The web-agent evaluation runs on the project's own test pages: deterministic local fixture pages in headless Chromium, styled as real product surfaces rather than bare HTML. The suite is 36 tasks on those pages \u2014 the results are claims about that fixture scope, measured exactly, and not claims about arbitrary live websites."
+  },
+  {
+   "id": "scoring",
+   "source": "/evidra/methods/evaluation/",
+   "title": "Evaluation method \u2014 scoring rules",
+   "keywords": [
+    "scoring",
+    "postcondition",
+    "how is a task scored",
+    "pass fail",
+    "attempts counted"
+   ],
+   "answer": "Every step of every task carries an explicit postcondition written against the page: visible text, row counts, field values, checked state. A task passes only when every step's postcondition holds \u2014 no partial credit. Each run writes a raw run file recording success, steps, attempts, recoveries used, and the recorded error for a failure. In Evaluation v1.0, total attempts were 185 with recovery on and 171 off."
+  },
+  {
+   "id": "article-failures",
+   "source": "/evidra/articles/recovery-ablation/",
+   "title": "The recovery ablation \u2014 the nine failures",
+   "keywords": [
+    "recovery ablation article",
+    "nine failures",
+    "which tasks failed",
+    "recorded errors",
+    "failures list"
+   ],
+   "answer": "With recovery on there are no failures to list. With it off, the run file records nine failures \u2014 all adversarial tasks. The recorded errors fall into three kinds: target_not_found (renamed targets never found), action_error timeouts (covered buttons' clicks timed out), and verify_failed (decoys failed their postconditions). The article lists each task with its recorded error string, verbatim."
+  },
+  {
+   "id": "hybrid-what",
+   "source": "/evidra/hybrid-perturb-bench/",
+   "title": "hybrid-perturb-bench \u2014 what it is",
+   "keywords": [
+    "hybrid-perturb-bench",
+    "perturb",
+    "perturbation",
+    "norman",
+    "perturb-seq"
+   ],
+   "answer": "hybrid-perturb-bench is an honest benchmark for perturbation-response prediction on Norman et al. 2019 Perturb-seq (CRISPRa, K562): 111,445 cells \u00d7 33,694 genes, 105 single perturbations and 131 combinations, scored on the top 2000 evaluation genes with 21 entire perturbations held out against 84 train singles."
+  },
+  {
+   "id": "hybrid-singles",
+   "source": "/evidra/hybrid-perturb-bench/",
+   "title": "hybrid-perturb-bench \u2014 held-out singles result",
+   "keywords": [
+    "hybrid held-out singles",
+    "hybrid score",
+    "hybrid pearson",
+    "did the hybrid beat",
+    "hybrid beat the mean"
+   ],
+   "answer": "On held-out single perturbations the hybrid does not beat the baselines it was built to challenge: Pearson \u0394 0.5366 and DEG overlap 0.3143, below the global perturbation mean (0.5876 Pearson, 0.3314 overlap) and the linear ridge (0.5785). It improves only on no-change (MSE 0.005134 vs 0.006534) and on its own retrieval channel (0.5076 Pearson). The negative result is reported as-is."
+  },
+  {
+   "id": "hybrid-combos",
+   "source": "/evidra/hybrid-perturb-bench/",
+   "title": "hybrid-perturb-bench \u2014 combinations",
+   "keywords": [
+    "combinations",
+    "combos",
+    "additive",
+    "compositional"
+   ],
+   "answer": "On the 131 combinations \u2014 never used in any training \u2014 the picture reverses: additive_hybrid reaches Pearson \u0394 0.8248 and the direct hybrid 0.7995, far above the global mean (0.5663) and the ridge (0.5753), though below the split-half ceiling (0.9314). One flag: additive_hybrid's both-train subgroup is partly in-sample, because the hybrid was trained on those singles."
+  },
+  {
+   "id": "gears",
+   "source": "/evidra/hybrid-perturb-bench/",
+   "title": "hybrid-perturb-bench \u2014 GEARS comparator",
+   "keywords": [
+    "gears"
+   ],
+   "answer": "GEARS was attempted as a comparator and not completed: the run stopped inside GEARS' per-cell graph construction, before training began. No GEARS predictions exist and no GEARS numbers are reported anywhere in the project's results \u2014 nothing in the benchmark is a statement about GEARS' accuracy."
+  },
+  {
+   "id": "downloads",
+   "source": "/evidra/web-agent/",
+   "title": "web-agent \u2014 downloads and Evaluation v1.0",
+   "keywords": [
+    "download",
+    "run_on",
+    "run_off",
+    "raw run files",
+    "evaluation v1.0",
+    "results.md"
+   ],
+   "answer": "The current result set is labelled Evaluation v1.0 \u2014 the 36-task suite with both modes run. Its raw outputs ship with this site from the web-agent page: results/run_on.json (36/36 passed), results/run_off.json (27/36 passed) and RESULTS.md, byte-identical to the lab's own copies."
+  },
+  {
+   "id": "contact",
+   "source": "/evidra/",
+   "title": "Evidra \u2014 contact",
+   "keywords": [
+    "contact",
+    "get in touch",
+    "linkedin",
+    "reach out"
+   ],
+   "answer": "Use the Contact section on the Evidra home page \u2014 it links to LinkedIn, which is the fastest route for questions about the systems, the methods, or the results. This site does not publish an email address."
+  },
+  {
+   "id": "methods-overview",
+   "source": "/evidra/methods/evaluation/",
+   "title": "Methods library \u2014 overview",
+   "keywords": [
+    "methods",
+    "methods library",
+    "documentation"
+   ],
+   "answer": "The methods library documents how the results were produced, in the projects' own terms: Evaluation (the ablation design and scoring rules), Calibration (isotonic calibration and per-gene reporting, worst first), and Temporal evaluation (the freeze/test design behind the variant results). Each product page links to all three."
+  },
+  {
+   "id": "wa-arch",
+   "source": "/evidra/web-agent/architecture/",
+   "title": "web-agent architecture \u2014 the state machine",
+   "keywords": [
+    "architecture",
+    "state machine",
+    "modules",
+    "agent.py",
+    "snapshot.py",
+    "web-agent internals",
+    "control flow"
+   ],
+   "answer": "web-agent's loop is a state machine in src/agent.py: for each step, observe (a fresh DOM snapshot from src/snapshot.py, every element with a ref and a locator recipe), ground (exact semantic match on role plus text, label or name), act, then verify the step's postcondition. A failure is classified \u2014 target_not_found, action_error or verify_failed \u2014 logged, and, with recovery on, answered by re-grounding or overlay dismissal inside a budget of at most 2 retries per step. Every action carries a 3,000 ms timeout, and verification polls for up to 2.0 s."
+  },
+  {
+   "id": "wa-rails",
+   "source": "/evidra/web-agent/architecture/",
+   "title": "web-agent architecture \u2014 public-page rails",
+   "keywords": [
+    "public page rails",
+    "safety rails",
+    "permissions",
+    "untrusted",
+    "domain lock",
+    "ssrf",
+    "private address",
+    "password field",
+    "payment field"
+   ],
+   "answer": "The public-page mode treats the visitor's URL, label and text as untrusted. Before any browsing, validate_public_url (src/public_mode.py) accepts only http(s), refuses localhost and .local names, and checks every address the host resolves to \u2014 one private, loopback, link-local, reserved, multicast or unspecified address refuses the URL. Only two fixed intents exist, capped at 2 steps. A route guard aborts navigation to a different registrable domain, and the domain is re-checked before and after every step. Password fields, and fields matching a payment term, are never typed into; downloads are disabled."
+  },
+  {
+   "id": "vus-arch",
+   "source": "/evidra/vus-evidence-agent/architecture/",
+   "title": "Variant Evidence Agent architecture \u2014 model vs code",
+   "keywords": [
+    "architecture",
+    "cite or decline",
+    "decline rule",
+    "min_evidence",
+    "enforced in code",
+    "what does the model decide",
+    "variant agent internals"
+   ],
+   "answer": "The Variant Evidence Agent's model decides one thing: the calibrated probability, from the stored ensemble prediction. Everything else is enforced in code. Evidence is assembled only from prediction-time records (AlphaMissense, the ClinVar status frozen at the cutoff, the gene prior), each carrying its record id; assess requires at least 3 distinct evidence items and a probability, or the report declines with the fixed verdict \u201cinsufficient evidence \u2014 remains VUS\u201d. Every claim in a report carries its record id \u2014 there is no path for an uncited claim into a report."
+  },
+  {
+   "id": "vus-live-arch",
+   "source": "/evidra/vus-evidence-agent/architecture/",
+   "title": "Variant Evidence Agent architecture \u2014 live-evidence boundaries",
+   "keywords": [
+    "live evidence boundaries",
+    "no model score",
+    "outside the universe",
+    "live retrieval architecture",
+    "e-utilities",
+    "graphql"
+   ],
+   "answer": "For a variant outside the scored universe the system does not extrapolate: live-evidence mode retrieves current records \u2014 ClinVar via NCBI E-utilities (the top 5 records) and gnomAD via its GraphQL API, which needs GRCh38 coordinates \u2014 and returns them as retrieved, labelled \u201cLive retrieved evidence\u201d, with no model score attached. Every failure is reported as a status (ok, not_found, failed, unavailable) with its reason; content is never invented to fill a gap."
+  },
+  {
+   "id": "vus-batch-arch",
+   "source": "/evidra/vus-evidence-agent/architecture/",
+   "title": "Variant Evidence Agent architecture \u2014 the batch flow",
+   "keywords": [
+    "batch architecture",
+    "batch flow",
+    "evidence pack limits",
+    "batch limit",
+    "serialised"
+   ],
+   "answer": "A batch is a pasted list of variants, or one gene name expanding to all its variants in the scored universe. Input is de-duplicated and capped at 20,000 characters; a batch resolving to more than 25 variants is rejected with a clear message, never truncated. Each variant runs the single-variant code path \u2014 in the universe, the agent report; outside it, live-evidence mode \u2014 with external calls serialised behind a lock, at least 0.5 s apart. The pack counts summarised, declined and live-evidence outcomes separately."
+  },
+  {
+   "id": "tools",
+   "source": "/evidra/tools/",
+   "title": "Tools \u2014 the directory",
+   "keywords": [
+    "tools",
+    "tool directory",
+    "what tools",
+    "normaliser",
+    "normalize a variant",
+    "gene explorer",
+    "explore a gene",
+    "saved runs",
+    "recent batches",
+    "on this device"
+   ],
+   "answer": "The tools directory lists every usable tool in one place: the variant report (one variant, cited or declined), the batch evidence pack (paste a list, expand a gene, or upload a variant-list file), the variant normaliser (any spelling in \u2014 the cleaned form and its universe status out), the gene explorer (one gene's counts, its published calibration where one exists, and its variants), web-agent's live run and public-page mode, and Ask Evidra itself. Completed batches are also listed under Recent batches in the visitor's own browser \u2014 saved on that device, not on a server."
+  },
+  {
+   "id": "literature",
+   "source": "/evidra/tools/",
+   "title": "Tools \u2014 literature panel (PubMed)",
+   "keywords": [
+    "literature",
+    "pubmed",
+    "papers",
+    "articles about a variant",
+    "pmid"
+   ],
+   "answer": "Live-evidence mode also retrieves literature: for the variant being looked up, the agent searches PubMed and shows the matching records \u2014 title, journal, year and a linked PMID \u2014 as retrieved citations, alongside the current ClinVar and gnomAD records. Retrieval only: no score is attached and nothing is claimed about what a paper concludes; when the lookup cannot be completed, the panel says the literature lookup is unavailable."
+  },
+  {
+   "id": "ngs-what",
+   "source": "/evidra/ngs-pipeline-atlas/",
+   "title": "NGS Pipeline Atlas \u2014 what it is",
+   "keywords": [
+    "ngs pipeline atlas",
+    "nextflow pipeline",
+    "pipeline atlas",
+    "bacterial whole-genome",
+    "prjna234495",
+    "e. coli cohort",
+    "variant calling pipeline"
+   ],
+   "answer": "The NGS Pipeline Atlas is a reproducible Nextflow pipeline for bacterial whole-genome sequencing: paired-end reads in, per-sample QC-gated variant calls out. It ran on ENA study PRJNA234495 \u2014 Escherichia coli K-12 resequencing \u2014 against the MG1655 reference NC_000913.3, through MD5-verified fetch, a read-pair sanitize stage, FastQC and fastp, BWA-MEM alignment, per-sample QC gates, bcftools calling, and a cohort report written by the project's own Python."
+  },
+  {
+   "id": "ngs-gates",
+   "source": "/evidra/ngs-pipeline-atlas/",
+   "title": "NGS Pipeline Atlas \u2014 the QC gates and the cohort outcome",
+   "keywords": [
+    "ngs qc gates",
+    "coverage gate",
+    "gate thresholds",
+    "badinput01",
+    "stopped at the gate",
+    "samples passed the gates",
+    "ngs cohort"
+   ],
+   "answer": "The gates are fixed thresholds set before the cohort run: mean coverage at least 10.0x, at least 80% of reads mapped, at least 70% Q30 bases. Of 33 samples attempted, 27 passed all three gates and went on to variant calling; 6 stopped, every one on the coverage gate \u2014 the deliberate bad input BADINPUT01 at 0.01x and five genuine samples between 8.82x and 9.99x. A stopped sample's BAM is removed inside the gate step and it is never called."
+  },
+  {
+   "id": "ngs-repro",
+   "source": "/evidra/ngs-pipeline-atlas/",
+   "title": "NGS Pipeline Atlas \u2014 reproducibility and the sanitize stage",
+   "keywords": [
+    "ngs reproducibility",
+    "byte-identical reports",
+    "ngs two runs",
+    "cohort reports identical",
+    "sanitize pairs",
+    "corrupt pairs dropped",
+    "ngs md5"
+   ],
+   "answer": "The pipeline was executed twice end to end in fully separate directories, with no result reused from the first run's cache. The two cohort reports are byte-identical (MD5 822aad36\u2026), all 27 per-sample variant tables are byte-identical, and the sanitize totals match exactly: 27,175,960 read pairs processed, 104,684 corrupt pairs dropped (0.39%) \u2014 corruption found inside the archive's own MD5-authentic files and removed at read level."
+  },
+  {
+   "id": "mae-what",
+   "source": "/evidra/multi-agent-evidence/",
+   "title": "Multi-Agent Evidence \u2014 what it is",
+   "keywords": [
+    "multi-agent evidence",
+    "multi-agent system",
+    "three agents",
+    "retriever synthesiser critic",
+    "langgraph",
+    "agent framework comparison"
+   ],
+   "answer": "Multi-Agent Evidence splits genetic-variant evidence work across three agents in a LangGraph state graph: a deterministic Retriever assembles the evidence packet for a variant, a Synthesiser drafts the summary as cited claims from the packet (or declines when the gate is not met), and a Critic checks every drafted claim against the packet, sending rejected drafts back for revision. A deterministic finalise step enforces the cite-or-decline gate in code: gate not met, the output is the decline, and any claim citing a record outside the packet is removed."
+  },
+  {
+   "id": "mae-result",
+   "source": "/evidra/multi-agent-evidence/",
+   "title": "Multi-Agent Evidence \u2014 the comparison result",
+   "keywords": [
+    "did the multi-agent beat",
+    "multi-agent system beat the single-agent baseline",
+    "beat the baseline",
+    "multi-agent result",
+    "multi-agent vs single-agent",
+    "multi-agent tokens",
+    "how many tokens",
+    "multi-agent latency",
+    "tie"
+   ],
+   "answer": "On the fixed set of 36 variants the multi-agent system did not beat the single-agent baseline on any quality axis: citation accuracy 1.00 vs 1.00 after the manual audit, completeness 1.00 vs 1.00, and decline correctness 36/36 for both. The multi-agent system used 46,225 tokens against the baseline's 17,062 and 3.74 s mean latency per variant against 1.40 s \u2014 2.7 times the cost for the same scores. The tie is the published finding."
+  },
+  {
+   "id": "mae-critic",
+   "source": "/evidra/multi-agent-evidence/",
+   "title": "Multi-Agent Evidence \u2014 what the critic did, and the failure modes",
+   "keywords": [
+    "critic rejections",
+    "critic reject",
+    "what did the critic",
+    "critic rounds",
+    "sabotaged claim",
+    "ps3 catch",
+    "failure modes multi-agent",
+    "conflicting records gap",
+    "multi-agent failure"
+   ],
+   "answer": "Across the 36 variants the critic ran 47 rounds and rejected drafts 16 times: 13 rejections policed out-of-universe drafts that treated a live record as if it could carry a summary, and 3 were false positives on one variant's wording. In the failure-mode exercises the loop caught a sabotaged draft whose false ACMG PS3 claim carried a valid-looking citation \u2014 the case the code guard alone cannot detect. One design gap is recorded: when frozen and live records conflict, no agent owns raising the disagreement, so the conflict passes silently."
+  }
+ ]
+}

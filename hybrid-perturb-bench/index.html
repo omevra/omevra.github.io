@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>hybrid-perturb-bench — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.4%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="hybrid-perturb-bench by Evidra: honest perturbation-response baselines and a hybrid model on Norman 2019 Perturb-seq, reported including where it falls below the mean baseline." />
+<link rel="canonical" href="https://variant-evidence-agent.netlify.app/hybrid-perturb-bench/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="hybrid-perturb-bench — Evidra" />
+<meta property="og:description" content="hybrid-perturb-bench by Evidra: honest perturbation-response baselines and a hybrid model on Norman 2019 Perturb-seq, reported including where it falls below the mean baseline." />
+<meta property="og:url" content="https://variant-evidence-agent.netlify.app/hybrid-perturb-bench/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "hybrid-perturb-bench by Evidra: honest perturbation-response baselines and a hybrid model on Norman 2019 Perturb-seq, reported including where it falls below the mean baseline.", "name": "hybrid-perturb-bench", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/hybrid-perturb-bench/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/evidra/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+    </nav>
+    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · Product three</p>
+    <h1>hybrid-perturb-<span>bench</span></h1>
+    <p class="subtitle">An honest benchmark for perturbation-response prediction on Norman 2019 Perturb-seq — baselines first, a hybrid model second, and the negative result kept in.</p>
+  </header>
+
+  <section id="dataset">
+    <div class="sec-head"><h2>Dataset and split</h2></div>
+    <p>The benchmark runs on Norman et al. 2019 Perturb-seq (CRISPRa, K562), as harmonized by scPerturb: <strong>111,445 cells × 33,694 genes</strong>, 11,855 control cells, 237 perturbation labels (control + 105 singles + 131 combinations). Profiles are pseudobulk counts per perturbation, library-normalized to 1e4 + log1p after aggregation. The evaluation gene set is the top <strong>2000 genes</strong> by pseudobulk-profile variance across control + train perturbations only.</p>
+    <p>The split holds out entire perturbations: <strong>21 test</strong> singles against <strong>84 train</strong> singles (seed 0, 20%). The 131 combinations were deferred in milestone 1 and became the compositional-generalization test in milestone 2. The evaluation contract scores predicted against real pseudobulk profiles per perturbation — mse_delta / rmse_delta, pearson_delta, mse_expr / pearson_expr, and deg_overlap_at_50 (the share of the top-50 |Δ| genes recovered) — with a split-half ceiling: one half of a perturbation's cells scored against the other, Spearman-Brown corrected.</p>
+  </section>
+
+  <section id="milestone1">
+    <div class="sec-head"><h2>Milestone 1 — baselines</h2></div>
+    <p>Three honest baselines under the contract, mean over the 21 held-out singles on the 2000-gene set:</p>
+    <div class="table-wrap"><table><thead><tr><th>Method</th><th>n</th><th>Pearson Δ</th><th>MSE Δ</th><th>DEG overlap @50</th></tr></thead><tbody><tr><td>ceiling (split-half, real data)</td><td data-label="n">21</td><td data-label="Pearson Δ">0.9167</td><td data-label="MSE Δ">0.001382</td><td data-label="DEG overlap @50">0.6590</td></tr><tr><td>global perturbation mean</td><td data-label="n">21</td><td data-label="Pearson Δ">0.5876</td><td data-label="MSE Δ">0.004324</td><td data-label="DEG overlap @50">0.3314</td></tr><tr><td>linear ridge (co-expression features)</td><td data-label="n">19</td><td data-label="Pearson Δ">0.5785</td><td data-label="MSE Δ">0.004470</td><td data-label="DEG overlap @50">0.3326</td></tr><tr><td>control mean (no-change)</td><td data-label="n">21</td><td data-label="Pearson Δ">NaN</td><td data-label="MSE Δ">0.006534</td><td data-label="DEG overlap @50">0.0210</td></tr></tbody></table></div>
+    <p class="table-note">The no-change baseline predicts a delta of exactly 0, so its Pearson correlation is undefined (zero variance) — it is ranked on MSE / overlap. Ridge covers 19 of 21 test perturbations: two targets are absent from the filtered expression matrix, so no co-expression features exist for them. Reading, in the project's own terms: the global mean clearly beats no-change, and the linear ridge does not beat the global mean on held-out perturbations — with control-only co-expression features it essentially collapses to the mean. Both sit far below the real-data ceiling — the headroom a real model has to earn.</p>
+  </section>
+
+  <section id="hybrid-model">
+    <div class="sec-head"><h2>The hybrid model</h2></div>
+    <p>The hybrid predicts the pseudobulk delta on the 2000 eval genes, parameterized as coefficients in a PCA basis of the 84 train deltas (40 components) around the train mean delta. Per perturbed gene it takes four inputs: <strong>gene embeddings</strong> (ESM-2, mean-pooled over residues; reviewed human UniProt sequences, coverage 105/105 genes), a <strong>co-expression block</strong> (the target gene's co-expression profile in control cells only), <strong>statistical / DEG-frequency features</strong>, and a <strong>pseudobulk-delta retrieval channel</strong> (a similarity-weighted mean of train perturbations' real deltas) — feeding an MLP (input → 128 → 128 → 40, dropout 0.25, Adam, 500 epochs, seed 0). All fitted statistics use the 84 train singles only; all hyperparameters were fixed a priori and nothing was tuned on test. The retrieval channel alone is also scored as the retrieval_knn reference predictor.</p>
+  </section>
+
+  <section id="singles">
+    <div class="sec-head"><h2>Held-out singles — the honest result</h2></div>
+    <div class="table-wrap"><table><thead><tr><th>Method</th><th>n</th><th>Pearson Δ</th><th>MSE Δ</th><th>DEG overlap @50</th></tr></thead><tbody><tr><td>ceiling (split-half, real data)</td><td data-label="n">21</td><td data-label="Pearson Δ">0.9167</td><td data-label="MSE Δ">0.001382</td><td data-label="DEG overlap @50">0.6590</td></tr><tr><td>global perturbation mean</td><td data-label="n">21</td><td data-label="Pearson Δ">0.5876</td><td data-label="MSE Δ">0.004324</td><td data-label="DEG overlap @50">0.3314</td></tr><tr><td>linear ridge (co-expression features)</td><td data-label="n">19</td><td data-label="Pearson Δ">0.5785</td><td data-label="MSE Δ">0.004470</td><td data-label="DEG overlap @50">0.3326</td></tr><tr><td>hybrid (ESM-2 + co-expression + stats + retrieval → MLP)</td><td data-label="n">21</td><td data-label="Pearson Δ">0.5366</td><td data-label="MSE Δ">0.005134</td><td data-label="DEG overlap @50">0.3143</td></tr><tr><td>retrieval_knn (retrieval channel alone)</td><td data-label="n">21</td><td data-label="Pearson Δ">0.5076</td><td data-label="MSE Δ">0.005692</td><td data-label="DEG overlap @50">0.2762</td></tr><tr><td>control mean (no-change)</td><td data-label="n">21</td><td data-label="Pearson Δ">NaN</td><td data-label="MSE Δ">0.006534</td><td data-label="DEG overlap @50">0.0210</td></tr></tbody></table></div>
+    <p><strong>On held-out single perturbations the hybrid does not beat the baselines it was built to challenge.</strong> It improves on no-change (MSE 0.005134 vs 0.006534) and on its own retrieval channel (0.5366 vs 0.5076 Pearson), but it sits below the global mean (0.5876) and the ridge (0.5785) on Pearson Δ, and below both on DEG overlap (0.3143 vs 0.3314 / 0.3326). With 84 training perturbations, sequence and co-expression features do not identify what an unseen single perturbation will do beyond the strong shared CRISPRa response program that the global mean already captures. This negative result is reported as-is; no hyperparameter was adjusted after seeing it.</p>
+  </section>
+
+  <section id="combos">
+    <div class="sec-head"><h2>Combinations — compositional generalization</h2></div>
+    <p>The 131 two-gene combinations were never used in any training. additive_hybrid is the sum of the hybrid's two predicted single deltas; the hybrid (direct) averages the two component feature blocks.</p>
+    <div class="table-wrap"><table><thead><tr><th>Method</th><th>n</th><th>Pearson Δ</th><th>MSE Δ</th><th>DEG overlap @50</th></tr></thead><tbody><tr><td>ceiling (split-half, real data)</td><td data-label="n">131</td><td data-label="Pearson Δ">0.9314</td><td data-label="MSE Δ">0.004406</td><td data-label="DEG overlap @50">0.7011</td></tr><tr><td>additive_hybrid (sum of predicted single deltas)</td><td data-label="n">131</td><td data-label="Pearson Δ">0.8248</td><td data-label="MSE Δ">0.005471</td><td data-label="DEG overlap @50">0.5472</td></tr><tr><td>hybrid (direct)</td><td data-label="n">131</td><td data-label="Pearson Δ">0.7995</td><td data-label="MSE Δ">0.008824</td><td data-label="DEG overlap @50">0.5098</td></tr><tr><td>linear ridge</td><td data-label="n">129</td><td data-label="Pearson Δ">0.5753</td><td data-label="MSE Δ">0.012948</td><td data-label="DEG overlap @50">0.3033</td></tr><tr><td>global perturbation mean</td><td data-label="n">131</td><td data-label="Pearson Δ">0.5663</td><td data-label="MSE Δ">0.013006</td><td data-label="DEG overlap @50">0.2921</td></tr></tbody></table></div>
+    <p>On combinations the picture reverses: both hybrid variants score far above the global mean and the ridge (Pearson 0.7995–0.8248 vs 0.5663–0.5753), though still below the real-data ceiling (0.9314 Pearson, 0.7011 DEG overlap). Subgroups by whether the combo's components are train or test singles:</p>
+    <div class="table-wrap"><table><thead><tr><th>Subgroup</th><th>n</th><th>Hybrid Pearson</th><th>Hybrid DEG</th><th>Additive Pearson</th><th>Additive DEG</th></tr></thead><tbody>
+      <tr><td>both components train singles</td><td data-label="n">72</td><td data-label="Hybrid Pearson">0.8253</td><td data-label="Hybrid DEG">0.5636</td><td data-label="Additive Pearson">0.8698</td><td data-label="Additive DEG">0.6253</td></tr>
+      <tr><td>one train + one test component</td><td data-label="n">50</td><td data-label="Hybrid Pearson">0.7732</td><td data-label="Hybrid DEG">0.4584</td><td data-label="Additive Pearson">0.7744</td><td data-label="Additive DEG">0.4672</td></tr>
+      <tr><td>both components test singles</td><td data-label="n">9</td><td data-label="Hybrid Pearson">0.7387</td><td data-label="Hybrid DEG">0.3644</td><td data-label="Additive Pearson">0.7443</td><td data-label="Additive DEG">0.3667</td></tr>
+    </tbody></table></div>
+    <p><strong>In-sample flag:</strong> additive_hybrid's both-train subgroup benefits from the hybrid having been trained on those singles — its single predictions there are partly in-sample — so the mixed and both-test subgroups are the cleaner generalization read, and the hybrid's advantage over the baselines persists there. Combo deltas are also larger in magnitude than single deltas, and many Norman combos are dominated by one strong component, which makes per-combo correlation an easier target than for singles.</p>
+  </section>
+
+  <section id="gears">
+    <div class="sec-head"><h2>GEARS comparator</h2></div>
+    <p>GEARS was attempted as a comparator and not completed: the run stopped inside GEARS' per-cell graph construction, before training began, after roughly 43 minutes of processing on this machine with memory projected to exceed what was available. <strong>No GEARS predictions exist and no GEARS numbers are reported anywhere in the project's results.</strong> Nothing in this benchmark should be read as a statement about GEARS' accuracy.</p>
+  </section>
+
+  <section id="limits">
+    <div class="sec-head"><h2>What this benchmark does not claim</h2></div>
+    <ul>
+      <li>The hybrid does not beat the global mean or the ridge on held-out single perturbations — the headline singles claim remains unmet, and the benchmark's “beat the mean” bar is still open there.</li>
+      <li>No GEARS comparison exists; nothing here is a statement about GEARS' accuracy.</li>
+      <li>One dataset, one cell line (Norman 2019, K562): no cross-cell-line, cross-dataset, or zero-shot claim is made.</li>
+      <li>The hybrid's design and hyperparameters were fixed before its test scores were seen and were not revised afterward.</li>
+    </ul>
+    <p>Every figure on this page is taken from the project's <code>RESULTS.md</code> (milestones 1 and 2) and is recomputed against that file at build time.</p>
+  </section>
+
+  <footer>
+    <p class="name">Evidra</p>
+    <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
+    <div class="links">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/evidra/methods/calibration/">Methods — calibration</a>
+      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/evidra/tools/">Tools — every usable tool</a>
+      <a href="/evidra/">Evidra — home</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/evidra/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>

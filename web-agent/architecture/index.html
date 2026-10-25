@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>web-agent architecture — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.4%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="How web-agent is built: the observe, ground, act, verify, recover state machine in src/agent.py, its grounding rules, retry budgets and timeouts, the failure taxonomy, and the public-page safety rails." />
+<link rel="canonical" href="https://variant-evidence-agent.netlify.app/web-agent/architecture/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="web-agent architecture — Evidra" />
+<meta property="og:description" content="How web-agent is built: the observe, ground, act, verify, recover state machine in src/agent.py, its grounding rules, retry budgets and timeouts, the failure taxonomy, and the public-page safety rails." />
+<meta property="og:url" content="https://variant-evidence-agent.netlify.app/web-agent/architecture/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "How web-agent is built: the observe, ground, act, verify, recover state machine in src/agent.py, its grounding rules, retry budgets and timeouts, the failure taxonomy, and the public-page safety rails.", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/web-agent/architecture/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/evidra/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+    </nav>
+    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · web-agent</p>
+    <h1>web-agent <span>architecture</span></h1>
+    <p class="subtitle">The state machine, the modules, the budgets — and the rails that bound the public-page mode. Drawn from the code itself.</p>
+  </header>
+
+  <section id="loop">
+    <div class="sec-head"><h2>The loop, as a state machine</h2></div>
+    <p>One task is a list of steps. For each step the agent runs the attempt loop drawn below — this is <code>Agent.run_task</code> and <code>Agent._run_step</code> in <code>src/agent.py</code>, not a paraphrase of them. The agent the evaluation measures and the agent in the live application are the same code: the app imports <code>src.agent.Agent</code>, and its <code>StreamingAgent</code> subclass adds screenshots after each step and nothing else — its own docstring reads “Behaviour identical.”</p>
+    <div class="chart-box"><svg viewBox="0 0 920 545" width="100%" role="img"><defs><marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#424245"/></marker></defs><rect x="20" y="10" width="420" height="84" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="20" y="10" width="8" height="84" rx="4" fill="#0b7a37"/><text x="46" y="40" font-size="15" font-weight="700" fill="#1d1d1f">OBSERVE</text><text x="46" y="64" font-size="12.5" fill="#424245">fresh DOM snapshot — every interactive element,</text><text x="46" y="84" font-size="12.5" fill="#424245">with a ref (e1, e2, …) and a locator recipe</text><path d="M230 96 l0 14 M219 103 l11 10 l11 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="20" y="114" width="420" height="84" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="20" y="114" width="8" height="84" rx="4" fill="#0b7a37"/><text x="46" y="144" font-size="15" font-weight="700" fill="#1d1d1f">GROUND</text><text x="46" y="168" font-size="12.5" fill="#424245">exact semantic match: role + text / label / name</text><text x="46" y="188" font-size="12.5" fill="#424245">against the snapshot — visible, enabled elements only</text><path d="M230 200 l0 14 M219 207 l11 10 l11 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="20" y="218" width="420" height="84" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="20" y="218" width="8" height="84" rx="4" fill="#0b7a37"/><text x="46" y="248" font-size="15" font-weight="700" fill="#1d1d1f">ACT</text><text x="46" y="272" font-size="12.5" fill="#424245">click · fill · select · check via the locator recipe</text><text x="46" y="292" font-size="12.5" fill="#424245">one action timeout: 3,000 ms</text><path d="M230 304 l0 14 M219 311 l11 10 l11 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="20" y="322" width="420" height="84" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="20" y="322" width="8" height="84" rx="4" fill="#0b7a37"/><text x="46" y="352" font-size="15" font-weight="700" fill="#1d1d1f">VERIFY</text><text x="46" y="376" font-size="12.5" fill="#424245">the step's postcondition, polled for up to 2.0 s</text><text x="46" y="396" font-size="12.5" fill="#424245">visible text · row counts · field values · checked state</text><path d="M230 408 l0 14 M219 415 l11 10 l11 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="20" y="426" width="420" height="84" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="20" y="426" width="8" height="84" rx="4" fill="#0b7a37"/><text x="46" y="456" font-size="15" font-weight="700" fill="#1d1d1f">STEP PASSES</text><text x="46" y="480" font-size="12.5" fill="#424245">logged as step_ok — the task moves to its next step;</text><text x="46" y="500" font-size="12.5" fill="#424245">all steps passed = task success</text><path d="M440 156 H490 V190 H532" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arrA)"/><path d="M440 260 H490 V225 H532" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arrA)"/><path d="M440 364 H490 V260 H532" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arrA)"/><rect x="540" y="150" width="360" height="150" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="540" y="150" width="8" height="150" rx="4" fill="#b91c1c"/><text x="566" y="180" font-size="15" font-weight="700" fill="#1d1d1f">ON ANY FAILURE</text><text x="566" y="204" font-size="12.5" fill="#424245">the failure is classified and logged:</text><text x="566" y="224" font-size="12.5" fill="#424245">target_not_found — no element matches</text><text x="566" y="244" font-size="12.5" fill="#424245">action_error — the action itself failed</text><text x="566" y="264" font-size="12.5" fill="#424245">verify_failed — postcondition not met</text><path d="M720 300 l0 22 M709 315 l11 10 l11 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="540" y="330" width="360" height="96" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="540" y="330" width="8" height="96" rx="4" fill="#b45309"/><text x="566" y="360" font-size="15" font-weight="700" fill="#1d1d1f">RECOVER — recovery on, retries left</text><text x="566" y="384" font-size="12.5" fill="#424245">re-ground with structural fallbacks · dismiss the</text><text x="566" y="404" font-size="12.5" fill="#424245">overlay when a click was intercepted · retry the step</text><path d="M540 378 H492 V52 H448" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arrA)"/><text transform="rotate(-90 484 215)" x="484" y="215" text-anchor="middle" font-size="12.5" fill="#424245">retry — fresh snapshot, structural grounding</text><path d="M720 426 l0 22 M709 441 l11 10 l11 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="540" y="456" width="360" height="64" rx="12" fill="#ffffff" stroke="#d2d2d7"/><rect x="540" y="456" width="8" height="64" rx="4" fill="#424245"/><text x="566" y="486" font-size="15" font-weight="700" fill="#1d1d1f">BUDGET SPENT — or recovery off</text><text x="566" y="510" font-size="12.5" fill="#424245">the task fails; the recorded error stands</text></svg></div>
+    <p class="chart-cap">Every transition is written to a JSONL run log (<code>RunLog</code> in <code>src/agent.py</code>): <code>observe</code> (with the snapshot's element count), <code>step_ok</code>, <code>failure</code> (with its class), <code>recovery</code>, and <code>task_success</code> (with the attempt and recovery totals). The first step that exhausts its budget ends the task; steps already completed stay counted.</p>
+  </section>
+
+  <section id="modules">
+    <div class="sec-head"><h2>The modules — who owns what</h2></div>
+    <div class="items">
+      <div class="item">
+        <h3>src/snapshot.py — observation</h3>
+        <p><code>Snapshot.take</code> runs an injected script (<code>SNAPSHOT_JS</code>) that enumerates <code>a, button, input, select, textarea, [role="button"], [role="link"]</code> and records each element's tag, type, role, id, name, visible text (trimmed to 80 characters), value, placeholder, aria-label, its label (from <code>label[for]</code> or an enclosing label), its form's id, up to 6 ancestor ids, and whether it is visible (bounding box plus computed style) and enabled. The snapshot then assigns each record a ref (<code>e1</code>, <code>e2</code>, …) and a <strong>locator recipe</strong>, built by <code>locator_recipe</code> in a fixed order: <code>#id</code> first, then <code>tag[name="…"]</code>, then <code>tag:has-text("…")</code> for buttons and links, then <code>[placeholder="…"]</code>. An element matching none of these gets no recipe — and an action on it fails as an action error, in the open.</p>
+      </div>
+      <div class="item">
+        <h3>src/agent.py — the loop</h3>
+        <p>The task model is three dataclasses: <code>Target</code> (role, plus optional text, label, name, enclosing-form hint and a <code>kind</code> hint such as <code>submit</code>), <code>Step</code> (an action — click, fill, select or check — a target, a value, and an optional verify callable), and <code>Task</code> (a fixture page and its steps). <code>Agent</code> owns grounding (<code>_find_exact</code>, <code>_find_fallback</code>), acting (<code>_act</code>), verification (<code>_verify</code>), overlay dismissal (<code>_dismiss_overlay</code>) and the attempt loop itself. <code>TaskResult</code> accumulates success, steps completed, attempts and recoveries across the whole task — those accumulators are the numbers in the run files.</p>
+      </div>
+      <div class="item">
+        <h3>src/tasks.py — the suite</h3>
+        <p>The 36 tasks and their postconditions. Each step's verify callable is built from small helpers in the same file — <code>text_is</code>, <code>text_contains</code>, <code>field_value_is</code>, <code>visible_rows</code>, <code>first_cell_is</code>, <code>cell_text_is</code>, <code>li_count_is</code>, <code>is_checked</code>, <code>element_visible</code>, <code>element_absent</code>, <code>element_count_is</code>, and <code>all_of</code> to combine them. A step may carry no postcondition; then a completed action completes the step.</p>
+      </div>
+      <div class="item">
+        <h3>scripts/run_eval.py — the measurement</h3>
+        <p>Runs the suite twice — recovery on, recovery off — writes <code>results/run_on.json</code> and <code>results/run_off.json</code> plus the JSONL logs, and generates <code>RESULTS.md</code> from the run files. The <a href="/evidra/methods/evaluation/">evaluation method</a> page covers the design and the scoring rules.</p>
+      </div>
+      <div class="item">
+        <h3>The live application — runner.py and app.py</h3>
+        <p><code>StreamingAgent</code> subclasses <code>Agent</code> and adds one thing: a viewport screenshot (1100×750, <code>full_page=False</code>) after each step and after an overlay dismissal — a failed capture never fails the run. The server runs each run on its own thread (Playwright's sync API is thread-bound) and streams the log events to the page as they happen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="grounding">
+    <div class="sec-head"><h2>Grounding — exact first, structural on recovery</h2></div>
+    <p><strong>Exact grounding</strong> (<code>_find_exact</code>) considers only visible, enabled elements whose role matches — a button is a <code>&lt;button&gt;</code>, a <code>role="button"</code> element, or a submit/button input; a textbox is a <code>&lt;textarea&gt;</code> or a text-like input; a combobox is a <code>&lt;select&gt;</code>; checkbox and radio match their input types; a link is an <code>&lt;a&gt;</code>. Scoring is blunt: an exact text match scores 100, a substring match 50; when the target names a label or a name attribute, a candidate that does not match it exactly is rejected outright. The highest-scoring candidate wins.</p>
+    <p><strong>Fallback grounding</strong> (<code>_find_fallback</code>) runs only inside recovery, when the target may have been renamed or moved. In order: take the visible, enabled candidates of the role; if the target names a form or container, narrow to the elements inside it (by form id or ancestor ids) — if the target's kind is <code>submit</code> and exactly one submit/button control is in scope, take it; if exactly one element is in scope, take it; as a last resort, if exactly one visible candidate of that role exists on the whole page, take it. Otherwise there is no match, and the failure stands. Structure is allowed to answer only when it answers unambiguously.</p>
+  </section>
+
+  <section id="budgets">
+    <div class="sec-head"><h2>Retries, budgets, timeouts</h2></div>
+    <div class="items">
+      <div class="item">
+        <h3>The retry budget</h3>
+        <p><code>MAX_RETRIES = 2</code> per step, and only with recovery on — with recovery off the budget is 0, so the first failure ends the task. Each retry taken is counted as one recovery in the task's totals, whether or not it is the retry that succeeds. When the budget is spent, the step returns its failure class and the task ends with the error <code>step N: &lt;class&gt;</code>.</p>
+      </div>
+      <div class="item">
+        <h3>Timeouts</h3>
+        <p>Every action — click, fill, select, check — carries a 3,000 ms timeout (<code>ACTION_TIMEOUT_MS</code>). Verification polls the step's postcondition every 0.1 s for up to 2.0 s (<code>VERIFY_TIMEOUT_S</code>) before declaring <code>verify_failed</code>. The overlay-dismiss click gets 1,500 ms. Nothing in the loop waits indefinitely.</p>
+      </div>
+      <div class="item">
+        <h3>Concurrency and the end of a run</h3>
+        <p>The application bounds runs rather than offering a mid-run cancel. At most 2 runs execute at once — a semaphore in <code>app.py</code>; a further request is refused immediately (HTTP 429, “another run is in progress”). Events stream from the run thread through a queue; a stream that sees no event for 180 seconds is closed with a “run timed out” note. If the visitor closes the stream, the run finishes on its own thread, as the server code puts it. And every run finishes by emitting exactly one terminal event — a <code>verdict</code> or an <code>error</code>: a harness-level failure is reported as an error, never dressed up as a verdict.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="taxonomy">
+    <div class="sec-head"><h2>The failure taxonomy — what breaks, what answers it</h2></div>
+    <p>The loop records exactly three failure classes. The counts below are the recovery-off run's nine failures, classified from the error strings recorded in <code>run_off.json</code> — the same strings <a href="/evidra/articles/recovery-ablation/">the ablation article</a> lists verbatim.</p>
+    <div class="table-wrap"><table><thead><tr><th>Failure class</th><th>Off-run failures</th><th>The recovery that answers it</th></tr></thead><tbody>
+      <tr><td><code>target_not_found</code></td><td data-label="Off-run failures">4 of 9 — adversarial_double_label_change, adversarial_label_change, adversarial_rename_under_overlay, adversarial_renamed_field</td><td data-label="Recovery">Re-grounding: a fresh snapshot, then the structural fallbacks — the target was renamed or moved, so exact text and id are abandoned on purpose.</td></tr>
+      <tr><td><code>action_error</code> (click timeout, 3,000 ms)</td><td data-label="Off-run failures">3 of 9 — adversarial_banner_reappears, adversarial_late_overlay, adversarial_overlay_move</td><td data-label="Recovery">Overlay dismissal, when the error reports another element intercepting pointer events: find a visible button whose text is in the dismiss set (×, Close, Accept, Accept all, Dismiss, Got it, OK, No thanks), click it, then retry the step.</td></tr>
+      <tr><td><code>verify_failed</code></td><td data-label="Off-run failures">2 of 9 — adversarial_decoy_button, adversarial_moved_button</td><td data-label="Recovery">Re-ground inside the named form's scope and retry. The postcondition is the arbiter: a decoy's click succeeds as an action and is caught here, by what the page does not show afterwards.</td></tr>
+    </tbody></table></div>
+    <p class="table-note">With recovery off, all three classes are terminal at first occurrence — that is the ablation. With it on, the same nine tasks pass, spending 11 recoveries between them.</p>
+  </section>
+
+  <section id="rails">
+    <div class="sec-head"><h2>Permissions and untrusted input — the public-page mode</h2></div>
+    <p>In the live application a visitor supplies a URL, a label, and — for one of the two intents — a text to type. All of it is untrusted input. The rails around it are code: <code>src/public_mode.py</code> (validation and field rules, written as pure functions) and <code>PublicStreamingAgent</code> / <code>execute_public_run</code> in the app's <code>runner.py</code> (enforcement during the run). The loop inside the rails is the loop above, unchanged.</p>
+    <div class="items">
+      <div class="item">
+        <h3>Validation before any browsing</h3>
+        <p><code>validate_public_url</code> accepts only http(s) URLs. Localhost names and <code>.local</code> names are refused by name. The host is then resolved, and <em>every</em> address it resolves to is checked: a single private, loopback, link-local, reserved, multicast or unspecified address refuses the URL, before a browser is opened.</p>
+      </div>
+      <div class="item">
+        <h3>Two fixed intents, a hard step budget</h3>
+        <p>The visitor can ask for exactly two shapes of work: click the element with this label, or type this text into the field with this label and submit. The steps are built from a fresh snapshot by <code>_public_steps</code> and capped at <code>MAX_PUBLIC_STEPS = 2</code> — deliberately inside the fixture suite's own budgets (fixture tasks run up to 16 steps; the recorded fixture maximum is 16 attempts for a single task). The visitor's inputs select a target; they cannot add steps, change the postconditions, or raise the budget.</p>
+      </div>
+      <div class="item">
+        <h3>The domain lock</h3>
+        <p>Validation computes the entered host's registrable domain (eTLD+1, with common second-level public suffixes handled, so <code>example.co.uk</code> is one domain). During the run, a network route guard aborts any navigation request to a different registrable domain — subdomains of the entered domain are fine — and records the blocked host; the agent additionally checks the page's domain before and after every step. Leaving, or trying to leave, is a hard stop: the verdict names the domain it was stopped for. A blocked navigation is reported, never hidden.</p>
+      </div>
+      <div class="item">
+        <h3>Field refusals</h3>
+        <p><code>field_block_reason</code> names the fields the agent must never type into: password fields, always; and any field whose label, name, placeholder, aria-label or id contains a payment term — card, cvv, cvc, expiry, expiration, billing, payment, credit, debit, iban. The check runs when the steps are built and again before every fill step, and a refusal ends the run with the reason stated.</p>
+      </div>
+      <div class="item">
+        <h3>Downloads off</h3>
+        <p>The public run's browser context is created with downloads disabled, and any download the page attempts is cancelled on the event.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="scope">
+    <div class="sec-head"><h2>Scope</h2></div>
+    <p>The measured suite runs on deterministic local fixture pages in headless Chromium, styled as real product surfaces. The public-page mode is bounded exactly as described above. Results: <a href="/evidra/web-agent/">web-agent</a> · Method: <a href="/evidra/methods/evaluation/">Evaluation</a> · Write-up: <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>.</p>
+    <p class="table-note">This page describes <code>src/agent.py</code>, <code>src/snapshot.py</code>, <code>src/tasks.py</code>, <code>src/public_mode.py</code> and <code>scripts/run_eval.py</code> in the project, and <code>runner.py</code> / <code>app.py</code> in the live application — the code as it stands.</p>
+  </section>
+
+  <footer>
+    <p class="name">Evidra</p>
+    <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
+    <div class="links">
+      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/evidra/web-agent/">web-agent</a>
+      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/evidra/methods/calibration/">Methods — calibration</a>
+      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/evidra/tools/">Tools — every usable tool</a>
+      <a href="/evidra/">Evidra — home</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/evidra/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>
