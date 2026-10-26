@@ -208,30 +208,30 @@
 </style>
 <!-- evidra-build:head:start -->
 <meta name="description" content="Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline." />
-<link rel="canonical" href="https://umeshlinga.github.io/omevra/vus-evidence-agent/" />
+<link rel="canonical" href="https://omevra.github.io/vus-evidence-agent/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Omevra" />
 <meta property="og:title" content="Variant Evidence Agent — Omevra" />
 <meta property="og:description" content="Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline." />
-<meta property="og:url" content="https://umeshlinga.github.io/omevra/vus-evidence-agent/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline.", "name": "Variant Evidence Agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/vus-evidence-agent/"}</script>
+<meta property="og:url" content="https://omevra.github.io/vus-evidence-agent/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline.", "name": "Variant Evidence Agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://omevra.github.io/vus-evidence-agent/"}</script>
 <!-- evidra-build:head:end -->
 <!-- evidra-build:brand-head:start -->
-<link rel="icon" type="image/png" sizes="16x16" href="/omevra/assets/brand/favicon-16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/omevra/assets/brand/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="/omevra/assets/brand/favicon-48.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/omevra/assets/brand/favicon-180.png" />
-<link rel="icon" type="image/png" sizes="512x512" href="/omevra/assets/brand/favicon-512.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/brand/favicon-48.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/brand/favicon-512.png" />
 <!-- evidra-build:brand-head:end -->
 </head>
 <body>
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <a class="wordmark" href="/"><img class="brand-mark" src="/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
       <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent</a>
-      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/web-agent/">web-agent</a>
     </nav>
     <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
   </div>
@@ -674,7 +674,7 @@ PYTHONPATH=src python3 scripts/run_agent_real.py</pre></div>
     <div class="items">
       <div class="item">
         <h3>Methods library</h3>
-        <p><a href="/omevra/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/omevra/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
+        <p><a href="/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
       </div>
     </div>
 
@@ -686,7 +686,7 @@ PYTHONPATH=src python3 scripts/run_agent_real.py</pre></div>
   <section id="architecture">
     <div class="sec-head"><h2>Architecture</h2></div>
     <p>How the system is built, from the code itself: retrieval from prediction-time records, the stored model probability, calibration fitted on train data only, the cite-or-decline gate, live-evidence mode, and the batch flow.</p>
-    <p><a href="/omevra/vus-evidence-agent/architecture/">Variant Evidence Agent architecture ›</a></p>
+    <p><a href="/vus-evidence-agent/architecture/">Variant Evidence Agent architecture ›</a></p>
   </section>
 
 <!-- evidra-build:vus-archlink:end -->
@@ -694,7 +694,7 @@ PYTHONPATH=src python3 scripts/run_agent_real.py</pre></div>
 
   <section id="proof">
     <div class="sec-head"><h2>Evaluations and API</h2></div>
-    <p>The full proof record for this product: <a href="/omevra/vus-evidence-agent/evaluations/">Evaluations</a> — the temporal-split protocol, versioned results v1 to v6, per-gene calibration worst first, the before/after decline record, and every result file as a download. The public API is documented at <a href="/omevra/vus-evidence-agent/api/">API documentation</a>.</p>
+    <p>The full proof record for this product: <a href="/vus-evidence-agent/evaluations/">Evaluations</a> — the temporal-split protocol, versioned results v1 to v6, per-gene calibration worst first, the before/after decline record, and every result file as a download. The public API is documented at <a href="/vus-evidence-agent/api/">API documentation</a>.</p>
   </section>
 
 <!-- evidra-build:vus-proof:end -->
@@ -703,7 +703,7 @@ PYTHONPATH=src python3 scripts/run_agent_real.py</pre></div>
     <p>Every number on this page is taken from the project’s README and its reports in <span class="mono">data/processed_v2/</span>, on the post-freeze temporal test set.</p>
     <div class="links">
       <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent — live application</a>
-      <a href="/omevra/web-agent/">web-agent — live application</a>
+      <a href="/web-agent/">web-agent — live application</a>
     </div>
     <p>Built by Umesh Linga · <a href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/umeshlinga" target="_blank" rel="noopener">GitHub</a></p>
     <p>Research Use Only.</p>
@@ -955,7 +955,7 @@ PYTHONPATH=src python3 scripts/run_agent_real.py</pre></div>
   </div>
   <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
-<script src="/omevra/assets/ask-evidra.js" defer></script>
+<script src="/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

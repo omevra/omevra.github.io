@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
 <!-- evidra-build:brand-head:start -->
-<link rel="icon" type="image/png" sizes="16x16" href="/omevra/assets/brand/favicon-16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/omevra/assets/brand/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="/omevra/assets/brand/favicon-48.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/omevra/assets/brand/favicon-180.png" />
-<link rel="icon" type="image/png" sizes="512x512" href="/omevra/assets/brand/favicon-512.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/brand/favicon-48.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/brand/favicon-512.png" />
 <!-- evidra-build:brand-head:end -->
 <title>web-agent — Omevra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -236,22 +236,22 @@
 </style>
 <!-- evidra-build:head:start -->
 <meta name="description" content="web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%)." />
-<link rel="canonical" href="https://umeshlinga.github.io/omevra/web-agent/" />
+<link rel="canonical" href="https://omevra.github.io/web-agent/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Omevra" />
 <meta property="og:title" content="web-agent — Omevra" />
 <meta property="og:description" content="web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%)." />
-<meta property="og:url" content="https://umeshlinga.github.io/omevra/web-agent/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%).", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/web-agent/"}</script>
+<meta property="og:url" content="https://omevra.github.io/web-agent/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%).", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://omevra.github.io/web-agent/"}</script>
 <!-- evidra-build:head:end -->
 </head>
 <body>
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <a class="wordmark" href="/"><img class="brand-mark" src="/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
       <a href="#demo">web-agent — live</a>
     </nav>
     <a class="bar-btn" href="#demo">Run it live</a>
@@ -402,9 +402,9 @@
     <div class="sec-head"><h2>Evaluation v1.0 — 36-task suite</h2></div>
     <p>The current result set on this page is <strong>Evaluation v1.0</strong>: the full 36-task suite, both modes run. The raw outputs ship with this site as downloadable files, byte-identical to the project's own copies:</p>
     <ul>
-      <li><a href="/omevra/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
-      <li><a href="/omevra/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>
-      <li><a href="/omevra/web-agent/assets/RESULTS.md" download>RESULTS.md</a> — the generated results document</li>
+      <li><a href="/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
+      <li><a href="/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>
+      <li><a href="/web-agent/assets/RESULTS.md" download>RESULTS.md</a> — the generated results document</li>
     </ul>
     <h3 style="margin-top:28px">Changelog</h3>
     <p><strong>v1.0</strong> — the 36-task suite, in six categories:</p>
@@ -430,14 +430,14 @@
     <div class="items">
       <div class="item">
         <h3>Methods library</h3>
-        <p><a href="/omevra/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/omevra/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
+        <p><a href="/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
       </div>
     </div>
 
     <div class="items">
       <div class="item">
         <h3>The recovery ablation — article</h3>
-        <p><a href="/omevra/articles/recovery-ablation/">The recovery ablation</a> — what was measured, what recovery does mechanically, the nine recorded failures, and the limits.</p>
+        <p><a href="/articles/recovery-ablation/">The recovery ablation</a> — what was measured, what recovery does mechanically, the nine recorded failures, and the limits.</p>
       </div>
     </div>
   </section>
@@ -448,7 +448,7 @@
   <section id="architecture">
     <div class="sec-head"><h2>Architecture</h2></div>
     <p>How the agent is built, from the code itself: the observe → ground → act → verify → recover state machine, the grounding rules, the retry budgets and timeouts, the failure taxonomy, and the safety rails that bound the public-page mode.</p>
-    <p><a href="/omevra/web-agent/architecture/">web-agent architecture ›</a></p>
+    <p><a href="/web-agent/architecture/">web-agent architecture ›</a></p>
   </section>
 
 <!-- evidra-build:wa-archlink:end -->
@@ -456,7 +456,7 @@
 
   <section id="proof">
     <div class="sec-head"><h2>Evaluations</h2></div>
-    <p>The standalone proof page for this product: <a href="/omevra/web-agent/evaluations/">Evaluations</a> — Evaluation v1.0 in full, with the raw run files as downloads.</p>
+    <p>The standalone proof page for this product: <a href="/web-agent/evaluations/">Evaluations</a> — Evaluation v1.0 in full, with the raw run files as downloads.</p>
   </section>
 
 <!-- evidra-build:wa-proof:end -->
@@ -465,8 +465,8 @@
     <p>web-agent — an autonomous agent that operates web interfaces, measured on 36 tasks with recovery on and off. Every figure on this page is computed from the evaluation’s raw run files.</p>
     <div class="links">
       <a href="#demo">web-agent — live application</a>
-      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent — full system</a>
-      <a href="/omevra/">Omevra — both products</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent — full system</a>
+      <a href="/">Omevra — both products</a>
     </div>
     <p>Built by Umesh Linga · <a href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/umeshlinga" target="_blank" rel="noopener">GitHub</a></p>
     <p>Research Use Only.</p>
@@ -498,7 +498,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
-<script src="/omevra/assets/ask-evidra.js" defer></script>
+<script src="/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 <script>

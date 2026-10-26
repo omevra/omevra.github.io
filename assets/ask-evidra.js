@@ -60,7 +60,7 @@
     var input = box.querySelector(".ask-input");
     var form = box.querySelector(".ask-form");
     var index = null;
-    fetch("/omevra/assets/ask-index.json").then(function (r) { return r.json(); }).then(function (j) { index = j; });
+    fetch("/assets/ask-index.json").then(function (r) { return r.json(); }).then(function (j) { index = j; });
     box.querySelector(".ask-toggle").addEventListener("click", function () {
       var open = panel.style.display === "block";
       panel.style.display = open ? "none" : "block";
