@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://umeshlinga.github.io/evidra/sitemap.xml
+Sitemap: https://umeshlinga.github.io/omevra/sitemap.xml

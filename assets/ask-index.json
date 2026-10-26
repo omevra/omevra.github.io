@@ -339,14 +339,14 @@
   {
    "id": "contact",
    "source": "/",
-   "title": "Evidra \u2014 contact",
+   "title": "Omevra \u2014 contact",
    "keywords": [
     "contact",
     "get in touch",
     "linkedin",
     "reach out"
    ],
-   "answer": "Use the Contact section on the Evidra home page \u2014 it links to LinkedIn, which is the fastest route for questions about the systems, the methods, or the results. This site does not publish an email address."
+   "answer": "Use the Contact section on the Omevra home page \u2014 it links to LinkedIn, which is the fastest route for questions about the systems, the methods, or the results. This site does not publish an email address."
   },
   {
    "id": "methods-overview",
@@ -449,7 +449,7 @@
     "recent batches",
     "on this device"
    ],
-   "answer": "The tools directory lists every usable tool in one place: the variant report (one variant, cited or declined), the batch evidence pack (paste a list, expand a gene, or upload a variant-list file), the variant normaliser (any spelling in \u2014 the cleaned form and its universe status out), the gene explorer (one gene's counts, its published calibration where one exists, and its variants), web-agent's live run and public-page mode, and Ask Evidra itself. Completed batches are also listed under Recent batches in the visitor's own browser \u2014 saved on that device, not on a server."
+   "answer": "The tools directory lists every usable tool in one place: the variant report (one variant, cited or declined), the batch evidence pack (paste a list, expand a gene, or upload a variant-list file), the variant normaliser (any spelling in \u2014 the cleaned form and its universe status out), the gene explorer (one gene's counts, its published calibration where one exists, and its variants), web-agent's live run and public-page mode, and Ask Omevra itself. Completed batches are also listed under Recent batches in the visitor's own browser \u2014 saved on that device, not on a server."
   },
   {
    "id": "literature",

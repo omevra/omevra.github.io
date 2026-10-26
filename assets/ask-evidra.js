@@ -1,4 +1,4 @@
-/* Ask Evidra — static retrieval over the site's own library.
+/* Ask Omevra — static retrieval over the site's own library.
    No external calls and no key: answers come only from ask-index.json,
    which is built from this site's pages. Out-of-corpus questions get
    the plain decline. */

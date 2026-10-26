@@ -4,7 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
-<title>Evidra — measured AI systems for genomics and the web</title>
+<!-- evidra-build:brand-head:start -->
+<link rel="icon" type="image/png" sizes="16x16" href="/omevra/assets/brand/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/omevra/assets/brand/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/omevra/assets/brand/favicon-48.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/omevra/assets/brand/favicon-180.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/omevra/assets/brand/favicon-512.png" />
+<!-- evidra-build:brand-head:end -->
+<title>Omevra — measured AI systems for genomics and the web</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -120,6 +127,27 @@
   .product-card .btn.ghost{padding:11px 6px}
   .hero .flow-line{font-size:clamp(20px,3.4vw,27px);line-height:1.4;font-weight:600;color:var(--ink);margin:22px auto 0;max-width:700px}
   .hero .platform-line{font-size:17.5px;line-height:1.6;color:var(--ink-2);margin:16px auto 0;max-width:700px}
+/* cine-css:start */
+  .hero{position:relative;min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 24px 72px;overflow:hidden;background:#fff}
+  .cine-bg{position:absolute;inset:0;z-index:0}
+  .cine-bg video{width:100%;height:100%;object-fit:cover;display:block}
+  .cine-wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.68) 45%,rgba(255,255,255,.86))}
+  .hero .hero-mark{position:relative;z-index:1;margin-bottom:22px}
+  .cine-hero-in{position:relative;z-index:1;max-width:880px}
+  .proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 0;text-align:left}
+  @media(max-width:760px){ .proof-strip{grid-template-columns:1fr 1fr} }
+  .proof-item{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:14px;padding:16px 18px;font-size:15px;line-height:1.5;color:var(--ink-2)}
+  .proof-item strong{color:var(--ink)}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;text-align:left}
+  @media(max-width:760px){ .pillars{grid-template-columns:1fr} }
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 28px 24px;display:flex;flex-direction:column}
+  .pillar h3{font-size:22px}
+  .pillar p{margin:0 0 18px;font-size:16px;line-height:1.6;color:var(--ink-2)}
+  .pillar .cta-row{margin-top:auto}
+  .logo-video{margin:44px auto 0;text-align:center}
+  .logo-video video{width:min(280px,68vw);height:auto;border-radius:28px;border:1px solid var(--line);background:#fff;display:block;margin:0 auto}
+  .logo-video figcaption{margin-top:12px;font-size:14px;color:var(--muted)}
+/* cine-css:end */
 /* evidra-build:brand-css:start */
   .wordmark{display:inline-flex;align-items:center;gap:9px}
   .brand-mark{width:38px;height:38px;flex:none;display:block;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:9px}
@@ -127,268 +155,143 @@
 /* evidra-build:brand-css:end */
 </style>
 <!-- evidra-build:head:start -->
-<meta name="description" content="Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
-<link rel="canonical" href="https://umeshlinga.github.io/evidra/" />
+<meta name="description" content="Omevra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
+<link rel="canonical" href="https://umeshlinga.github.io/omevra/" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="Evidra" />
-<meta property="og:title" content="Evidra — measured AI systems for genomics and the web" />
-<meta property="og:description" content="Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
-<meta property="og:url" content="https://umeshlinga.github.io/evidra/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Evidra is a platform of measured AI systems for genomics and the web \u2014 data in, pipelines run, evidence out, with every result published including failures.", "name": "Evidra", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://umeshlinga.github.io/evidra/"}</script>
+<meta property="og:site_name" content="Omevra" />
+<meta property="og:title" content="Omevra — measured AI systems for genomics and the web" />
+<meta property="og:description" content="Omevra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
+<meta property="og:url" content="https://umeshlinga.github.io/omevra/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Omevra is a platform of measured AI systems for genomics and the web \u2014 data in, pipelines run, evidence out, with every result published including failures.", "name": "Omevra", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/"}</script>
 <!-- evidra-build:head:end -->
-<!-- evidra-build:brand-head:start -->
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="/assets/brand/favicon-48.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png" />
-<link rel="icon" type="image/png" sizes="512x512" href="/assets/brand/favicon-512.png" />
-<!-- evidra-build:brand-head:end -->
 </head>
 <body>
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/"><img class="brand-mark" src="/assets/brand/evidra-logo-3d.webp" alt="Evidra" width="38" height="38" />Evidra</a>
+    <a class="wordmark" href="/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent</a>
-      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/tools/">Tools</a>
     </nav>
     <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
   </div>
 </header>
 
-<main class="wrap">
-  <!-- HERO -->
+<main>
   <header class="hero">
 <!-- evidra-build:brand-hero:start -->
-    <img class="hero-mark" src="/assets/brand/evidra-logo-3d.webp" alt="Evidra" width="132" height="132" />
+    <img class="hero-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="132" height="132" />
 <!-- evidra-build:brand-hero:end -->
-    <p class="eyebrow">Evidra</p>
-    <h1>Measured AI systems <span class="grad">for genomics and the web.</span></h1>
-    <p class="flow-line">Data in → pipelines run → evidence out.</p>
-    <p class="platform-line">Evidra is one platform of systems that do genomics and web work and publish their measured results — including where they fail, decline, or tie.</p>
-    <div class="cta-row">
-      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the Variant Evidence Agent live</a>
-      <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run web-agent live</a>
+    <div class="cine-bg" aria-hidden="true">
+      <video class="cine-bg-video" autoplay muted loop playsinline preload="auto" poster="/omevra/assets/brand/omevra-hero-poster.jpg">
+        <source src="/omevra/assets/brand/omevra-hero-bg.mp4" type="video/mp4" />
+      </video>
+      <div class="cine-wash"></div>
+    </div>
+    <div class="cine-hero-in">
+      <p class="eyebrow">Omevra</p>
+      <h1>Every variant, judged by its evidence.</h1>
+      <p class="subtitle">Calibrated variant evidence, measured on a frozen temporal test — every claim cited, or the system declines.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the Variant Evidence Agent live</a>
+      </div>
     </div>
   </header>
 
-  <!-- PLATFORM FLOW -->
-  <div class="platform-flow" aria-label="How Evidra works">
-    <div class="flow-step"><b>1 · Bring data</b><p>Genomic variants, sequencing reads, perturbation data, or a web task — bring the data the work starts from.</p></div>
-    <div class="flow-step"><b>2 · Run measured pipelines</b><p>Pipelines and agents run the work with fixed gates, budgets, and scoring rules stated up front.</p></div>
-    <div class="flow-step"><b>3 · Get cited evidence</b><p>You get evidence reports and results with every claim cited and the measured numbers published — including failures.</p></div>
+  <div class="wrap">
+  <!-- PROOF STRIP -->
+  <div class="proof-strip" aria-label="Proof points">
+    <div class="proof-item"><strong>27,748 variants</strong> judged on a frozen temporal split</div>
+    <div class="proof-item"><strong>Cite-or-decline:</strong> 17,391 declined rather than guessed</div>
+    <div class="proof-item"><strong>AUROC 0.970 · ECE 0.025</strong> — the final model, as measured</div>
+    <div class="proof-item"><strong>Web Agent 36/36</strong> with recovery on</div>
   </div>
 
-  <!-- PRODUCTS -->
-  <section id="products">
-    <p class="sec-eyebrow">Products</p>
-    <h2>Five products, one platform</h2>
-    <p class="sec-sub">Data in → pipelines run → evidence out — each product is one part of that flow, with a live demo or the full results one click away.</p>
-    <div class="product-cards">
-      <div class="product-card">
-        <h3>Variant Evidence Agent</h3>
-        <p class="desc">Evidence reports for variants of uncertain significance — every claim cited, or the system declines.</p>
-        <p class="metric">AUROC 0.970 · calibration error (ECE) 0.025 · tested on 27,748 ClinVar variants reclassified after its training freeze · 10,357 summarised, 17,391 declined</p>
-        <p class="who">For variant scientists and genomics researchers.</p>
+  <!-- ONE PLATFORM -->
+  <section id="platform">
+    <p class="sec-eyebrow">One platform</p>
+    <h2>One platform</h2>
+    <p class="sec-sub">Data in → pipelines run → evidence out. Three kinds of work, one standard: measured results, published with their limits.</p>
+    <figure class="logo-video">
+      <video class="logo-video-el" autoplay muted loop playsinline preload="metadata" loading="lazy" poster="/omevra/assets/brand/omevra-logo-3d.png">
+        <source src="/omevra/assets/brand/omevra-logo-video.mp4" type="video/mp4" />
+      </video>
+      <figcaption>The Omevra mark — the check draws in, the helix grows.</figcaption>
+    </figure>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Evidence</h3>
+        <p>Variant evidence reports in which every claim is cited to a retrieved record — or the system declines — and a three-agent evidence system measured honestly against its single-agent baseline.</p>
         <div class="cta-row">
-          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try it live</a>
-          <a class="btn ghost" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Batch evidence pack — up to 500 variants at once</a>
-          <a class="btn ghost" href="/vus-evidence-agent/">How it works ›</a>
+          <a class="btn ghost" href="/vus-evidence-agent/">Variant Evidence Agent ›</a>
+          <a class="btn ghost" href="/multi-agent-evidence/">Multi-Agent Evidence ›</a>
         </div>
       </div>
-      <div class="product-card">
-        <h3>web-agent</h3>
-        <p class="desc">An autonomous agent that operates real web interfaces end to end — and publishes exactly how often it succeeds.</p>
-        <p class="metric">36/36 evaluation tasks passed with recovery on vs 27/36 off · adversarial tasks 9/9 vs 0/9</p>
-        <p class="who">For teams evaluating browser agents.</p>
+      <div class="pillar">
+        <h3>Pipelines</h3>
+        <p>Reproducible pipelines and honest benchmarks: a bacterial whole-genome pipeline run twice to prove it reproduces, and a perturbation-response benchmark that publishes its negative result.</p>
         <div class="cta-row">
-          <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
-          <a class="btn ghost" href="/web-agent/">Full results ›</a>
+          <a class="btn ghost" href="/ngs-pipeline-atlas/">NGS Pipeline Atlas ›</a>
+          <a class="btn ghost" href="/hybrid-perturb-bench/">hybrid-perturb-bench ›</a>
         </div>
       </div>
-      <div class="product-card">
-        <h3>NGS Pipeline Atlas</h3>
-        <p class="desc">A reproducible bacterial whole-genome pipeline — reads in, QC-gated variant calls out — run twice to prove it reproduces.</p>
-        <p class="metric">33 samples · 27 passed · 6 stopped at the 10× coverage gate · two runs byte-identical</p>
-        <p class="who">For pipeline engineers who need runs they can trust.</p>
+      <div class="pillar">
+        <h3>Agents</h3>
+        <p>An autonomous agent that operates web interfaces end to end — 36/36 tasks passed with recovery on vs 27/36 off, adversarial 9/9 vs 0/9, controls 27/27 both ways.</p>
         <div class="cta-row">
-          <a class="btn" href="/ngs-pipeline-atlas/">See the results ›</a>
-        </div>
-      </div>
-      <div class="product-card">
-        <h3>hybrid-perturb-bench</h3>
-        <p class="desc">An honest benchmark of gene-perturbation response prediction on Norman 2019 Perturb-seq, 111,445 cells.</p>
-        <p class="metric">Two-gene combinations: hybrid model 0.82 vs 0.57 mean baseline (Pearson Δ; ceiling 0.93) · on unseen single perturbations it trails the mean — published as-is</p>
-        <p class="who">For single-cell and ML researchers.</p>
-        <div class="cta-row">
-          <a class="btn" href="/hybrid-perturb-bench/">See the benchmark ›</a>
-        </div>
-      </div>
-      <div class="product-card">
-        <h3>Multi-Agent Evidence</h3>
-        <p class="desc">Three cooperating agents — Retriever, Synthesiser, Critic — measured against the single-agent baseline they had to beat.</p>
-        <p class="metric">Citation accuracy 1.00 vs 1.00 after audit — a published tie · decline correctness 36/36 both ways · 17,062 vs 46,225 tokens</p>
-        <p class="who">For teams designing multi-agent evidence systems.</p>
-        <div class="cta-row">
-          <a class="btn" href="/multi-agent-evidence/">See the comparison ›</a>
+          <a class="btn ghost" href="/web-agent/">web-agent ›</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WHAT IT DOES -->
-  <section id="what">
-    <p class="sec-eyebrow">Variant Evidence Agent</p>
-    <h2>What it does</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Tested the way time actually runs</h3>
-        <p>The system trains on ClinVar classifications frozen at January 2024 and is evaluated only on variants of uncertain significance that were reclassified <strong>after</strong> that freeze — a strictly temporal test, not a random split, so no variant is credited for evidence that only existed later.</p>
-      </div>
-      <div class="card">
-        <h3>Probabilities that mean what they say</h3>
-        <p>Predictions are calibrated, so a “90% pathogenic” output should be right about 90% of the time. On the post-freeze test set the final model (GBM+R, adopted 2026-10-26) reaches AUROC <strong>0.970</strong> with calibration error (ECE) <strong>0.025</strong> — honestly worse than the earlier logistic model’s 0.017, a trade-off stated in full on the product page — and the calibration record, including where it fails, is published inside the system.</p>
-      </div>
-      <div class="card">
-        <h3>Evidence reports — cited, or declined</h3>
-        <p>For each variant, the agent retrieves the records behind a call and writes an evidence summary in which every claim is cited. Where the evidence is not there, it declines. On the test set it reports on <strong>10,357</strong> variants (37.3%) and declines <strong>17,391</strong>.</p>
-      </div>
-      <div class="card">
-        <h3>Open it and look inside</h3>
-        <p>Inside the full system: look up any test-set variant and read its stored report, compare eight model variants on interactive calibration and ROC charts, read the validation dossier — design, performance including the worst genes, failure modes, oversight — and the honest limits, stated in the system’s own terms.</p>
-      </div>
-    </div>
-    <div class="section-cta">
-      <div class="cta-row">
-        <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
-        <a class="btn ghost" href="/vus-evidence-agent/">Explore the full system ›</a>
-      </div>
+  <!-- NUMBERS -->
+  <section id="numbers">
+    <p class="sec-eyebrow">Numbers</p>
+    <h2>The numbers, as measured</h2>
+    <div class="stats" aria-label="Omevra numbers">
+      <div class="stat"><b>27,748</b><span>Variants judged on the frozen temporal test</span></div>
+      <div class="stat"><b>10,357</b><span>Summarised with cited evidence</span></div>
+      <div class="stat"><b>17,391</b><span>Declined by cite-or-decline, rather than guessed</span></div>
+      <div class="stat"><b>0.970</b><span>AUROC — the final model's discrimination</span></div>
+      <div class="stat"><b>0.025</b><span>ECE — the final model's calibration error</span></div>
+      <div class="stat"><b>36/36</b><span>Web Agent tasks passed with recovery on</span></div>
+      <div class="stat"><b>33</b><span>NGS Pipeline Atlas samples — the second full run byte-identical to the first</span></div>
+      <div class="stat"><b>5</b><span>Working products, all live</span></div>
     </div>
   </section>
 
-  <!-- PRODUCT TWO -->
-  <section id="web-agent">
-    <p class="sec-eyebrow">Evidra · Product two</p>
-    <h2>web-agent</h2>
-    <p class="sec-sub">An autonomous agent that operates web interfaces end to end — and publishes exactly how often it succeeds.</p>
-
-    <div class="product-panel">
-      <p class="lead">web-agent runs real browser tasks in a live headless Chromium session. Its loop is <strong>observe → act → verify → recover</strong>: take a fresh snapshot of the page, act on it, verify the result — and when the page fights back, re-ground and recover instead of failing silently.</p>
-      <p class="lead">The evaluation is an ablation, run both ways on the same 36 tasks. With recovery on, it passes all 36. With recovery switched off, the same agent passes 27 — and every one of the 9 adversarial tasks fails. The difference is the recovery system, measured, not asserted.</p>
-
-      <div class="stats" aria-label="web-agent evaluation numbers">
-        <div class="stat"><b>36/36</b><span>Tasks passed with recovery on — the full evaluation set</span></div>
-        <div class="stat"><b>27/36</b><span>Tasks passed with recovery off — the ablation control</span></div>
-        <div class="stat"><b>9/9 vs 0/9</b><span>Adversarial tasks passed, recovery on vs off</span></div>
-        <div class="stat"><b>27/27</b><span>Control tasks passed both ways, recovery on and off</span></div>
-      </div>
-
-
-      <!-- RESULTS TEASER (evidra-build:teaser) -->
-      <h3 style="margin:30px 0 4px">The evaluation, drawn</h3>
-      <p style="font-size:15px;margin:0 0 10px">Pass rate by category, recovery on against recovery off — the full chart set, the method and the per-task record are on the results page.</p>
-      <svg viewBox="0 0 920 334" width="100%" role="img"><text x="0" y="23.5" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — on</text><rect x="230" y="10" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="23.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10</text><text x="0" y="50.5" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — off</text><rect x="230" y="37" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="50.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10</text><text x="0" y="77.5" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — on</text><rect x="230" y="64" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="77.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6</text><text x="0" y="104.5" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — off</text><rect x="230" y="91" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="104.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6</text><text x="0" y="131.5" font-size="13.5" fill="#1d1d1f">Adversarial recovery — on</text><rect x="230" y="118" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="131.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9/9</text><text x="0" y="158.5" font-size="13.5" fill="#1d1d1f">Adversarial recovery — off</text><rect x="230" y="145" width="2" height="15" rx="5" fill="#b91c1c"/><text x="242" y="158.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">0/9</text><text x="0" y="185.5" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — on</text><rect x="230" y="172" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="185.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5</text><text x="0" y="212.5" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — off</text><rect x="230" y="199" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="212.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5</text><text x="0" y="239.5" font-size="13.5" fill="#1d1d1f">Business workflows — on</text><rect x="230" y="226" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="239.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text><text x="0" y="266.5" font-size="13.5" fill="#1d1d1f">Business workflows — off</text><rect x="230" y="253" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="266.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text><text x="0" y="293.5" font-size="13.5" fill="#1d1d1f">Portal navigation — on</text><rect x="230" y="280" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="293.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text><text x="0" y="320.5" font-size="13.5" fill="#1d1d1f">Portal navigation — off</text><rect x="230" y="307" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="320.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text></svg>
-      <div class="cta-row">
-        <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run web-agent live</a>
-        <a class="btn ghost" href="/web-agent/">See the full results ›</a>
-      </div>
-      <p style="margin-top:20px;font-size:15px">Open it and run a task yourself: pick from the 36 tasks — including a CRM record update, a vendor application, a lead-entry flow, and a multi-page CRM portal it navigates end to end — watch every step and screenshot as it works, then switch recovery off and run the same task again. The evaluation view shows every recorded run behind these numbers.</p>
-    </div>
-  </section>
-
-  <!-- EARLY ACCESS -->
-  <section id="early-access">
-    <p class="sec-eyebrow">Early access</p>
-    <h2>Join the early-access list</h2>
-    <p class="sec-sub">The products are free and in early access. Early access is coordinated personally, and the list is kept through LinkedIn — connect there to join, ask questions, and follow new results as they are published.</p>
-    <div class="section-cta">
-      <div class="cta-row">
-        <a class="btn" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Join via LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
-<!-- evidra-build:ngs-panel:start -->
-
-  <!-- NGS PIPELINE ATLAS -->
-  <section id="ngs-pipeline-atlas">
-    <p class="sec-eyebrow">Evidra · Product four</p>
-    <h2>NGS Pipeline Atlas</h2>
-    <p class="sec-sub">A reproducible bacterial whole-genome pipeline — paired-end reads in, QC-gated variant calls out — executed twice to prove it reproduces.</p>
-
-    <div class="product-panel">
-      <p class="lead">A Nextflow pipeline processes a public <em>E. coli</em> cohort (ENA PRJNA234495) through fetch, a read-pair sanitize stage, FastQC and fastp, BWA-MEM alignment, per-sample QC gates, bcftools calling and a cohort report. <strong>The gates are real:</strong> a sample that fails has its BAM removed and never reaches calling — including one deliberately bad input planted in the samplesheet.</p>
-      <p class="lead">Run end to end twice, in separate directories with nothing reused, the two runs produced <strong>byte-identical cohort reports</strong> and identical variant tables for every passed sample.</p>
-
-      <div class="stats" aria-label="NGS Pipeline Atlas numbers">
-        <div class="stat"><b>27/33</b><span>Samples passed the QC gates and reached variant calling</span></div>
-        <div class="stat"><b>130,614</b><span>Variant records across the passed samples</span></div>
-        <div class="stat"><b>81,810</b><span>Unique variant sites across the cohort</span></div>
-        <div class="stat"><b>2 runs</b><span>Byte-identical cohort reports — MD5 822aad36…</span></div>
-      </div>
-
-      <div class="cta-row">
-        <a class="btn ghost" href="/ngs-pipeline-atlas/">See the pipeline and the runs ›</a>
-      </div>
-    </div>
-  </section>
-
-<!-- evidra-build:ngs-panel:end -->
-<!-- evidra-build:mae-panel:start -->
-
-  <!-- MULTI-AGENT EVIDENCE -->
-  <section id="multi-agent-evidence">
-    <p class="sec-eyebrow">Evidra · Product five</p>
-    <h2>Multi-Agent Evidence</h2>
-    <p class="sec-sub">Three cooperating agents for genetic-variant evidence work — Retriever, Synthesiser, Critic — measured against the single-agent baseline they have to beat.</p>
-
-    <div class="product-panel">
-      <p class="lead">A LangGraph state graph splits Build 1's evidence work three ways: a deterministic Retriever assembles the evidence packet, a Synthesiser drafts cited claims from it, and a Critic checks every claim against the packet, with a deterministic finalise step enforcing the cite-or-decline gate in code. The baseline is the same model, the same packet, the same task text, in one pass.</p>
-      <p class="lead">Over a fixed 36 variants the two systems <strong>tie on every quality axis</strong> — citation accuracy 1.00 vs 1.00 after audit, completeness 1.00 vs 1.00, decline correctness 36/36 both — and the multi-agent system costs <strong>2.7× the tokens and latency</strong> to get there. The tie is published as the finding; what the critic loop demonstrably did — 47 rounds, 16 rejections, a sabotaged claim caught — is published with it.</p>
-
-      <div class="stats" aria-label="Multi-Agent Evidence numbers">
-        <div class="stat"><b>1.00 vs 1.00</b><span>Citation accuracy after audit — 48 of 48 claims, both systems</span></div>
-        <div class="stat"><b>36/36</b><span>Decline correctness against the Build 1 gate — both systems</span></div>
-        <div class="stat"><b>17,062 vs 46,225</b><span>Tokens for the 36 variants — baseline vs multi-agent</span></div>
-        <div class="stat"><b>1.40 s vs 3.74 s</b><span>Mean latency per variant — baseline vs multi-agent</span></div>
-      </div>
-
-      <div class="cta-row">
-        <a class="btn ghost" href="/multi-agent-evidence/">See the architecture and the comparison ›</a>
-      </div>
-    </div>
-  </section>
-
-<!-- evidra-build:mae-panel:end -->
-<!-- evidra-build:contact:start -->
-
-  <!-- CONTACT -->
+  <!-- CLOSING -->
   <section id="contact">
-    <p class="sec-eyebrow">Contact</p>
-    <h2>Get in touch</h2>
-    <p class="sec-sub">Questions about the systems, the methods, or the results — the fastest route is LinkedIn.</p>
+    <p class="sec-eyebrow">Get started</p>
+    <h2>Bring a variant. Get evidence, not a guess.</h2>
+    <p class="sec-sub">Try the live tools, or reach out for collaboration — the fastest route is LinkedIn.</p>
     <div class="section-cta">
       <div class="cta-row">
-        <a class="btn" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Connect on LinkedIn</a>
-        <a class="btn ghost" href="/tools/">Browse the tools ›</a>
-        <a class="btn ghost" href="/methods/evaluation/">Read the methods ›</a>
+        <a class="btn" href="/tools/">Try the live tools</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Connect on LinkedIn ›</a>
       </div>
     </div>
   </section>
 
-<!-- evidra-build:contact:end -->
   <footer>
-    <p class="name">Evidra</p>
-    <p>Variant Evidence Agent — calibrated reclassification of variants of uncertain significance, with an evidence-citing agent that cites a retrieved record or declines. web-agent — an autonomous agent that operates web interfaces, measured on 36 tasks with recovery on and off.</p>
+    <p class="name">Omevra</p>
+    <p>Measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures. Not for clinical use.</p>
     <div class="links">
       <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent — live application</a>
-      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a><!-- evidra-build:tools-link:start -->
+      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
       <a href="/tools/">Tools — every usable tool</a>
-<!-- evidra-build:tools-link:end -->
-
     </div>
   </footer>
+  </div>
 </main>
 <!-- evidra-build:ask-widget:start -->
 
@@ -409,12 +312,12 @@
     .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
     .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
   </style>
-  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
-    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+  <div class="ask-panel" role="dialog" aria-label="Ask Omevra">
+    <div class="ask-head">Ask Omevra<span>Answers come only from this site's pages, with the source page named.</span></div>
     <div class="ask-msgs"></div>
     <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
   </div>
-  <button class="ask-toggle" type="button">Ask Evidra</button>
+  <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
 <script src="/assets/ask-evidra.js" defer></script>
 
