@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
 <link rel="icon" href="data:," />
-<title>Evidra — Variant Evidence Agent &amp; web-agent</title>
+<title>Evidra — measured AI systems for genomics and the web</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -103,16 +103,34 @@
   footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
   footer p{font-size:14.5px;max-width:760px}
   footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+  /* Platform front door */
+  .platform-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:44px 0 0;text-align:left}
+  @media(max-width:760px){ .platform-flow{grid-template-columns:1fr} }
+  .flow-step{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .flow-step b{display:block;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;color:var(--ink)}
+  .flow-step p{margin:0;font-size:15px;line-height:1.55}
+  .product-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px;text-align:left}
+  @media(max-width:760px){ .product-cards{grid-template-columns:1fr} }
+  .product-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 28px 24px;display:flex;flex-direction:column}
+  .product-card h3{font-size:22px}
+  .product-card .desc{margin:0 0 14px;font-size:16px;line-height:1.6;color:var(--ink-2)}
+  .product-card .metric{margin:0 0 12px;font-size:14.5px;line-height:1.55;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .product-card .who{margin:0 0 18px;font-size:14.5px;color:var(--muted)}
+  .product-card .cta-row{margin-top:auto}
+  .product-card .btn{font-size:15px;padding:11px 22px}
+  .product-card .btn.ghost{padding:11px 6px}
+  .hero .flow-line{font-size:clamp(20px,3.4vw,27px);line-height:1.4;font-weight:600;color:var(--ink);margin:22px auto 0;max-width:700px}
+  .hero .platform-line{font-size:17.5px;line-height:1.6;color:var(--ink-2);margin:16px auto 0;max-width:700px}
 </style>
 <!-- evidra-build:head:start -->
-<meta name="description" content="Evidra builds measured AI systems: a calibrated Variant Evidence Agent for VUS reclassification and web-agent, an autonomous web agent evaluated with a recovery ablation." />
+<meta name="description" content="Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
 <link rel="canonical" href="https://variant-evidence-agent.netlify.app/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Evidra" />
-<meta property="og:title" content="Evidra — Variant Evidence Agent &amp; web-agent" />
-<meta property="og:description" content="Evidra builds measured AI systems: a calibrated Variant Evidence Agent for VUS reclassification and web-agent, an autonomous web agent evaluated with a recovery ablation." />
+<meta property="og:title" content="Evidra — measured AI systems for genomics and the web" />
+<meta property="og:description" content="Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
 <meta property="og:url" content="https://variant-evidence-agent.netlify.app/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Evidra builds measured AI systems: a calibrated Variant Evidence Agent for VUS reclassification and web-agent, an autonomous web agent evaluated with a recovery ablation.", "name": "Evidra", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures.", "name": "Evidra", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://variant-evidence-agent.netlify.app/"}</script>
 <!-- evidra-build:head:end -->
 </head>
 <body>
@@ -129,28 +147,81 @@
 </header>
 
 <main class="wrap">
-  <!-- HERO / PRODUCT ONE -->
+  <!-- HERO -->
   <header class="hero">
-    <p class="eyebrow">Evidra <span class="prod-no">· Product one</span></p>
-    <h1>Variant Evidence <span class="grad">Agent</span></h1>
-    <p class="subtitle">Calibrated VUS reclassification with an evidence-citing agent. Clinical variant interpretation, done honestly.</p>
-
+    <p class="eyebrow">Evidra</p>
+    <h1>Measured AI systems <span class="grad">for genomics and the web.</span></h1>
+    <p class="flow-line">Data in → pipelines run → evidence out.</p>
+    <p class="platform-line">Evidra is one platform of systems that do genomics and web work and publish their measured results — including where they fail, decline, or tie.</p>
     <div class="cta-row">
-      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
-      <a class="btn ghost" href="/evidra/vus-evidence-agent/">Explore the full system ›</a>
-    </div>
-
-    <div class="rule-panel">
-      <p>An LLM / RAG agent with a hard rule: <strong>cite, or decline. Never invent.</strong> Every claim in a report is cited to a retrieved record — and one answer is explicitly allowed: <em>“insufficient evidence — remains VUS.”</em></p>
-    </div>
-
-    <div class="stats" aria-label="Key numbers">
-      <div class="stat"><b>1,103,657</b><span>Variants labelled in ClinVar frozen at Jan 2024 — the training set</span></div>
-      <div class="stat"><b>27,748</b><span>Variants uncertain at the freeze, reclassified after it — the test set</span></div>
-      <div class="stat"><b>0.968</b><span>AUROC — final model (AlphaMissense + REVEL + gene prior, isotonic)</span></div>
-      <div class="stat"><b>0.023</b><span>ECE of the final model on the post-freeze test set</span></div>
+      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the Variant Evidence Agent live</a>
+      <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run web-agent live</a>
     </div>
   </header>
+
+  <!-- PLATFORM FLOW -->
+  <div class="platform-flow" aria-label="How Evidra works">
+    <div class="flow-step"><b>1 · Bring data</b><p>Genomic variants, sequencing reads, perturbation data, or a web task — bring the data the work starts from.</p></div>
+    <div class="flow-step"><b>2 · Run measured pipelines</b><p>Pipelines and agents run the work with fixed gates, budgets, and scoring rules stated up front.</p></div>
+    <div class="flow-step"><b>3 · Get cited evidence</b><p>You get evidence reports and results with every claim cited and the measured numbers published — including failures.</p></div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <p class="sec-eyebrow">Products</p>
+    <h2>Five products, one platform</h2>
+    <p class="sec-sub">Data in → pipelines run → evidence out — each product is one part of that flow, with a live demo or the full results one click away.</p>
+    <div class="product-cards">
+      <div class="product-card">
+        <h3>Variant Evidence Agent</h3>
+        <p class="desc">Evidence reports for variants of uncertain significance — every claim cited, or the system declines.</p>
+        <p class="metric">AUROC 0.968 · calibration error (ECE) 0.023 · tested on 27,748 ClinVar variants reclassified after its training freeze · 10,373 summarised, 17,375 declined</p>
+        <p class="who">For variant scientists and genomics researchers.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try it live</a>
+          <a class="btn ghost" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Batch evidence pack — up to 500 variants at once</a>
+          <a class="btn ghost" href="/evidra/vus-evidence-agent/">How it works ›</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <h3>web-agent</h3>
+        <p class="desc">An autonomous agent that operates real web interfaces end to end — and publishes exactly how often it succeeds.</p>
+        <p class="metric">36/36 evaluation tasks passed with recovery on vs 27/36 off · adversarial tasks 9/9 vs 0/9</p>
+        <p class="who">For teams evaluating browser agents.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+          <a class="btn ghost" href="/evidra/web-agent/">Full results ›</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <h3>NGS Pipeline Atlas</h3>
+        <p class="desc">A reproducible bacterial whole-genome pipeline — reads in, QC-gated variant calls out — run twice to prove it reproduces.</p>
+        <p class="metric">33 samples · 27 passed · 6 stopped at the 10× coverage gate · two runs byte-identical</p>
+        <p class="who">For pipeline engineers who need runs they can trust.</p>
+        <div class="cta-row">
+          <a class="btn" href="/evidra/ngs-pipeline-atlas/">See the results ›</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <h3>hybrid-perturb-bench</h3>
+        <p class="desc">An honest benchmark of gene-perturbation response prediction on Norman 2019 Perturb-seq, 111,445 cells.</p>
+        <p class="metric">Two-gene combinations: hybrid model 0.82 vs 0.57 mean baseline (Pearson Δ; ceiling 0.93) · on unseen single perturbations it trails the mean — published as-is</p>
+        <p class="who">For single-cell and ML researchers.</p>
+        <div class="cta-row">
+          <a class="btn" href="/evidra/hybrid-perturb-bench/">See the benchmark ›</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <h3>Multi-Agent Evidence</h3>
+        <p class="desc">Three cooperating agents — Retriever, Synthesiser, Critic — measured against the single-agent baseline they had to beat.</p>
+        <p class="metric">Citation accuracy 1.00 vs 1.00 after audit — a published tie · decline correctness 36/36 both ways · 17,062 vs 46,225 tokens</p>
+        <p class="who">For teams designing multi-agent evidence systems.</p>
+        <div class="cta-row">
+          <a class="btn" href="/evidra/multi-agent-evidence/">See the comparison ›</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- WHAT IT DOES -->
   <section id="what">
@@ -264,6 +335,18 @@
   </section>
 
 <!-- evidra-build:mae-panel:end -->
+  <!-- EARLY ACCESS -->
+  <section id="early-access">
+    <p class="sec-eyebrow">Early access</p>
+    <h2>Join the early-access list</h2>
+    <p class="sec-sub">The products are free and in early access. Early access is coordinated personally, and the list is kept through LinkedIn — connect there to join, ask questions, and follow new results as they are published.</p>
+    <div class="section-cta">
+      <div class="cta-row">
+        <a class="btn" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Join via LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
 <!-- evidra-build:contact:start -->
 
   <!-- CONTACT -->
