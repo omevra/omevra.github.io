@@ -210,6 +210,14 @@
 
   .chart-box svg{display:block}
   .chart-box h4{font-size:15px;margin:0 0 6px}
+  .wa-facade{text-align:center;padding:30px 16px 34px}
+  .wa-facade-title{font-size:17px;font-weight:650;margin:0 0 20px}
+  .wa-facade .btn{border:0;cursor:pointer;font-family:inherit}
+  .wa-frame-wrap{position:relative}
+  .wa-frame{display:block;width:100%;height:640px;border:0;background:#fff}
+  .wa-wake{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:rgba(255,255,255,.92);font-size:17px;font-weight:600;color:var(--ink)}
+  .wa-wake[hidden]{display:none}
+  .wa-fine{font-size:13.5px;color:var(--muted);margin:10px 0 0}
   .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
   @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
   .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
@@ -244,9 +252,9 @@
     <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
       <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live</a>
+      <a href="#demo">web-agent — live</a>
     </nav>
-    <a class="bar-btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+    <a class="bar-btn" href="#demo">Run it live</a>
   </div>
   <div class="subnav">
     <div class="sub-in">
@@ -271,7 +279,7 @@
     <h1>web-<span>agent</span></h1>
     <p class="subtitle">An autonomous agent that operates web interfaces end to end — observe, act, verify, recover — measured with an ablation, not adjectives.</p>
     <div class="cta-row">
-      <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+      <a class="btn" href="#demo">Run it live</a>
       <a class="btn ghost" href="#charts">See the results, drawn ›</a>
     </div>
     <div class="stats" aria-label="Key numbers">
@@ -358,8 +366,17 @@
 
   <section id="demo">
     <div class="sec-head"><h2>Live demo</h2></div>
-    <p>The live application, embedded — the same fixture pages the evaluation runs on. The standalone application stays at <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">evidra-web-agent.hf.space</a>.</p>
-    <div class="chart-box"><iframe src="https://evidra-web-agent.hf.space" title="web-agent — live application" loading="lazy" style="width:100%;height:640px;border:0;background:#fff" ></iframe></div>
+    <p>The live application, embedded — the same fixture pages the evaluation runs on.</p>
+    <div class="chart-box">
+      <div class="wa-facade" id="wa-facade">
+        <p class="wa-facade-title">web-agent — live application</p>
+        <button class="btn" type="button" id="wa-launch">Launch the app</button>
+      </div>
+      <div class="wa-frame-wrap" id="wa-frame-wrap" hidden>
+        <div class="wa-wake" id="wa-wake">Waking up the app — the first load can take about 30 seconds.</div>
+      </div>
+    </div>
+    <p class="wa-fine"><a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Open the app full-screen</a></p>
   </section>
 
   <section id="howto">
@@ -447,7 +464,7 @@
     <p class="name">Omevra</p>
     <p>web-agent — an autonomous agent that operates web interfaces, measured on 36 tasks with recovery on and off. Every figure on this page is computed from the evaluation’s raw run files.</p>
     <div class="links">
-      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a>
+      <a href="#demo">web-agent — live application</a>
       <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent — full system</a>
       <a href="/omevra/">Omevra — both products</a>
     </div>
@@ -484,5 +501,40 @@
 <script src="/omevra/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
+<script>
+/* Live application — click-to-load. The iframe is created only on first
+   activation (the Launch button, or any in-page link to #demo), so the
+   page never pays the app's load cost up front. */
+(function(){
+  var BASE = 'https://evidra-web-agent.hf.space';
+  var facade = document.getElementById('wa-facade');
+  var wrap = document.getElementById('wa-frame-wrap');
+  var wake = document.getElementById('wa-wake');
+  if (!facade || !wrap || !wake) return;
+  var frame = null;
+  function activate(){
+    if (frame) return;
+    frame = document.createElement('iframe');
+    frame.className = 'wa-frame';
+    frame.title = 'web-agent — live application';
+    frame.src = BASE;
+    frame.addEventListener('load', function(){
+      var blank = false;
+      try { blank = (frame.contentWindow.location.href === 'about:blank'); } catch (e) { blank = false; }
+      if (!blank) wake.hidden = true;
+    });
+    wrap.insertBefore(frame, wake);
+    facade.hidden = true;
+    wrap.hidden = false;
+  }
+  document.getElementById('wa-launch').addEventListener('click', activate);
+  var links = document.querySelectorAll('a');
+  for (var i = 0; i < links.length; i++) {
+    if (links[i].getAttribute('href') === '#demo') {
+      links[i].addEventListener('click', activate);
+    }
+  }
+})();
+</script>
 </body>
 </html>
