@@ -220,6 +220,12 @@
   .price-card .amt span{font-size:14.5px;font-weight:500;color:var(--muted);letter-spacing:0}
   .price-card .annual{font-size:13.5px;color:var(--muted);margin:4px 0 0}
   .price-card .sum{font-size:14.5px;line-height:1.55;margin:12px 0 0}
+  .price-more summary{list-style:none;cursor:pointer;display:block}
+  .price-more summary::-webkit-details-marker{display:none}
+  .price-more .see-benefits{display:inline-block;margin-top:14px;font-weight:700;font-size:14.5px;color:var(--accent)}
+  .price-more summary:hover .see-benefits{text-decoration:underline}
+  .price-more .benefits{margin:16px 0 0;padding:15px 0 0 18px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.5}
+  .price-more .benefits li{margin:5px 0}
 
   /* Live application embed */
   .app-note{text-align:center;font-size:15px;font-weight:600;color:var(--ink);margin:42px 0 14px}
@@ -404,28 +410,88 @@
     <h2 class="rv">Plans that scale with your variants</h2>
     <p class="sec-sub rv">Start free. Paid plans open with the first pilot cohort, and pricing is confirmed with you before anything is ever charged.</p>
     <div class="price-grid">
-      <article class="price-card rv">
-        <div class="p-no">FREE</div>
-        <div class="amt">$0</div>
-        <p class="sum">Trying it out — 100 variants per month · 1 seat · Evidence packs (PDF, CSV, XLSX).</p>
-      </article>
-      <article class="price-card rv" data-d="1">
-        <div class="p-no">RESEARCHER</div>
-        <div class="amt">$79 <span>/ month</span></div>
-        <p class="annual">$63 / month billed annually</p>
-        <p class="sum">Individual researchers — 5,000 variants per month · 1 seat · Unlimited saved projects and history.</p>
-      </article>
-      <article class="price-card rv" data-d="2">
-        <div class="p-no">LAB</div>
-        <div class="amt">$499 <span>/ month</span></div>
-        <p class="annual">$399 / month billed annually</p>
-        <p class="sum">Research labs and core facilities — 50,000 variants per month · 5 seats · Shared team workspace · API access.</p>
-      </article>
-      <article class="price-card rv" data-d="3">
-        <div class="p-no">ENTERPRISE</div>
-        <div class="amt">Custom</div>
-        <p class="sum">Biotech, pharma, CROs — Unlimited variants · Unlimited seats · API access with higher limits · Single sign-on (SSO) · Dedicated contact and SLA.</p>
-      </article>
+      <details class="price-card price-more rv">
+        <summary>
+          <div class="p-no">FREE</div>
+          <div class="amt">$0</div>
+          <p class="sum">Trying it out — 100 variants per month · 1 seat · Evidence packs (PDF, CSV, XLSX).</p>
+          <span class="see-benefits">See the benefits</span>
+        </summary>
+        <ul class="benefits">
+          <li>Variants per month — 100</li>
+          <li>Seats — 1</li>
+          <li>Evidence packs (PDF, CSV, XLSX) — Yes</li>
+          <li>Saved projects and history — 7 days</li>
+          <li>Shared team workspace — No</li>
+          <li>Re-check alerts on new ClinVar evidence — No</li>
+          <li>API access — No</li>
+          <li>Pipeline runs (FASTQ to VCF) — No</li>
+          <li>Support — Docs</li>
+          <li>Single sign-on (SSO) — No</li>
+        </ul>
+      </details>
+      <details class="price-card price-more rv" data-d="1">
+        <summary>
+          <div class="p-no">RESEARCHER</div>
+          <div class="amt">$79 <span>/ month</span></div>
+          <p class="annual">$63 / month billed annually</p>
+          <p class="sum">Individual researchers — 5,000 variants per month · 1 seat · Unlimited saved projects and history.</p>
+          <span class="see-benefits">See the benefits</span>
+        </summary>
+        <ul class="benefits">
+          <li>Variants per month — 5,000</li>
+          <li>Seats — 1</li>
+          <li>Evidence packs (PDF, CSV, XLSX) — Yes</li>
+          <li>Saved projects and history — Unlimited</li>
+          <li>Shared team workspace — No</li>
+          <li>Re-check alerts on new ClinVar evidence — Monthly</li>
+          <li>API access — No</li>
+          <li>Pipeline runs (FASTQ to VCF) — Credits</li>
+          <li>Support — Email, 2 business days</li>
+          <li>Single sign-on (SSO) — No</li>
+        </ul>
+      </details>
+      <details class="price-card price-more rv" data-d="2">
+        <summary>
+          <div class="p-no">LAB</div>
+          <div class="amt">$499 <span>/ month</span></div>
+          <p class="annual">$399 / month billed annually</p>
+          <p class="sum">Research labs and core facilities — 50,000 variants per month · 5 seats · Shared team workspace · API access.</p>
+          <span class="see-benefits">See the benefits</span>
+        </summary>
+        <ul class="benefits">
+          <li>Variants per month — 50,000</li>
+          <li>Seats — 5 (add more at $49 / seat)</li>
+          <li>Evidence packs (PDF, CSV, XLSX) — Yes</li>
+          <li>Saved projects and history — Unlimited</li>
+          <li>Shared team workspace — Yes</li>
+          <li>Re-check alerts on new ClinVar evidence — Weekly</li>
+          <li>API access — Yes</li>
+          <li>Pipeline runs (FASTQ to VCF) — Credits</li>
+          <li>Support — Email, 1 business day</li>
+          <li>Single sign-on (SSO) — No</li>
+        </ul>
+      </details>
+      <details class="price-card price-more rv" data-d="3">
+        <summary>
+          <div class="p-no">ENTERPRISE</div>
+          <div class="amt">Custom</div>
+          <p class="sum">Biotech, pharma, CROs — Unlimited variants · Unlimited seats · API access with higher limits · Single sign-on (SSO) · Dedicated contact and SLA.</p>
+          <span class="see-benefits">See the benefits</span>
+        </summary>
+        <ul class="benefits">
+          <li>Variants per month — Unlimited</li>
+          <li>Seats — Unlimited</li>
+          <li>Evidence packs (PDF, CSV, XLSX) — Yes</li>
+          <li>Saved projects and history — Unlimited</li>
+          <li>Shared team workspace — Yes</li>
+          <li>Re-check alerts on new ClinVar evidence — Custom</li>
+          <li>API access — Yes, with higher limits</li>
+          <li>Pipeline runs (FASTQ to VCF) — Included allowance</li>
+          <li>Support — Dedicated contact and SLA</li>
+          <li>Single sign-on (SSO) — Yes</li>
+        </ul>
+      </details>
     </div>
     <p class="sec-sub rv">Early pilot partners: a free Lab plan for 90 days in exchange for feedback.</p>
     <div class="section-cta rv">
@@ -479,7 +545,7 @@
     <p>Measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures. Not for clinical use.</p>
     <div class="links">
       <a href="#app">Variant Evidence Agent — live application</a>
-      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a>
+      <a href="/omevra/web-agent/">web-agent — live application</a>
       <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
       <a href="/omevra/web-agent/">web-agent</a>
       <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
