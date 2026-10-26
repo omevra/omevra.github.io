@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<!-- evidra-build:brand-head:start -->
+<link rel="icon" type="image/png" sizes="16x16" href="/omevra/assets/brand/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/omevra/assets/brand/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/omevra/assets/brand/favicon-48.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/omevra/assets/brand/favicon-180.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/omevra/assets/brand/favicon-512.png" />
+<!-- evidra-build:brand-head:end -->
+<title>Privacy Policy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.3%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.7%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+/* evidra-build:brand-css:start */
+  .wordmark{display:inline-flex;align-items:center;gap:9px}
+  .brand-mark{width:38px;height:38px;flex:none;display:block;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:9px}
+  .hero-mark{display:block;width:132px;height:132px;margin:0 auto 26px;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:30px}
+/* evidra-build:brand-css:end */
+</style>
+<style>
+  .part{margin-top:20px}
+  .part:first-child{margin-top:4px}
+  .part-label{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+  .part p:last-child{margin-bottom:0}
+</style>
+<style>
+  .legal h3{margin-top:38px}
+  .legal h3:first-of-type{margin-top:6px}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="The Omevra Privacy Policy: what is collected, how it is used, health information rules, sharing with subprocessors, retention and deletion, security, and your rights." />
+<link rel="canonical" href="https://umeshlinga.github.io/omevra/privacy/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Omevra" />
+<meta property="og:title" content="Privacy Policy" />
+<meta property="og:description" content="The Omevra Privacy Policy: what is collected, how it is used, health information rules, sharing with subprocessors, retention and deletion, security, and your rights." />
+<meta property="og:url" content="https://umeshlinga.github.io/omevra/privacy/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Privacy Policy", "description": "The Omevra Privacy Policy: what is collected, how it is used, health information rules, sharing with subprocessors, retention and deletion, security, and your rights.", "url": "https://umeshlinga.github.io/omevra/privacy/", "isPartOf": {"@type": "WebSite", "name": "Omevra", "url": "https://umeshlinga.github.io/omevra/"}}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <nav class="bar-nav" aria-label="Site">
+      <a href="/omevra/vus-evidence-agent/">Product</a>
+      <a href="/omevra/validation/">Validation</a>
+      <a href="/omevra/pricing/">Pricing</a>
+      <a href="/omevra/methods/">Methods</a>
+      <a href="/omevra/capacity/">Capacity</a>
+      <a href="/omevra/about/">About</a>
+    </nav>
+    <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Omevra · Privacy</p>
+    <h1>Privacy <span>Policy</span></h1>
+    <p class="subtitle">What Omevra collects, how it is used, and your choices. It applies to our website, applications, and API.</p>
+  </header>
+
+  <section class="legal">
+    <p class="lead">This policy applies from the date it is posted on this page.</p>
+    <h3>1. Information we collect</h3>
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Examples</th><th>Source</th></tr></thead>
+          <tbody>
+          <tr><td>Account information</td><td data-label="Examples">Name, email, organization, role</td><td data-label="Source">You, at sign-up</td></tr>
+          <tr><td>Billing information</td><td data-label="Examples">Plan, billing address, payment status</td><td data-label="Source">You, through our payment processor. We do not store full card numbers.</td></tr>
+          <tr><td>Customer Data</td><td data-label="Examples">Variant lists, VCF and FASTQ files, project names, generated reports</td><td data-label="Source">You, when you upload or run analyses</td></tr>
+          <tr><td>Usage data</td><td data-label="Examples">Pages visited, features used, API calls, error logs</td><td data-label="Source">Collected automatically</td></tr>
+          <tr><td>Device data</td><td data-label="Examples">Browser type, IP address, approximate location</td><td data-label="Source">Collected automatically</td></tr>
+          <tr><td>Communications</td><td data-label="Examples">Support emails, feedback, demo requests</td><td data-label="Source">You</td></tr>
+          </tbody>
+        </table>
+        </div>
+    <h3>2. How we use information</h3>
+    <ul>
+      <li>To provide, run, and secure the Service</li>
+      <li>To process payments and manage subscriptions</li>
+      <li>To send service messages, such as usage alerts, re-check alerts, and billing notices</li>
+      <li>To provide support and respond to requests</li>
+      <li>To improve the Service using aggregated, de-identified usage data</li>
+      <li>To meet legal obligations</li>
+    </ul>
+    <p>We use Customer Data only to provide the Service to you. We do not sell your data, and we do not use Customer Data to train our models without your written permission.</p>
+    <h3>3. Health information</h3>
+    <p>The Service is designed for de-identified research data. Do not upload protected health information (PHI) or directly identifying information about patients or research participants unless you have a signed Business Associate Agreement with us. If we learn that PHI was uploaded without a BAA, we may delete it and notify you.</p>
+    <h3>4. How we share information</h3>
+    <p>We share information only with:</p>
+    <ul>
+      <li>Service providers (subprocessors) that help us run the Service, under contracts that limit their use of your data. Today those are GitHub, which hosts this website, and Hugging Face, which hosts the application. Payment, authentication, email, and error-monitoring processors will be named on the <a href="/omevra/security/">Security &amp; data handling page</a> before paid plans launch.</li>
+      <li>Members of your workspace, when you share a project with them</li>
+      <li>Authorities, when required by law or to protect rights and safety</li>
+      <li>A successor, if Omevra is acquired or merged, under the same protections</li>
+    </ul>
+    <h3>5. Data retention and deletion</h3>
+    <ul>
+      <li>Customer Data is kept while your account is active.</li>
+      <li>You can delete projects or files at any time. Deleted data is removed from active systems within 30 days and from backups within 90 days.</li>
+      <li>After account closure, you have 30 days to export your data before it is deleted.</li>
+      <li>Billing records are kept as long as tax and accounting laws require.</li>
+    </ul>
+    <h3>6. Security</h3>
+    <p>We encrypt data in transit (TLS) and at rest, restrict access to authorized personnel, log access to Customer Data, and back up data regularly. No system is perfectly secure. We will notify affected customers of a data breach as required by law.</p>
+    <h3>7. Where data is stored</h3>
+    <p>Data is stored and processed in the United States. If you access the Service from outside the US, you consent to this transfer.</p>
+    <h3>8. Your rights</h3>
+    <p>Depending on where you live, you may have the right to access, correct, export, or delete your personal information, and to object to or restrict certain processing. Residents of California and the EU/UK have additional rights under the CCPA and GDPR. To make a request, email umesh.linga25@gmail.com. We will respond within 30 days and will not discriminate against you for exercising your rights.</p>
+    <h3>9. Cookies</h3>
+    <p>We use essential cookies to keep you signed in and to secure the Service, and optional analytics cookies to understand usage. You can decline optional cookies in the cookie banner or your browser settings.</p>
+    <h3>10. Children</h3>
+    <p>The Service is not intended for anyone under 18, and we do not knowingly collect their personal information.</p>
+    <h3>11. Changes to this policy</h3>
+    <p>We may update this policy. We will post the new version on this page and notify account holders by email of material changes.</p>
+    <h3>12. Contact</h3>
+    <p>Umesh Linga, operating as Omevra &middot; umesh.linga25@gmail.com</p>
+  </section>
+
+  <footer>
+    <p class="name">Omevra</p>
+    <p>Measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures.</p>
+    <div class="links">
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/omevra/methods/calibration/">Methods — calibration</a>
+      <a href="/omevra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/omevra/pricing/">Pricing</a>
+      <a href="/omevra/validation/">Validation</a>
+      <a href="/omevra/use-cases/">Use cases</a>
+      <a href="/omevra/research/">Research</a>
+      <a href="/omevra/security/">Security</a>
+      <a href="/omevra/terms/">Terms</a>
+      <a href="/omevra/privacy/">Privacy</a>
+      <a href="/omevra/contact/">Contact</a>
+      <a href="/omevra/">Omevra — home</a>
+    </div>
+    <p>Research Use Only.</p>
+    <p>Not for clinical use.</p>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Omevra">
+    <div class="ask-head">Ask Omevra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Omevra</button>
+</div>
+<script src="/omevra/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+
+</body>
+</html>

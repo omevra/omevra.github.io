@@ -169,6 +169,9 @@
   .trial p{color:rgba(255,255,255,.88);font-size:19px;max-width:620px;margin:16px auto 30px}
   .trial .btn{background:#fff;color:var(--accent-deep)}
   .trial .btn:hover{background:#f5f5f7;box-shadow:0 14px 28px rgba(0,0,0,.22)}
+  .trial .cta-row{justify-content:center}
+  .trial .btn.line{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.75)}
+  .trial .btn.line:hover{background:rgba(255,255,255,.12);box-shadow:none}
 
   .builder-card{margin:46px auto 0;max-width:900px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px;display:flex;gap:32px;align-items:center;text-align:left}
   .builder-bio{font-size:19px;line-height:1.55;font-weight:600;color:var(--ink);margin:0 0 12px}
@@ -205,10 +208,10 @@
   <div class="bar-in">
     <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Site">
-      <a href="#products">Products</a>
-      <a href="#methods">Methods</a>
-      <a href="#evaluations">Evaluations</a>
-      <a href="/omevra/tools/">Tools</a>
+      <a href="/omevra/vus-evidence-agent/">Product</a>
+      <a href="/omevra/validation/">Validation</a>
+      <a href="/omevra/pricing/">Pricing</a>
+      <a href="/omevra/methods/">Methods</a>
       <a href="/omevra/capacity/">Capacity</a>
       <a href="/omevra/about/">About</a>
     </nav>
@@ -248,11 +251,11 @@
     <div class="proof-item rv" data-d="3"><b class="tnum" data-count="0.970" data-decimals="3">0.970</b><span>AUROC — measured on the 10,357 variants the model scored · ECE 0.025</span></div>
   </div>
 
-  <!-- PRODUCTS -->
+  <!-- PLATFORM -->
   <section id="products">
-    <p class="sec-eyebrow rv">Five products</p>
-    <h2 class="rv">One platform, five measured systems</h2>
-    <p class="sec-sub rv">Data in → pipelines run → evidence out. Every product below is live, and every number on this page is a measured result — including the ones below baseline.</p>
+    <p class="sec-eyebrow rv">The platform</p>
+    <h2 class="rv">One product, three modules</h2>
+    <p class="sec-sub rv">Calibrated variant evidence for research teams. Send a variant list and get cited, calibrated evidence reports — or an honest “not enough evidence.” Every number on this page is a measured result, published with its limits.</p>
     <div class="products">
       <article class="p-card feature rv">
         <div class="p-no">01 — VARIANT EVIDENCE</div>
@@ -274,7 +277,34 @@
       </article>
 
       <article class="p-card rv">
-        <div class="p-no">02 — AUTONOMOUS AGENT</div>
+        <div class="p-no">02 — PIPELINES</div>
+        <h3>Pipelines</h3>
+        <p class="desc">The NGS Pipeline Atlas takes raw reads (FASTQ) to variant calls (VCF), with QC gates that are allowed to say no — a run that fails a gate stops, instead of producing numbers nobody should trust. Run end to end on real sequencing data, then run a second time to prove it reproduces. It did, exactly.</p>
+        <div class="metric mono tnum">33 runs · 27 passed QC · 130,614 calls · 81,810 unique sites · second run byte-identical</div>
+        <div class="cta-row">
+          <a class="btn ghost" href="/omevra/ngs-pipeline-atlas/">Explore the atlas ›</a>
+        </div>
+      </article>
+
+      <article class="p-card rv">
+        <div class="p-no">03 — AI ASSISTANT</div>
+        <h3>AI Assistant</h3>
+        <p class="desc">Ask questions about your own variants and projects, in plain words. Every answer cites the evidence behind it — and where the evidence is not there, the assistant declines instead of guessing. Cite-or-decline, in conversation.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <p class="sec-eyebrow rv">Research</p>
+    <h2 class="rv">Research systems, published in full</h2>
+    <p class="sec-sub rv">Open research built alongside the platform. Each system publishes its own measurements — including the results that land below baseline. <a href="/omevra/research/">All research systems ›</a></p>
+    <div class="products">
+      <article class="p-card rv">
+        <div class="p-no">RESEARCH — WEB AGENT</div>
         <h3>web-agent</h3>
         <p class="desc">An agent that operates web interfaces end to end — forms, tables, dialogs, portals — with an evidence layer that watches every step and recovers when a step fails.</p>
         <div class="viz" role="img" aria-label="36 of 36 tasks with the evidence layer on, 27 of 36 with it off">
@@ -289,17 +319,7 @@
       </article>
 
       <article class="p-card rv">
-        <div class="p-no">03 — REPRODUCIBLE PIPELINE</div>
-        <h3>NGS Pipeline Atlas</h3>
-        <p class="desc">A bacterial whole-genome pipeline, run end to end on real sequencing data — then run a second time to prove it reproduces. It did, exactly.</p>
-        <div class="metric mono tnum">33 runs · 27 passed QC · 130,614 calls · 81,810 unique sites · second run byte-identical</div>
-        <div class="cta-row">
-          <a class="btn ghost" href="/omevra/ngs-pipeline-atlas/">Explore the atlas ›</a>
-        </div>
-      </article>
-
-      <article class="p-card rv">
-        <div class="p-no">04 — BENCHMARK</div>
+        <div class="p-no">RESEARCH — BENCHMARK</div>
         <h3>hybrid-perturb-bench</h3>
         <p class="desc">A perturbation-response benchmark on real single-cell data. The hybrid singles model lost to the simplest baseline — and that result is published here, unchanged.</p>
         <div class="viz" role="img" aria-label="Hybrid singles 0.537 against the global-mean baseline 0.588">
@@ -313,7 +333,7 @@
       </article>
 
       <article class="p-card rv">
-        <div class="p-no">05 — MULTI-AGENT EVIDENCE</div>
+        <div class="p-no">RESEARCH — MULTI-AGENT EVIDENCE</div>
         <h3>Multi-Agent Evidence</h3>
         <p class="desc">Three agents that check one another's citations before any answer reaches you. Measured against the single-agent baseline, both systems scored 1.00 on citation accuracy — the ceiling of this benchmark, so the test cannot separate them — and the multi-agent system cost more to get there. A harder benchmark is needed.</p>
         <div class="viz" role="img" aria-label="Citation accuracy 1.00 for both multi-agent and single-agent systems">
@@ -362,12 +382,16 @@
     </div>
   </section>
 
-  <!-- TRIAL CTA -->
-  <section class="trial rv" aria-label="Public demo">
-    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Public demo</p>
-    <h2>Try the public demo.</h2>
+  <!-- GET STARTED -->
+  <section class="trial rv" aria-label="Get started">
+    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Get started</p>
+    <h2>Start free. Scale when the work does.</h2>
     <p>The Variant Evidence Agent runs in public. Open it, run the example variants, and read the evidence pack it returns — every claim cited, every gap shown. Public demo — please do not upload patient data. Use example or de-identified variants only.</p>
-    <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the public demo</a>
+    <div class="cta-row">
+      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Start free — open the public demo</a>
+      <a class="btn line" href="/omevra/pricing/">See pricing</a>
+      <a class="btn line" href="/omevra/contact/">Book a demo</a>
+    </div>
   </section>
 
   <!-- BUILDER -->
@@ -401,7 +425,14 @@
       <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a>
       <a href="/omevra/methods/calibration/">Calibration</a>
       <a href="/omevra/tools/">Tools — every usable tool</a>
+      <a href="/omevra/pricing/">Pricing</a>
+      <a href="/omevra/validation/">Validation</a>
+      <a href="/omevra/security/">Security</a>
+      <a href="/omevra/terms/">Terms</a>
+      <a href="/omevra/privacy/">Privacy</a>
+      <a href="/omevra/contact/">Contact</a>
     </div>
+    <p>Research Use Only.</p>
   </footer>
   </div>
 </main>
