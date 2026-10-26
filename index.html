@@ -204,6 +204,7 @@
       <a href="#evaluations">Evaluations</a>
       <a href="/omevra/tools/">Tools</a>
       <a href="/omevra/capacity/">Capacity</a>
+      <a href="/omevra/about/">About</a>
     </nav>
     <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
   </div>
@@ -222,12 +223,12 @@
       <img class="wordmark-img" src="/omevra/assets/brand/omevra-wordmark-green.webp" alt="OMEVRA" width="560" />
       <p class="eyebrow">Evidence-first genomics</p>
       <h1>Every variant, <span class="grad">judged by its evidence.</span></h1>
-      <p class="house">Omevra says only what the evidence proves — <em>and shows the proof.</em> Where the evidence runs out, it declines instead of guessing.</p>
+      <p class="house">Omevra reads the evidence behind a genetic variant and shows its working: what supports the call, what is missing, and how far to trust it.</p>
       <div class="cta-row">
         <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the Variant Evidence Agent live</a>
         <a class="btn ghost" href="#evaluations">See the evaluations ›</a>
       </div>
-      <p class="hero-meta mono tnum">Frozen temporal test &nbsp;·&nbsp; GBM+R &nbsp;·&nbsp; Cite-or-decline</p>
+      <p class="hero-meta mono tnum">Frozen temporal test set &nbsp;·&nbsp; Every result published in full</p>
     </div>
     <div class="scroll-cue" aria-hidden="true"></div>
   </header>
@@ -235,17 +236,17 @@
   <div class="wrap">
   <!-- PROOF STRIP -->
   <div class="proof-strip" aria-label="Proof points">
-    <div class="proof-item rv"><b class="tnum" data-count="27748">27,748</b><span>Variants judged on a frozen temporal split</span></div>
+    <div class="proof-item rv"><b class="tnum" data-count="27748">27,748</b><span>Variants in the frozen temporal test set</span></div>
     <div class="proof-item rv" data-d="1"><b class="tnum" data-count="10357">10,357</b><span>Summarised with cited evidence</span></div>
-    <div class="proof-item rv" data-d="2"><b class="tnum" data-count="17391">17,391</b><span>Declined by cite-or-decline, rather than guessed</span></div>
-    <div class="proof-item rv" data-d="3"><b class="tnum" data-count="0.970" data-decimals="3">0.970</b><span>AUROC · ECE 0.025 — the final model, as measured</span></div>
+    <div class="proof-item rv" data-d="2"><b class="tnum" data-count="17391">17,391</b><span>Declined — most had no predictor score (coverage 37.3%)</span></div>
+    <div class="proof-item rv" data-d="3"><b class="tnum" data-count="0.970" data-decimals="3">0.970</b><span>AUROC — measured on the 10,357 variants the model scored · ECE 0.025</span></div>
   </div>
 
   <!-- PRODUCTS -->
   <section id="products">
     <p class="sec-eyebrow rv">Five products</p>
     <h2 class="rv">One platform, five measured systems</h2>
-    <p class="sec-sub rv">Data in → pipelines run → evidence out. Every product below is live, and every number on this page is the measured result — including the ones that did not go our way.</p>
+    <p class="sec-sub rv">Data in → pipelines run → evidence out. Every product below is live, and every number on this page is a measured result — including the ones below baseline.</p>
     <div class="products">
       <article class="p-card feature rv">
         <div class="p-no">01 — VARIANT EVIDENCE</div>
@@ -257,9 +258,9 @@
             <span><i class="dot g"></i><strong class="tnum">10,357</strong> summarised (37.3%)</span>
             <span><i class="dot k"></i><strong class="tnum">17,391</strong> declined (62.7%)</span>
           </div>
-          <p class="viz-note">The decline bar is the point: a system that will not guess is the only one worth trusting with a variant.</p>
+          <p class="viz-note">Coverage is the limit behind the grey bar: the model scores the missense variants that carry predictor scores — 37.3% of the test set. The rest are declined, most of them non-missense variants with no predictor score at all; extending coverage is next on the roadmap.</p>
         </div>
-        <div class="metric mono tnum">27,748 variants · 3,084 genes · AUROC 0.970 · ECE 0.025 · model GBM+R</div>
+        <div class="metric mono tnum">AUROC 0.970 on the 10,357 scored variants · 37.3% of the 27,748-variant test set · ECE 0.025 · GBM+R (gradient boosting)</div>
         <div class="cta-row">
           <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
           <a class="btn ghost" href="/omevra/vus-evidence-agent/">Methods &amp; results ›</a>
@@ -273,7 +274,7 @@
         <div class="viz" role="img" aria-label="36 of 36 tasks with the evidence layer on, 27 of 36 with it off">
           <div class="viz-row"><span class="lbl">Evidence layer on</span><span class="viz-track"><span class="viz-fill" style="width:100%"></span></span><span class="viz-val tnum">36/36</span></div>
           <div class="viz-row"><span class="lbl">Evidence layer off</span><span class="viz-track"><span class="viz-fill gray" style="width:75%"></span></span><span class="viz-val tnum">27/36</span></div>
-          <p class="viz-note">Adversarial set: <strong class="tnum">9/9</strong> with the layer on, <strong class="tnum">0/9</strong> without it. That gap is what the layer is for.</p>
+          <p class="viz-note">36 of 36 tasks with the layer on (95% CI 90.3–100%); 27 of 36 off (95% CI 57.8–87.9%). Adversarial set: <strong class="tnum">9/9</strong> on (95% CI 66.4–100%), <strong class="tnum">0/9</strong> off (95% CI 0–33.6%).</p>
         </div>
         <div class="cta-row">
           <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
@@ -292,7 +293,7 @@
       </article>
 
       <article class="p-card rv">
-        <div class="p-no">04 — HONEST BENCHMARK</div>
+        <div class="p-no">04 — BENCHMARK</div>
         <h3>hybrid-perturb-bench</h3>
         <p class="desc">A perturbation-response benchmark on real single-cell data. The hybrid singles model lost to the simplest baseline — and that result is published here, unchanged.</p>
         <div class="viz" role="img" aria-label="Hybrid singles 0.537 against the global-mean baseline 0.588">
@@ -308,11 +309,11 @@
       <article class="p-card rv">
         <div class="p-no">05 — MULTI-AGENT EVIDENCE</div>
         <h3>Multi-Agent Evidence</h3>
-        <p class="desc">Three agents that check one another's citations before any answer reaches you. Measured against the single-agent baseline, the honest result is a tie — at higher cost.</p>
+        <p class="desc">Three agents that check one another's citations before any answer reaches you. Measured against the single-agent baseline, both systems scored 1.00 on citation accuracy — the ceiling of this benchmark, so the test cannot separate them — and the multi-agent system cost more to get there. A harder benchmark is needed.</p>
         <div class="viz" role="img" aria-label="Citation accuracy 1.00 for both multi-agent and single-agent systems">
           <div class="viz-row"><span class="lbl">Multi-agent</span><span class="viz-track"><span class="viz-fill" style="width:100%"></span></span><span class="viz-val tnum">1.00</span></div>
           <div class="viz-row"><span class="lbl">Single-agent</span><span class="viz-track"><span class="viz-fill gray" style="width:100%"></span></span><span class="viz-val tnum">1.00</span></div>
-          <p class="viz-note">A tie, stated plainly. The gain is in auditability, not in accuracy — and that is the claim we make.</p>
+          <p class="viz-note">Both systems at the benchmark’s ceiling (1.00). What separates them in this test is cost and auditability, not accuracy.</p>
         </div>
         <div class="cta-row">
           <a class="btn ghost" href="/omevra/multi-agent-evidence/">Read the evaluation ›</a>
@@ -333,7 +334,7 @@
     </div>
     <div class="method-panel rv">
       <p class="lead"><strong>The rule behind everything here is cite-or-decline.</strong> A variant report is only as good as the evidence it can point to. When the evidence is thin, declining is the correct answer — and it is the answer the Variant Evidence Agent gives 17,391 times out of 27,748.</p>
-      <p class="lead">Calibration is reported with the same honesty: the final model discriminates at AUROC 0.970 with a calibration error of ECE 0.025, measured on a frozen temporal test the model never trained on.</p>
+      <p class="lead">Calibration is reported alongside discrimination: the final model reaches AUROC 0.970 with a calibration error of ECE 0.025, measured on the 10,357 variants it scored out of the 27,748 in the frozen temporal test set — a test set the model never trained on.</p>
       <div class="cta-row">
         <a class="btn" href="/omevra/methods/temporal-evaluation/">Temporal evaluation ›</a>
         <a class="btn ghost" href="/omevra/methods/calibration/">Calibration ›</a>
@@ -346,7 +347,7 @@
   <section id="evaluations">
     <p class="sec-eyebrow rv">Evaluations</p>
     <h2 class="rv">Measured, published — including the losses</h2>
-    <p class="sec-sub rv">Most product pages show you their best number. Omevra shows you all of them: the wins, the tie, and the model that came in below baseline. That is what makes the wins believable.</p>
+    <p class="sec-sub rv">Every product’s full results are published here: the wins, the benchmark both systems topped out, and the model that came in below baseline.</p>
     <div class="section-cta rv">
       <div class="cta-row">
         <a class="btn" href="/omevra/tools/">Try every live tool</a>
@@ -356,11 +357,11 @@
   </section>
 
   <!-- TRIAL CTA -->
-  <section class="trial rv" aria-label="Free trial">
-    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Free trial</p>
-    <h2>Run your last 100 variants through it — free.</h2>
-    <p>Compare the evidence packs against your own calls, on your own data. If the evidence is thinner than you expected, the system will say so.</p>
-    <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Start the trial</a>
+  <section class="trial rv" aria-label="Public demo">
+    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Public demo</p>
+    <h2>Try the public demo.</h2>
+    <p>The Variant Evidence Agent runs in public. Open it, run the example variants, and read the evidence pack it returns — every claim cited, every gap shown. Public demo — please do not upload patient data. Use example or de-identified variants only.</p>
+    <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the public demo</a>
   </section>
 
   <footer>

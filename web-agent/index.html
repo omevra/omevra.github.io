@@ -227,14 +227,14 @@
 /* evidra-build:brand-css:end */
 </style>
 <!-- evidra-build:head:start -->
-<meta name="description" content="web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on and 27/36 with recovery off." />
+<meta name="description" content="web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%)." />
 <link rel="canonical" href="https://umeshlinga.github.io/omevra/web-agent/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Omevra" />
 <meta property="og:title" content="web-agent — Omevra" />
-<meta property="og:description" content="web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on and 27/36 with recovery off." />
+<meta property="og:description" content="web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%)." />
 <meta property="og:url" content="https://umeshlinga.github.io/omevra/web-agent/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on and 27/36 with recovery off.", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/web-agent/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "web-agent by Omevra: an autonomous agent that operates web interfaces, passing 36/36 evaluation tasks with recovery on (95% CI 90.3–100%) and 27/36 with recovery off (95% CI 57.8–87.9%).", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/web-agent/"}</script>
 <!-- evidra-build:head:end -->
 </head>
 <body>
@@ -275,9 +275,9 @@
       <a class="btn ghost" href="#charts">See the results, drawn ›</a>
     </div>
     <div class="stats" aria-label="Key numbers">
-      <div class="stat"><b>36/36</b><span>Tasks passed with recovery on — the full evaluation set</span></div>
-      <div class="stat"><b>27/36</b><span>Tasks passed with recovery off — the ablation control</span></div>
-      <div class="stat"><b>9/9 vs 0/9</b><span>Adversarial tasks passed, recovery on vs off</span></div>
+      <div class="stat"><b>36/36</b><span>Tasks passed with recovery on — the full evaluation set (95% CI 90.3–100%)</span></div>
+      <div class="stat"><b>27/36</b><span>Tasks passed with recovery off — the ablation control (95% CI 57.8–87.9%)</span></div>
+      <div class="stat"><b>9/9 vs 0/9</b><span>Adversarial tasks passed, recovery on vs off (95% CI 66.4–100% vs 0–33.6%)</span></div>
       <div class="stat"><b>27/27</b><span>Control tasks passed both ways, recovery on and off</span></div>
     </div>
   </header>
@@ -287,7 +287,7 @@
     <p class="lead">The same agent, the same 36 tasks, run twice: once with the recovery half of its loop switched on, once with it switched off.</p>
     <p>Twenty-seven of the tasks are controls — forms, tables, wizards, business workflows and portal navigation that a competent agent should pass either way. Nine are adversarial: the page mutates or obstructs mid-task — a button is renamed after a field is typed into, an overlay rises over the control, a same-label decoy appears. Every number on this page is computed from the raw run files of that evaluation (<code>results/run_on.json</code> and <code>results/run_off.json</code>); nothing is hand-entered.</p>
     <div class="table-wrap"><table><thead><tr><th>Category</th><th>Tasks</th><th>Recovery on</th><th>Recovery off</th></tr></thead><tbody><tr><td>Forms &amp; wizards</td><td data-label="Tasks">10</td><td data-label="Recovery on">10/10 (100.0%)</td><td data-label="Recovery off">10/10 (100.0%)</td></tr><tr><td>Tables, lists &amp; cart</td><td data-label="Tasks">6</td><td data-label="Recovery on">6/6 (100.0%)</td><td data-label="Recovery off">6/6 (100.0%)</td></tr><tr><td>Adversarial recovery</td><td data-label="Tasks">9</td><td data-label="Recovery on">9/9 (100.0%)</td><td data-label="Recovery off">0/9 (0.0%)</td></tr><tr><td>Widgets &amp; dialogs</td><td data-label="Tasks">5</td><td data-label="Recovery on">5/5 (100.0%)</td><td data-label="Recovery off">5/5 (100.0%)</td></tr><tr><td>Business workflows</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr><tr><td>Portal navigation</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr></tbody></table></div>
-    <p class="table-note">Recovery on passed all 36 tasks. Recovery off passed the 27 controls and failed all nine adversarial tasks — renamed targets were never found, covered buttons’ clicks timed out, and decoys failed their postconditions.</p>
+    <p class="table-note">Recovery on passed all 36 tasks. Recovery off passed the 27 controls and failed all nine adversarial tasks — renamed targets were never found, covered buttons’ clicks timed out, and decoys failed their postconditions. At these sample sizes the intervals are wide (exact Clopper–Pearson 95% CIs): 36/36 is 90.3–100%, 27/36 is 57.8–87.9%, and the adversarial split is 9/9 at 66.4–100% against 0/9 at 0–33.6%.</p>
   </section>
 
   <section id="charts">
@@ -346,7 +346,7 @@
         <p>Recovery off disables all three mechanisms: no re-grounding, no overlay dismissal, no retries — the first failure ends the task. The evaluation runs the identical suite in both modes, so the difference between the two columns on this page is the measured worth of the recovery half of the loop.</p>
       </div>
       <div class="item">
-        <h3>Scope, stated plainly</h3>
+        <h3>Scope</h3>
         <p>The evaluation runs against deterministic local fixture pages in headless Chromium — pages styled as real product surfaces (a CRM portal, a store checkout, settings and admin flows) rather than bare HTML. The live session operates the same pages. Seven adversarial tasks needed exactly one recovery with recovery on; the two double-mutation tasks needed two.</p>
       </div>
     </div>
@@ -383,7 +383,7 @@
 <!-- evidra-build:wa-demo:end -->
   <section id="evaluation">
     <div class="sec-head"><h2>Evaluation v1.0 — 36-task suite</h2></div>
-    <p>The current result set on this page is <strong>Evaluation v1.0</strong>: the full 36-task suite, both modes run. The raw outputs ship with this site as downloadable files, byte-identical to the lab's own copies:</p>
+    <p>The current result set on this page is <strong>Evaluation v1.0</strong>: the full 36-task suite, both modes run. The raw outputs ship with this site as downloadable files, byte-identical to the project's own copies:</p>
     <ul>
       <li><a href="/omevra/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
       <li><a href="/omevra/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>

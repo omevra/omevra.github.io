@@ -227,14 +227,14 @@
 /* evidra-build:brand-css:end */
 </style>
 <!-- evidra-build:head:start -->
-<meta name="description" content="Multi-Agent Evidence evaluations by Omevra: Evaluation v1 on 36 variants — a tie on citation accuracy at 1.00 against 1.00 after manual audit, at 46,225 against 17,062 tokens — with the evaluation files downloadable." />
+<meta name="description" content="Multi-Agent Evidence evaluations by Omevra: Evaluation v1 on 36 variants — both systems at the benchmark ceiling on citation accuracy — 1.00 against 1.00 after manual audit, a result this test cannot separate, at 46,225 against 17,062 tokens — with the evaluation files downloadable." />
 <link rel="canonical" href="https://umeshlinga.github.io/omevra/multi-agent-evidence/evaluations/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Omevra" />
 <meta property="og:title" content="Multi-Agent Evidence — evaluations — Omevra" />
-<meta property="og:description" content="Multi-Agent Evidence evaluations by Omevra: Evaluation v1 on 36 variants — a tie on citation accuracy at 1.00 against 1.00 after manual audit, at 46,225 against 17,062 tokens — with the evaluation files downloadable." />
+<meta property="og:description" content="Multi-Agent Evidence evaluations by Omevra: Evaluation v1 on 36 variants — both systems at the benchmark ceiling on citation accuracy — 1.00 against 1.00 after manual audit, a result this test cannot separate, at 46,225 against 17,062 tokens — with the evaluation files downloadable." />
 <meta property="og:url" content="https://umeshlinga.github.io/omevra/multi-agent-evidence/evaluations/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Multi-Agent Evidence evaluations by Omevra: Evaluation v1 on 36 variants \u2014 a tie on citation accuracy at 1.00 against 1.00 after manual audit, at 46,225 against 17,062 tokens \u2014 with the evaluation files downloadable.", "name": "Multi-Agent Evidence", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/multi-agent-evidence/evaluations/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Multi-Agent Evidence evaluations by Omevra: Evaluation v1 on 36 variants \u2014 both systems at the benchmark ceiling on citation accuracy — 1.00 against 1.00 after manual audit, a result this test cannot separate, at 46,225 against 17,062 tokens \u2014 with the evaluation files downloadable.", "name": "Multi-Agent Evidence", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/multi-agent-evidence/evaluations/"}</script>
 <!-- evidra-build:head:end -->
 </head>
 <body>
@@ -257,7 +257,7 @@
   <header class="hero">
     <p class="kicker">Omevra · Multi-Agent Evidence — proof</p>
     <h1>Multi-Agent Evidence — <span>evaluations</span></h1>
-    <p class="subtitle">Evaluation v1 in full: the tie, the cost of reaching it, and the complete evaluation record.</p>
+    <p class="subtitle">Evaluation v1 in full: the ceiling result, the cost of reaching it, and the complete evaluation record.</p>
   </header>
 
   <section id="protocol">
@@ -266,9 +266,9 @@
   </section>
 
   <section id="results">
-    <div class="sec-head"><h2>Results — a tie, published as a tie</h2></div>
+    <div class="sec-head"><h2>Results — both systems at the ceiling</h2></div>
     <div class="table-wrap"><table><thead><tr><th>Measure</th><th>Single-agent baseline</th><th>Multi-agent system</th></tr></thead><tbody><tr><td>Citation accuracy (final, after manual audit of all 96 claims)</td><td data-label="Single-agent baseline">48/48 = 1.00</td><td data-label="Multi-agent system">48/48 = 1.00</td></tr><tr><td>Citation accuracy (deterministic checker only)</td><td data-label="Single-agent baseline">48/48 = 1.00</td><td data-label="Multi-agent system">46/48 = 0.96</td></tr><tr><td>Evidence completeness (mean, summaries)</td><td data-label="Single-agent baseline">1.00</td><td data-label="Multi-agent system">1.00</td></tr><tr><td>Decline correctness (vs the Build 1 gate)</td><td data-label="Single-agent baseline">36/36</td><td data-label="Multi-agent system">36/36</td></tr><tr><td>Model calls</td><td data-label="Single-agent baseline">36</td><td data-label="Multi-agent system">94</td></tr><tr><td>Tokens (prompt + completion)</td><td data-label="Single-agent baseline">17,062</td><td data-label="Multi-agent system">46,225</td></tr><tr><td>Mean latency per variant</td><td data-label="Single-agent baseline">1.40 s</td><td data-label="Multi-agent system">3.74 s</td></tr><tr><td>Estimated cost for the 36 variants</td><td data-label="Single-agent baseline">$0.0096</td><td data-label="Multi-agent system">$0.0264</td></tr></tbody></table></div>
-    <p><strong>The headline is a tie.</strong> After the manual audit, citation accuracy is 48/48 for the baseline and 48/48 for the multi-agent system — 1.00 against 1.00. The deterministic checker alone scored the multi-agent system 46/48 = 0.96 (two claims restated a gene prior as a percentage; the audit rules a fraction and its percentage the same quantity). Completeness is 1.00 both ways and decline correctness 36/36 both ways. The multi-agent system reached the tie at higher cost: 46,225 tokens against 17,062 per variant set (94 LLM calls against 36), and mean latency 3.74 s against 1.40 s per variant — 2.7. Nothing here is dressed as a win.</p>
+    <p><strong>The headline is a ceiling effect.</strong> After the manual audit, citation accuracy is 48/48 for the baseline and 48/48 for the multi-agent system — 1.00 against 1.00, the top of what this benchmark can measure, so the test cannot separate the two systems and a harder benchmark is needed. The deterministic checker alone scored the multi-agent system 46/48 = 0.96 (two claims restated a gene prior as a percentage; the audit rules a fraction and its percentage the same quantity). Completeness is 1.00 both ways and decline correctness 36/36 both ways. The multi-agent system reached that ceiling at higher cost: 46,225 tokens against 17,062 per variant set (94 LLM calls against 36), and mean latency 3.74 s against 1.40 s per variant — 2.7. Nothing here is dressed as a win.</p>
     <p>What the coordination demonstrably did is in the process record: the Critic ran 47 rounds and rejected drafts 16 times — 13 of the rejections on out-of-universe variants, and 3 rejections that were one false positive on a single summarised variant. The failure-mode exercises (conflicting records, a sabotaged draft, stale + duplicate evidence, forced tool failure) are recorded in the downloads.</p>
   </section>
 

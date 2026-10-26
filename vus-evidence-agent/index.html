@@ -207,14 +207,14 @@
 /* evidra-build:brand-css:end */
 </style>
 <!-- evidra-build:head:start -->
-<meta name="description" content="Variant Evidence Agent by Omevra: calibrated VUS reclassification (AUROC 0.970, ECE 0.025) on a temporal test of 27,748 variants, with cited evidence or an explicit decline." />
+<meta name="description" content="Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline." />
 <link rel="canonical" href="https://umeshlinga.github.io/omevra/vus-evidence-agent/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Omevra" />
 <meta property="og:title" content="Variant Evidence Agent — Omevra" />
-<meta property="og:description" content="Variant Evidence Agent by Omevra: calibrated VUS reclassification (AUROC 0.970, ECE 0.025) on a temporal test of 27,748 variants, with cited evidence or an explicit decline." />
+<meta property="og:description" content="Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline." />
 <meta property="og:url" content="https://umeshlinga.github.io/omevra/vus-evidence-agent/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Variant Evidence Agent by Omevra: calibrated VUS reclassification (AUROC 0.970, ECE 0.025) on a temporal test of 27,748 variants, with cited evidence or an explicit decline.", "name": "Variant Evidence Agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/vus-evidence-agent/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Omevra"}, "description": "Variant Evidence Agent by Omevra: calibrated VUS reclassification — AUROC 0.970 measured on the 10,357 scored variants of a 27,748-variant temporal test (ECE 0.025) — with cited evidence or an explicit decline.", "name": "Variant Evidence Agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Omevra"}, "url": "https://umeshlinga.github.io/omevra/vus-evidence-agent/"}</script>
 <!-- evidra-build:head:end -->
 <!-- evidra-build:brand-head:start -->
 <link rel="icon" type="image/png" sizes="16x16" href="/omevra/assets/brand/favicon-16.png" />
@@ -247,7 +247,7 @@
         <a href="#analysis">Model analysis</a>
         <a href="#agent">The agent</a>
         <a href="#lookup">Look up a variant</a>
-        <a href="#limits">Honest limits</a>
+        <a href="#limits">Limits</a>
         <a href="#dossier">Validation dossier</a>
         <a href="#run">Run it</a>
       </nav>
@@ -260,7 +260,7 @@
   <header class="hero">
     <p class="kicker">Variant interpretation system</p>
     <h1>Variant Evidence <span>Agent</span></h1>
-    <p class="subtitle">Calibrated VUS reclassification with an evidence-citing agent. Clinical variant interpretation, done honestly.</p>
+    <p class="subtitle">Calibrated VUS reclassification with an evidence-citing agent — every claim cited to a retrieved record, or the variant is declined.</p>
 
     <div class="rule-box">
       <p>An LLM / RAG agent with a hard rule: <strong>cite, or decline. Never invent.</strong> Every claim in a report is cited to a retrieved record — and one answer is explicitly allowed: <em>“insufficient evidence — remains VUS.”</em></p>
@@ -280,8 +280,8 @@
     <div class="stats" aria-label="Key numbers">
       <div class="stat"><b>1,103,657</b><span>Variants labelled in ClinVar frozen at Jan 2024 — the training set</span></div>
       <div class="stat"><b>27,748</b><span>Variants uncertain at the freeze, reclassified after it — the test set</span></div>
-      <div class="stat"><b>0.970</b><span>AUROC — final model GBM+R (gradient boosting over AlphaMissense + REVEL + gene prior, isotonic; adopted 2026-10-26)</span></div>
-      <div class="stat"><b>0.025</b><span>ECE of the final model on the post-freeze test set — worse than the previously served Model 2’s 0.017; the trade-off is stated in the results</span></div>
+      <div class="stat"><b>0.970</b><span>AUROC — final model GBM+R (gradient boosting over AlphaMissense + REVEL + gene prior, isotonic; adopted 2026-10-26), measured on the 10,357 test variants the model scored, of 27,748 in the test set</span></div>
+      <div class="stat"><b>0.025</b><span>ECE of the final model on the scored subset of the post-freeze test set</span></div>
     </div>
   </header>
 
@@ -337,7 +337,7 @@
     <div class="sec-head"><h2>The temporal split, drawn</h2></div>
     <p>The split the whole evaluation rests on, as one picture. Classifications are frozen at the Jan 2024 cutoff; the test set is only what changed afterwards — variants whose labels did not exist when the model was trained:</p>
     <div class="chart-box"><svg viewBox="0 0 920 470" width="100%" role="img"><rect x="110" y="6" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="6" width="8" height="86" rx="4" fill="#424245"/><text x="146" y="36" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">CLINVAR CUTOFF SNAPSHOT</text><text x="146" y="72" font-size="30" font-weight="700" fill="#1d1d1f">2,366,650</text><text x="420" y="68" font-size="13.5" fill="#424245">GRCh38 rows at the freeze · the current snapshot holds 4,578,190</text><path d="M460 94 l0 22 M448 108 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="126" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="126" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="156" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TRAIN — LABELLED AT THE CUTOFF, FROZEN</text><text x="146" y="192" font-size="30" font-weight="700" fill="#1d1d1f">1,103,657</text><text x="420" y="188" font-size="13.5" fill="#424245">240,752 pathogenic · 862,905 benign</text><path d="M460 214 l0 22 M448 228 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="246" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="246" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="276" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TEST — UNCERTAIN AT THE CUTOFF, RECLASSIFIED AFTER IT</text><text x="146" y="312" font-size="30" font-weight="700" fill="#1d1d1f">27,748</text><text x="420" y="308" font-size="13.5" fill="#424245">8,856 pathogenic · 18,892 benign · no test label existed at train time</text><path d="M460 334 l0 22 M448 348 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="366" width="338" height="86" rx="14" fill="#e9f6ee" stroke="#0b7a37"/><text x="134" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#095c2a">SUMMARISED — CITED EVIDENCE</text><text x="134" y="432" font-size="30" font-weight="700" fill="#1d1d1f">10,357</text><text x="300" y="428" font-size="13.5" fill="#424245">37.3% of the test set</text><rect x="472" y="366" width="338" height="86" rx="14" fill="#f5f5f7" stroke="#d2d2d7"/><text x="496" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#424245">DECLINED — INSUFFICIENT EVIDENCE</text><text x="496" y="432" font-size="30" font-weight="700" fill="#1d1d1f">17,391</text><text x="662" y="428" font-size="13.5" fill="#424245">62.7% — remains VUS</text></svg></div>
-    <p class="chart-cap">Source: <code>data/processed_v2/SPLIT_REPORT.md</code> and <code>docs/validation-dossier.md</code> §2, §7. Of the 27,748 post-freeze reclassifications, the agent summarises 10,357 (37.3%) with cited evidence and declines 17,391 (62.7%) — a decline is a designed output, not an error.</p>
+    <p class="chart-cap">Source: <code>data/processed_v2/SPLIT_REPORT.md</code> and <code>docs/validation-dossier.md</code> §2, §7. Of the 27,748 post-freeze reclassifications, the agent summarises 10,357 (37.3%) with cited evidence and declines 17,391 (62.7%). Coverage is the binding limit: the predictors are missense-only, so most of the declined variants are non-missense variants with no predictor score at all. A decline is a designed output, not an error.</p>
   </section>
   <!-- METHOD -->
   <section id="method">
@@ -349,7 +349,7 @@
       </div>
       <div class="item">
         <h3>Ensemble</h3>
-        <p>The models began as a logistic ensemble over the AlphaMissense score and the gene prior — later extended with REVEL (M2+R). On 2026-10-26, Model Report 6 re-ran every candidate head-to-head on the same frozen test and adopted gradient boosting over the same three features (GBM+R) as the final model. Probabilities from a raw model are not trusted as probabilities until they survive calibration; discrimination (AUROC) and calibration (ECE, Brier) are reported as separate claims for every model variant, including the ones that got worse.</p>
+        <p>The models began as a logistic ensemble over the AlphaMissense score and the gene prior. Three names recur in the reports and on this page: <strong>Model 2</strong> is that logistic ensemble with isotonic calibration — the earlier logistic model, and the one the live app served until 2026-10-26; <strong>M2+R</strong> is the same logistic model with REVEL added as a third feature; <strong>GBM+R</strong> is gradient boosting over the same three features. On 2026-10-26, Model Report 6 re-ran every candidate head-to-head on the same frozen test and adopted GBM+R as the final model. Probabilities from a raw model are not trusted as probabilities until they survive calibration; discrimination (AUROC) and calibration (ECE, Brier) are reported as separate claims for every model variant, including the ones that got worse.</p>
       </div>
       <div class="item">
         <h3>Calibration</h3>
@@ -372,30 +372,30 @@
     <p>All rows are on the same temporal test set — variants reclassified after the Jan 2024 freeze. Lower ECE and Brier are better; higher AUROC is better. This is the README’s results table, from the model reports in <code>data/processed_v2/</code>:</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Model</th><th>AUROC</th><th>ECE ↓</th><th>Brier ↓</th></tr></thead>
+        <thead><tr><th>Model</th><th>n (test)</th><th>AUROC</th><th>ECE ↓</th><th>Brier ↓</th></tr></thead>
         <tbody>
-          <tr><td>AlphaMissense alone</td><td data-label="AUROC">0.921</td><td data-label="ECE">0.040</td><td data-label="Brier">0.113</td></tr>
-          <tr><td>AlphaMissense + Platt (fit on 2024)</td><td data-label="AUROC">0.921</td><td data-label="ECE">0.157</td><td data-label="Brier">0.141</td></tr>
-          <tr><td>Ensemble (AM + gene prior) raw</td><td data-label="AUROC">0.959</td><td data-label="ECE">0.251</td><td data-label="Brier">0.176</td></tr>
-          <tr><td>Ensemble + isotonic (fit on train holdout)</td><td data-label="AUROC">0.958</td><td data-label="ECE">0.017</td><td data-label="Brier">0.078</td></tr>
-          <tr><td>Ensemble + REVEL + isotonic (M2+R, Model Report 4)</td><td data-label="AUROC">0.968</td><td data-label="ECE">0.023</td><td data-label="Brier">0.066</td></tr>
-          <tr class="final"><td>GBM+R — gradient boosting + REVEL + isotonic (Model Report 6) <span class="badge">Final</span></td><td data-label="AUROC">0.970</td><td data-label="ECE">0.025</td><td data-label="Brier">0.062</td></tr>
+          <tr><td>AlphaMissense alone</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.921</td><td data-label="ECE">0.040</td><td data-label="Brier">0.113</td></tr>
+          <tr><td>AlphaMissense + Platt (fit on 2024)</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.921</td><td data-label="ECE">0.157</td><td data-label="Brier">0.141</td></tr>
+          <tr><td>Ensemble (AM + gene prior) raw</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.959</td><td data-label="ECE">0.251</td><td data-label="Brier">0.176</td></tr>
+          <tr><td>Ensemble + isotonic (fit on train holdout) — Model 2, the earlier logistic model</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.958</td><td data-label="ECE">0.017</td><td data-label="Brier">0.078</td></tr>
+          <tr><td>Ensemble + REVEL + isotonic (M2+R, Model Report 4)</td><td data-label="n (test)">10,357</td><td data-label="AUROC">0.968</td><td data-label="ECE">0.023</td><td data-label="Brier">0.066</td></tr>
+          <tr class="final"><td>GBM+R — gradient boosting + REVEL + isotonic (Model Report 6) <span class="badge">Final</span></td><td data-label="n (test)">10,357</td><td data-label="AUROC">0.970</td><td data-label="ECE">0.025</td><td data-label="Brier">0.062</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="table-note">Read the middle rows carefully: adding the gene prior lifted AUROC to 0.959 but the raw ensemble’s calibration worsened to ECE 0.251. <strong>Discrimination and calibration are different claims</strong> — the table reports both, for every variant of the model, including the ones that got worse. The final row changed on 2026-10-26: Model Report 6’s head-to-head adopted GBM+R for the best AUROC (0.970) and Brier (0.062) of the field — at a stated calibration cost: its ECE of 0.025 is worse than the previously served Model 2’s 0.017, which stays the best-calibrated row in this table.</p>
+    <p class="table-note">Read the middle rows carefully: adding the gene prior lifted AUROC to 0.959 but the raw ensemble’s calibration worsened to ECE 0.251. <strong>Discrimination and calibration are different claims</strong> — the table reports both, for every variant of the model, including the ones that got worse. The final row changed on 2026-10-26: Model Report 6’s head-to-head adopted GBM+R for the best AUROC (0.970) and Brier (0.062) of the field — at a calibration cost: its ECE of 0.025 is worse than the earlier logistic model’s 0.017, which stays the best-calibrated row in this table. That comparison is kept in full on the evaluations page.</p>
 
     <h3 style="margin-top:28px">Further variants from the model reports</h3>
     <p>Model Reports 2–4 score additional variants under the same protocol. None replaces the headline table; all are published:</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Model variant</th><th>AUROC</th><th>ECE ↓</th><th>Brier ↓</th></tr></thead>
+        <thead><tr><th>Model variant</th><th>n (test)</th><th>AUROC</th><th>ECE ↓</th><th>Brier ↓</th></tr></thead>
         <tbody>
-          <tr><td>Ensemble + Platt (fit on train holdout)</td><td data-label="AUROC">0.959</td><td data-label="ECE">0.276</td><td data-label="Brier">0.187</td></tr>
-          <tr><td>REVEL + gene prior (n = 11,023 scored)</td><td data-label="AUROC">0.952</td><td data-label="ECE">0.019</td><td data-label="Brier">0.081</td></tr>
-          <tr><td>From-scratch MLP, raw</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.048</td><td data-label="Brier">0.097</td></tr>
-          <tr><td>From-scratch MLP + isotonic</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.013</td><td data-label="Brier">0.090</td></tr>
-          <tr><td>From-scratch MLP + Platt</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.059</td><td data-label="Brier">0.102</td></tr>
+          <tr><td>Ensemble + Platt (fit on train holdout)</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.959</td><td data-label="ECE">0.276</td><td data-label="Brier">0.187</td></tr>
+          <tr><td>REVEL + gene prior (n = 11,023 scored)</td><td data-label="n (test)">11,023</td><td data-label="AUROC">0.952</td><td data-label="ECE">0.019</td><td data-label="Brier">0.081</td></tr>
+          <tr><td>From-scratch MLP, raw</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.048</td><td data-label="Brier">0.097</td></tr>
+          <tr><td>From-scratch MLP + isotonic</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.013</td><td data-label="Brier">0.090</td></tr>
+          <tr><td>From-scratch MLP + Platt</td><td data-label="n (test)">10,373</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.059</td><td data-label="Brier">0.102</td></tr>
         </tbody>
       </table>
     </div>
@@ -447,7 +447,7 @@
       <div class="ece-card good">
         <label>Ensemble + isotonic (train holdout)</label>
         <b style="color:var(--accent)">ECE 0.017</b>
-        <small>Isotonic recalibration fitted on a training holdout, judged against the same untouched test set. Brier 0.078. The final model — GBM+R, gradient boosting with REVEL added, isotonic-calibrated — reports ECE 0.025 and Brier 0.062; its ECE is worse than this ensemble’s 0.017, the trade-off recorded in Model Report 6.</small>
+        <small>Isotonic recalibration fitted on a training holdout, judged against the same untouched test set. Brier 0.078. The final model — GBM+R, gradient boosting with REVEL added, isotonic-calibrated — reports ECE 0.025 and Brier 0.062.</small>
       </div>
     </div>
 
@@ -471,11 +471,11 @@
 
     <h3 style="margin-top:26px">Reliability — predicted against observed</h3>
     <div class="chart-box"><svg viewBox="0 0 920 470" width="100%" role="img"><line x1="80" y1="400" x2="880" y2="400" stroke="#d2d2d7"/><line x1="80" y1="400" x2="80" y2="40" stroke="#d2d2d7"/><line x1="80" y1="400" x2="880" y2="40" stroke="#86868b" stroke-dasharray="5 5"/><text x="856" y="76" font-size="12" fill="#6e6e73">perfect calibration</text><text x="80" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><text x="68" y="404" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><text x="280" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.25</text><text x="68" y="314" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.25</text><text x="480" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.5</text><text x="68" y="224" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.5</text><text x="680" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.75</text><text x="68" y="134" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.75</text><text x="880" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">1</text><text x="68" y="44" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">1</text><path d="M278,374 L355,275 L440,211 L520,167 L610,100 L651,62" fill="none" stroke="#b91c1c" stroke-width="2.5"/><circle cx="278" cy="374" r="6" fill="#b91c1c"><title>predicted 0.248 · observed 0.071 · n=4,359</title></circle><text x="278" y="361" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=4,359</text><circle cx="355" cy="275" r="6" fill="#b91c1c"><title>predicted 0.344 · observed 0.348 · n=1,033</title></circle><text x="355" y="262" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=1,033</text><circle cx="440" cy="211" r="6" fill="#b91c1c"><title>predicted 0.450 · observed 0.525 · n=652</title></circle><text x="440" y="198" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=652</text><circle cx="520" cy="167" r="6" fill="#b91c1c"><title>predicted 0.550 · observed 0.648 · n=704</title></circle><text x="520" y="154" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=704</text><circle cx="610" cy="100" r="6" fill="#b91c1c"><title>predicted 0.662 · observed 0.832 · n=1,524</title></circle><text x="610" y="87" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=1,524</text><circle cx="651" cy="62" r="6" fill="#b91c1c"><title>predicted 0.713 · observed 0.940 · n=2,101</title></circle><text x="651" y="49" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=2,101</text><circle cx="104" cy="47" r="6" fill="#b91c1c"/><text x="118" y="51" font-size="13" fill="#1d1d1f">AlphaMissense + Platt (fit on 2024) — ECE 0.157</text><path d="M97,394 L198,362 L451,265 L726,128 L867,53" fill="none" stroke="#0b7a37" stroke-width="2.5"/><circle cx="97" cy="394" r="6" fill="#0b7a37"><title>predicted 0.021 · observed 0.016 · n=3,622</title></circle><text x="97" y="381" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=3,622</text><circle cx="198" cy="362" r="6" fill="#0b7a37"><title>predicted 0.147 · observed 0.105 · n=1,448</title></circle><text x="198" y="349" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=1,448</text><circle cx="451" cy="265" r="6" fill="#0b7a37"><title>predicted 0.464 · observed 0.374 · n=757</title></circle><text x="451" y="252" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=757</text><circle cx="726" cy="128" r="6" fill="#0b7a37"><title>predicted 0.808 · observed 0.757 · n=768</title></circle><text x="726" y="115" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=768</text><circle cx="867" cy="53" r="6" fill="#0b7a37"><title>predicted 0.983 · observed 0.964 · n=3,762</title></circle><text x="867" y="40" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=3,762</text><circle cx="104" cy="86" r="6" fill="#0b7a37"/><text x="118" y="90" font-size="13" fill="#1d1d1f">Final model, isotonic — ECE 0.025</text><text x="80" y="462" font-size="12.5" fill="#6e6e73">Mean predicted probability (x) against observed fraction pathogenic (y), 10 equal-width bins · point labels are the variants in each bin</text></svg></div>
-    <p class="chart-cap">AlphaMissense + Platt (fit on 2024) sits far off the diagonal — ECE 0.157, worse than the uncalibrated score’s 0.040. The final model (GBM+R — gradient boosting + REVEL + isotonic, adopted 2026-10-26) stays on it — ECE 0.025, AUROC 0.970, Brier 0.062, recomputed from <code>headtohead_20261026_predictions.csv</code> (prob_C) and matching Model Report 6. The trade-off is stated, not hidden: GBM+R's ECE 0.025 is worse than the previously served Model 2's 0.017 — Model 2 stays the best-calibrated row in the table.</p>
+    <p class="chart-cap">AlphaMissense + Platt (fit on 2024) sits far off the diagonal — ECE 0.157, worse than the uncalibrated score’s 0.040. The final model (GBM+R — gradient boosting + REVEL + isotonic, adopted 2026-10-26) stays on it — ECE 0.025, AUROC 0.970, Brier 0.062, recomputed from <code>headtohead_20261026_predictions.csv</code> (prob_C) and matching Model Report 6.</p>
 
     <h3 style="margin-top:26px">Calibration error across the ablation</h3>
-    <div class="chart-box"><svg viewBox="0 0 920 238" width="100%" role="img"><text x="0" y="29.0" font-size="13.5" fill="#1d1d1f">AlphaMissense alone</text><rect x="340" y="10" width="65" height="26" rx="5" fill="#424245"/><text x="415" y="29.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.040 · AUROC 0.921 · Brier 0.113</text><text x="0" y="67.0" font-size="13.5" fill="#1d1d1f">AlphaMissense + Platt (fit on 2024)</text><rect x="340" y="48" width="256" height="26" rx="5" fill="#424245"/><text x="606" y="67.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.157 · AUROC 0.921 · Brier 0.141</text><text x="0" y="105.0" font-size="13.5" fill="#1d1d1f">Ensemble (AM + gene prior) raw</text><rect x="340" y="86" width="410" height="26" rx="5" fill="#b91c1c"/><text x="760" y="105.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.251 · AUROC 0.959 · Brier 0.176</text><text x="0" y="143.0" font-size="13.5" fill="#1d1d1f">Ensemble + isotonic (fit on train holdout)</text><rect x="340" y="124" width="28" height="26" rx="5" fill="#424245"/><text x="378" y="143.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.017 · AUROC 0.958 · Brier 0.078</text><text x="0" y="181.0" font-size="13.5" fill="#1d1d1f">Ensemble + REVEL + isotonic (Model Report 4)</text><rect x="340" y="162" width="38" height="26" rx="5" fill="#424245"/><text x="388" y="181.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.023 · AUROC 0.968 · Brier 0.066</text><text x="0" y="219.0" font-size="13.5" font-weight="700" fill="#1d1d1f">GBM+R + REVEL + isotonic (Model Report 6 — final, adopted)</text><rect x="340" y="200" width="41" height="26" rx="5" fill="#0b7a37"/><text x="391" y="219.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.025 · AUROC 0.971 · Brier 0.062</text></svg></div>
-    <p class="chart-cap">Expected calibration error for the five rows of the results table plus the adopted GBM+R row (source: <code>docs/validation-dossier.md</code> §3 and its §7 addendum). Adding the gene prior made the raw ensemble the worst-calibrated model on the page — ECE 0.251. Isotonic calibration fitted on the train holdout brought the ensemble to 0.017; the final model, GBM+R, reports 0.025 — GBM+R's ECE 0.025 is worse than the previously served Model 2's 0.017 — Model 2 stays the best-calibrated row in the table.</p>
+    <div class="chart-box"><svg viewBox="0 0 920 238" width="100%" role="img"><text x="0" y="29.0" font-size="13.5" fill="#1d1d1f">AlphaMissense alone</text><rect x="340" y="10" width="65" height="26" rx="5" fill="#424245"/><text x="415" y="29.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.040 · AUROC 0.921 · Brier 0.113</text><text x="0" y="67.0" font-size="13.5" fill="#1d1d1f">AlphaMissense + Platt (fit on 2024)</text><rect x="340" y="48" width="256" height="26" rx="5" fill="#424245"/><text x="606" y="67.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.157 · AUROC 0.921 · Brier 0.141</text><text x="0" y="105.0" font-size="13.5" fill="#1d1d1f">Ensemble (AM + gene prior) raw</text><rect x="340" y="86" width="410" height="26" rx="5" fill="#b91c1c"/><text x="760" y="105.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.251 · AUROC 0.959 · Brier 0.176</text><text x="0" y="143.0" font-size="13.5" fill="#1d1d1f">Ensemble + isotonic (fit on train holdout)</text><rect x="340" y="124" width="28" height="26" rx="5" fill="#424245"/><text x="378" y="143.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.017 · AUROC 0.958 · Brier 0.078</text><text x="0" y="181.0" font-size="13.5" fill="#1d1d1f">Ensemble + REVEL + isotonic (Model Report 4)</text><rect x="340" y="162" width="38" height="26" rx="5" fill="#424245"/><text x="388" y="181.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.023 · AUROC 0.968 · Brier 0.066</text><text x="0" y="219.0" font-size="13.5" font-weight="700" fill="#1d1d1f">GBM+R + REVEL + isotonic (Model Report 6 — final, adopted)</text><rect x="340" y="200" width="41" height="26" rx="5" fill="#0b7a37"/><text x="391" y="219.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.025 · AUROC 0.970 · Brier 0.062</text></svg></div>
+    <p class="chart-cap">Expected calibration error for the six rows of the results table (source: <code>docs/validation-dossier.md</code> §3 and its §7 addendum). Adding the gene prior made the raw ensemble the worst-calibrated model on the page — ECE 0.251. Isotonic calibration fitted on the train holdout brought the ensemble to 0.017; the final model, GBM+R, reports 0.025.</p>
 
     <h3 style="margin-top:26px">Calibration by gene — worst first</h3>
     <p>The final model’s per-gene ECE, the 24 genes with n ≥ 50 scored test variants, ordered worst first — the ordering the tables do not use:</p>
@@ -505,14 +505,14 @@
     <p class="chart-cap" id="ma-roc-cap"></p>
 
     <h3 style="margin-top:26px">Ablation — the full table as bars</h3>
-    <p>All seven ablation rows: the five from the README table, plus the two Model Report 5 tree models. All three metrics live on a 0–1 scale; lower ECE and Brier are better, higher AUROC is better.</p>
+    <p>All seven ablation rows: the six from the results table above, plus the random-forest model from Model Report 5 as the seventh. Each row is labelled with its own n — 10,373 for the AlphaMissense-based models, 10,357 for the models that also require REVEL. All three metrics live on a 0–1 scale; lower ECE and Brier are better, higher AUROC is better.</p>
     <div class="chart-legend">
       <span><i class="swatch" id="ma-sw-auroc"></i>AUROC</span>
       <span><i class="swatch" id="ma-sw-ece"></i>ECE ↓</span>
       <span><i class="swatch" id="ma-sw-brier"></i>Brier ↓</span>
     </div>
     <div class="chart-box"><canvas id="ma-abl" width="800" height="900" role="img" aria-label="Grouped bars of AUROC, ECE and Brier for the seven ablation models"></canvas></div>
-    <p class="chart-cap">Sources: rows 1–5, the README results table (Model Reports 1, 2, 4); rows 6–7, Model Report 5 (<code>data/processed_v2/MODEL_REPORT_5.md</code>). The raw ensemble row is charted from the published table — its per-variant predictions were never stored, so it has no curve above.</p>
+    <p class="chart-cap">Sources: rows 1–5, Model Reports 1, 2 and 4; row 6, Model Report 5’s gradient boosting, adopted as the final model in Model Report 6; row 7, Model Report 5 (<code>data/processed_v2/MODEL_REPORT_5.md</code>). The raw ensemble row is charted from the published table — its per-variant predictions were never stored, so it has no curve above.</p>
 
     <h3 style="margin-top:26px">Calibration by gene — final model</h3>
     <p>Isotonic-calibrated ECE per gene for the final model (GBM+R), the fifteen genes of Model Report 4’s table with their GBM+R values (Model Report 6). USH2A, the worst gene at 0.204, is drawn in red and kept on the same axis as every other gene.</p>
@@ -530,7 +530,7 @@
       <div class="bar" role="img" aria-label="37.3 percent reported, 62.7 percent declined"><i class="reported"></i><i class="declined"></i></div>
       <div class="bar-legend">
         <span><i class="dot" style="background:var(--accent)"></i><strong style="color:var(--ink)">37.3% reported</strong> — 10,357 variants summarised with cited evidence</span>
-        <span><i class="dot" style="background:var(--line-strong)"></i><strong style="color:var(--ink)">62.7% declined</strong> — 17,391 variants: insufficient evidence, remains VUS</span>
+        <span><i class="dot" style="background:var(--line-strong)"></i><strong style="color:var(--ink)">62.7% declined</strong> — 17,391 variants, most of them non-missense with no predictor score at all; extending coverage to splice and non-coding variants is next on the roadmap</span>
       </div>
     </div>
     <p>The decline rate follows from coverage: the agent may summarise only variants with a retrieved predictor record, and 62.7% of the test set has none the final model can score. The reports file (<code>examples/agent_reports_real.md</code>, generated by <code>scripts/run_agent_real.py</code>) publishes real outputs from the test set — including the confident calls, the declines, and the misses. Two of them:</p>
@@ -561,7 +561,7 @@ Evidence (every claim cited):
     </div>
     <p class="caption">A frameshift with no predictor score and one conflicting record gets silence, not a story.</p>
 
-    <p>The same file also publishes the agent’s honest misses. Under the previously served model, three variants (HOGA1, PROC, GLB1) were scored at P = 0.493 whose later labels were pathogenic; under GBM+R two of them are resolved (HOGA1 0.808, GLB1 0.979), PROC remains under-confident at 0.464, and the benign-leaning RANBP2 summary remains a confident miss at 0.006 for a variant later reclassified pathogenic. They are kept in the reports alongside the correct calls.</p>
+    <p>The same file also publishes the agent’s misses. Under the earlier logistic model, three variants (HOGA1, PROC, GLB1) were scored at P = 0.493 whose later labels were pathogenic; under GBM+R two of them are resolved (HOGA1 0.808, GLB1 0.979), PROC remains under-confident at 0.464, and the benign-leaning RANBP2 summary remains a confident miss at 0.006 for a variant later reclassified pathogenic. They are kept in the reports alongside the correct calls.</p>
   </section>
 
   <!-- LOOKUP -->
@@ -575,9 +575,9 @@ Evidence (every claim cited):
     <div id="vlookup-results"></div>
   </section>
 
-  <!-- HONEST LIMITS -->
+  <!-- LIMITS -->
   <section id="limits">
-    <div class="sec-head"><h2>Honest limits</h2></div>
+    <div class="sec-head"><h2>Limits</h2></div>
     <p>The README’s limits section is headed “say them out loud.” They are:</p>
     <ul>
       <li><strong>Temporal reclassification labels are themselves partly predictor-influenced.</strong> The temporal split removes the direct leak; it does not make labels pure. That circularity is discussed, not hidden.</li>
@@ -603,11 +603,11 @@ Evidence (every claim cited):
       </div>
       <div class="item">
         <h3>Performance, including the worst genes</h3>
-        <p>The final model (GBM+R, adopted 2026-10-26 in Model Report 6 and recorded in the dossier’s §7 addendum) reports AUROC 0.970, ECE 0.025 and Brier 0.062 on the temporal test set — its ECE honestly worse than the previously served Model 2’s 0.017 — and the dossier carries the full ablation, including the rows that got worse (raw ensemble ECE 0.251; Platt on the training window, 0.157). Per-gene calibration is reported gene by gene: most large genes sit between ECE 0.005 and 0.154, and the worst, <strong>USH2A at 0.204</strong>, is named as a calibration failure rather than averaged away.</p>
+        <p>The final model (GBM+R, adopted 2026-10-26 in Model Report 6 and recorded in the dossier’s §7 addendum) reports AUROC 0.970, ECE 0.025 and Brier 0.062 on the 10,357 scored variants of the temporal test set, and the dossier carries the full ablation, including the rows that got worse (raw ensemble ECE 0.251; Platt on the training window, 0.157). Per-gene calibration is reported gene by gene: most large genes sit between ECE 0.005 and 0.154, and the worst, <strong>USH2A at 0.204</strong>, is named as a calibration failure rather than averaged away.</p>
       </div>
       <div class="item">
         <h3>Failure modes, as published</h3>
-        <p>The dossier collects the misses the project itself published: a confidently benign-leaning summary at P = 0.002 under the previously served model (0.006 under GBM+R) for a variant (RANBP2 c.1754C&gt;T) later reclassified pathogenic; three under-confident calls at P = 0.493 under that model (HOGA1, PROC, GLB1) on variants later classed pathogenic — resolved under GBM+R at 0.808 and 0.979, while PROC remains under-confident at 0.464; and the structural limits — predictor coverage of 37.4% of the test set, missense and precomputed scores only, no gnomAD allele frequency, and labels that are partly predictor-influenced.</p>
+        <p>The dossier collects the misses the project itself published: a confidently benign-leaning summary at P = 0.002 under the earlier logistic model (0.006 under GBM+R) for a variant (RANBP2 c.1754C&gt;T) later reclassified pathogenic; three under-confident calls at P = 0.493 under that model (HOGA1, PROC, GLB1) on variants later classed pathogenic — resolved under GBM+R at 0.808 and 0.979, while PROC remains under-confident at 0.464; and the structural limits — predictor coverage of 37.4% of the test set, missense and precomputed scores only, no gnomAD allele frequency, and labels that are partly predictor-influenced.</p>
       </div>
       <div class="item">
         <h3>Human oversight design</h3>

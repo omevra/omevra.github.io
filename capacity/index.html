@@ -263,7 +263,7 @@
   <header class="hero">
     <p class="kicker">Omevra · Capacity</p>
     <h1>Capacity</h1>
-    <p class="subtitle">What each product accepts as input, the verified limits, and the honest limits — how much Omevra takes at a time, and what it does not take yet.</p>
+    <p class="subtitle">What each product accepts as input, the verified limits, and what it does not take yet — how much Omevra takes at a time.</p>
   </header>
 
   <section id="variant-evidence-agent">
@@ -277,12 +277,12 @@
         <div class="part">
           <span class="part-label">Verified capacity</span>
           <p><strong>500</strong> variants in one quick batch; <strong>25,000</strong> in one queued job. A demonstrated full run processed all <strong>27,748</strong> variants of the test universe at about <strong>2,779</strong> variants per second.</p>
-          <p>The scored universe holds 27,748 variants across 3,084 genes (ClinVar, January 2024 freeze). Of these, 10,357 receive an evidence summary and 17,391 are declined for insufficient evidence — and a decline is always shown as a decline, never dressed up as a result.</p>
+          <p>The scored universe holds 27,748 variants across 3,084 genes (ClinVar, January 2024 freeze). Coverage: the model scores 10,357 of those 27,748 variants (37.3%) — the missense variants with predictor scores — and those receive an evidence summary. The other 17,391 are declined, most of them non-missense variants with no predictor score at all. A decline is always shown as a decline, never dressed up as a result. Extending coverage — splice and non-coding variants — is next on the roadmap.</p>
           <p><strong>Outputs:</strong> a visual dashboard (charts and an evidence heat map), a per-variant evidence pack with a citation on every claim, and exports in PDF, CSV and XLSX.</p>
         </div>
         <div class="part">
           <span class="part-label">Does not take / not yet</span>
-          <p>Raw sequencing files (FASTQ / BAM) — those belong to the NGS Pipeline Atlas. Variants outside the scored universe get a live evidence check or an honest decline — never an invented score.</p>
+          <p>Raw sequencing files (FASTQ / BAM) — those belong to the NGS Pipeline Atlas. Variants outside the scored universe get a live evidence check or a decline — never an invented score.</p>
         </div>
       </div>
     </div>
@@ -331,7 +331,7 @@
         </div>
         <div class="part">
           <span class="part-label">Verified capacity</span>
-          <p>Measured head to head against a single agent, citation accuracy tied at 1.00 vs 1.00 — published as a tie — at higher cost.</p>
+          <p>Measured head to head against a single agent: both systems scored 1.00 on citation accuracy — the ceiling of that benchmark, so the test cannot separate them — and the multi-agent system cost more. A harder benchmark is needed.</p>
         </div>
       </div>
     </div>
@@ -346,7 +346,7 @@
         </div>
         <div class="part">
           <span class="part-label">Verified capacity</span>
-          <p>At most <strong>2</strong> public runs at a time. In the final evaluation, <strong>36 of 36</strong> tasks completed with guardrails on; the adversarial suite scored <strong>9 of 9</strong> against 0 of 9 with guardrails off.</p>
+          <p>At most <strong>2</strong> public runs at a time. In the final evaluation, <strong>36 of 36</strong> tasks completed with guardrails on (95% CI 90.3–100%); the adversarial suite scored <strong>9 of 9</strong> (95% CI 66.4–100%) against 0 of 9 (95% CI 0–33.6%) with guardrails off.</p>
         </div>
       </div>
     </div>
