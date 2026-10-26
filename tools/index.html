@@ -120,8 +120,8 @@
   .coverage-head b{font-variant-numeric:tabular-nums}
   .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
   .bar i{display:block;height:100%}
-  .bar .reported{background:var(--accent);width:37.4%}
-  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar .reported{background:var(--accent);width:37.3%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.7%}
   .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
   .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
@@ -230,15 +230,15 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/evidra/">Evidra</a>
+    <a class="wordmark" href="/">Evidra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/evidra/web-agent/">web-agent</a>
-      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
     </nav>
-    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+    <a class="bar-btn" href="/">Evidra — all products</a>
   </div>
 </header>
 
@@ -255,7 +255,7 @@
     <div class="items">
       <div class="item">
         <h3>Variant report</h3>
-        <p>One variant in — a cited evidence summary with its calibrated probability out, or an explicit decline where the evidence is not there. The Report tab of the application; the full system is described on the <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent page</a>.</p>
+        <p>One variant in — a cited evidence summary with its calibrated probability out, or an explicit decline where the evidence is not there. The Report tab of the application; the full system is described on the <a href="/vus-evidence-agent/">Variant Evidence Agent page</a>.</p>
         <p><a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application ›</a></p>
       </div>
       <div class="item">
@@ -291,12 +291,12 @@
     <div class="items">
       <div class="item">
         <h3>Live run</h3>
-        <p>Pick a task, press Run, and watch the agent work in a real browser — observe, ground, act, verify, and recover when the page fights back — with the results panel and a step-by-step trace. Run the same task with recovery off to see the measured difference. The full results are on the <a href="/evidra/web-agent/">web-agent page</a>.</p>
+        <p>Pick a task, press Run, and watch the agent work in a real browser — observe, ground, act, verify, and recover when the page fights back — with the results panel and a step-by-step trace. Run the same task with recovery off to see the measured difference. The full results are on the <a href="/web-agent/">web-agent page</a>.</p>
         <p><a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Open the live application ›</a></p>
       </div>
       <div class="item">
         <h3>Public-page mode</h3>
-        <p>Point the agent at a public web page with one of two fixed intents — find and click the element with a label, or type into the field with a label and submit — inside hard safety rails: public addresses only, no password or payment fields, no leaving the entered domain, a small step budget. The rails are described on the <a href="/evidra/web-agent/architecture/">architecture page</a>.</p>
+        <p>Point the agent at a public web page with one of two fixed intents — find and click the element with a label, or type into the field with a label and submit — inside hard safety rails: public addresses only, no password or payment fields, no leaving the entered domain, a small step budget. The rails are described on the <a href="/web-agent/architecture/">architecture page</a>.</p>
         <p><a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Open the live application ›</a></p>
       </div>
     </div>
@@ -311,32 +311,40 @@
       </div>
       <div class="item">
         <h3>Downloads — the raw result files</h3>
-        <p>The web-agent result set (Evaluation v1.0) ships with this site: the recovery-on and recovery-off run files and the generated results document, byte-identical to the lab's own copies, linked from the <a href="/evidra/web-agent/">web-agent page</a>.</p>
+        <p>The web-agent result set (Evaluation v1.0) ships with this site: the recovery-on and recovery-off run files and the generated results document, byte-identical to the lab's own copies, linked from the <a href="/web-agent/">web-agent page</a>.</p>
       </div>
       <div class="item">
         <h3>Methods library</h3>
-        <p>How the results were produced, in the projects' own terms: <a href="/evidra/methods/evaluation/">evaluation</a>, <a href="/evidra/methods/calibration/">calibration</a>, and <a href="/evidra/methods/temporal-evaluation/">temporal evaluation</a>.</p>
+        <p>How the results were produced, in the projects' own terms: <a href="/methods/evaluation/">evaluation</a>, <a href="/methods/calibration/">calibration</a>, and <a href="/methods/temporal-evaluation/">temporal evaluation</a>.</p>
       </div>
     </div>
   </section>
 
+<!-- evidra-build:api-link:start -->
+
+  <section id="api">
+    <div class="sec-head"><h2>Variant Evidence Agent — API</h2></div>
+    <p>The live application is also a public JSON API: variant lookup, search, gene counts, single reports and batch evidence packs, with enforced bounds. Endpoints, limits and copyable examples with real responses: <a href="/vus-evidence-agent/api/">API documentation</a>.</p>
+  </section>
+
+<!-- evidra-build:api-link:end -->
   <footer>
     <p class="name">Evidra</p>
     <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
     <div class="links">
-      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/evidra/web-agent/">web-agent</a>
-      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
-      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
-      <a href="/evidra/methods/calibration/">Methods — calibration</a>
-      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
-      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
-      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
-      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
-      <a href="/evidra/tools/">Tools — every usable tool</a>
-      <a href="/evidra/">Evidra — home</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/methods/evaluation/">Methods — evaluation</a>
+      <a href="/methods/calibration/">Methods — calibration</a>
+      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/tools/">Tools — every usable tool</a>
+      <a href="/">Evidra — home</a>
     </div>
   </footer>
 </main>
@@ -366,7 +374,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Evidra</button>
 </div>
-<script src="/evidra/assets/ask-evidra.js" defer></script>
+<script src="/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

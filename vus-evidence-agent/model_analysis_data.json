@@ -4410,7 +4410,7 @@
   },
   {
    "id": "final",
-   "name": "Ensemble + REVEL + isotonic \u2014 final (Report 4)",
+   "name": "Ensemble + REVEL + isotonic \u2014 M2+R (Report 4, history)",
    "source": "data/processed_v2/test_predictions_revel.csv \u00b7 column prob_m2r_isotonic",
    "n": 10357,
    "auroc": 0.968,
@@ -5273,7 +5273,7 @@
   },
   {
    "id": "gbm_iso",
-   "name": "Gradient boosting + isotonic (Report 5)",
+   "name": "Gradient boosting + REVEL + isotonic \u2014 GBM+R, final (Reports 5\u20136, adopted 2026-10-26)",
    "source": "data/processed_v2/test_predictions_trees.csv \u00b7 column prob_gbm_isotonic",
    "n": 10357,
    "auroc": 0.97,
@@ -7026,7 +7026,7 @@
    "source": "README table \u00b7 Model Report 4"
   },
   {
-   "model": "Gradient boosting + isotonic (Report 5)",
+   "model": "Gradient boosting + isotonic \u2014 GBM+R (Report 5; adopted as final, Report 6)",
    "n": 10357,
    "auroc": 0.97,
    "ece": 0.025,
@@ -7043,83 +7043,83 @@
   }
  ],
  "per_gene_ece_final": {
-  "model": "Ensemble + REVEL + isotonic \u2014 final (Report 4)",
-  "source": "data/processed_v2/MODEL_REPORT_4.md (isotonic-calibrated ECE by gene, test, n>=50)",
+  "model": "GBM+R \u2014 gradient boosting + REVEL + isotonic, final (Report 6)",
+  "source": "data/processed_v2/MODEL_REPORT_6.md + headtohead_20261026.json (GBM+R isotonic-calibrated ECE by gene, test, n>=50)",
   "genes": [
    {
     "gene": "BRCA2",
     "n": 158,
-    "ece": 0.041
+    "ece": "0.058"
    },
    {
     "gene": "BRCA1",
     "n": 138,
-    "ece": 0.082
+    "ece": "0.081"
    },
    {
     "gene": "ADGRV1",
     "n": 130,
-    "ece": 0.016
+    "ece": "0.005"
    },
    {
     "gene": "DNAH11",
     "n": 118,
-    "ece": 0.054
+    "ece": "0.031"
    },
    {
     "gene": "DMD",
     "n": 97,
-    "ece": 0.069
+    "ece": "0.053"
    },
    {
     "gene": "KMT2D",
     "n": 94,
-    "ece": 0.069
+    "ece": "0.034"
    },
    {
     "gene": "RAI1",
     "n": 94,
-    "ece": 0.028
+    "ece": "0.011"
    },
    {
     "gene": "ABCA4",
     "n": 86,
-    "ece": 0.023
+    "ece": "0.019"
    },
    {
     "gene": "MUTYH",
     "n": 86,
-    "ece": 0.083
+    "ece": "0.154"
    },
    {
     "gene": "SCN1A",
     "n": 83,
-    "ece": 0.046
+    "ece": "0.074"
    },
    {
     "gene": "NF1",
     "n": 81,
-    "ece": 0.117
+    "ece": "0.130"
    },
    {
     "gene": "LDLR",
     "n": 74,
-    "ece": 0.059
+    "ece": "0.033"
    },
    {
     "gene": "USH2A",
     "n": 74,
-    "ece": 0.29
+    "ece": "0.204"
    },
    {
     "gene": "GCK",
     "n": 71,
-    "ece": 0.03
+    "ece": "0.035"
    },
    {
     "gene": "FBN1",
     "n": 68,
-    "ece": 0.042
+    "ece": "0.037"
    }
   ]
  }

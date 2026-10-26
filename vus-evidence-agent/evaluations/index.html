@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Variant Evidence Agent — evaluations — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.3%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.7%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="Variant Evidence Agent evaluations by Evidra: the full temporal-split protocol, versioned model reports v1 to v6 with downloadable prediction files, per-gene calibration worst first, and the before/after decline record." />
+<link rel="canonical" href="https://umeshlinga.github.io/evidra/vus-evidence-agent/evaluations/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="Variant Evidence Agent — evaluations — Evidra" />
+<meta property="og:description" content="Variant Evidence Agent evaluations by Evidra: the full temporal-split protocol, versioned model reports v1 to v6 with downloadable prediction files, per-gene calibration worst first, and the before/after decline record." />
+<meta property="og:url" content="https://umeshlinga.github.io/evidra/vus-evidence-agent/evaluations/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Variant Evidence Agent evaluations by Evidra: the full temporal-split protocol, versioned model reports v1 to v6 with downloadable prediction files, per-gene calibration worst first, and the before/after decline record.", "name": "Variant Evidence Agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://umeshlinga.github.io/evidra/vus-evidence-agent/evaluations/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+    </nav>
+    <a class="bar-btn" href="/">Evidra — all products</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · Variant Evidence Agent — proof</p>
+    <h1>Variant Evidence Agent — <span>evaluations</span></h1>
+    <p class="subtitle">The evaluation protocol in full, every versioned result, per-gene calibration worst first, and the files behind them.</p>
+  </header>
+
+  <section id="protocol">
+    <div class="sec-head"><h2>Evaluation v1 — temporal split, train frozen Jan 2024</h2></div>
+    <p><strong>Version label: Evaluation v1 — temporal split, train frozen Jan 2024.</strong> This page is the proof record for the Variant Evidence Agent: the protocol in full, every versioned result, and the files behind them.</p>
+    <p>All data is open and pinned by date. ClinVar classifications are frozen at the Jan 2024 cutoff: the cutoff snapshot held 2,366,650 GRCh38 rows (the current snapshot holds 4,578,190). The train set is the 1,103,657 variants labelled at the cutoff (240,752 pathogenic, 862,905 benign), frozen. The test set is only the 27,748 variants that were of uncertain significance at the cutoff and have since been reclassified (8,856 pathogenic, 18,892 benign) — no test label existed at train time. Features are joined as of the cutoff where the source allows dating; calibration maps are fitted on train data only (an 80/20 seed-11 split, isotonic fitted on the train holdout) and judged on the untouched test set. The near-duplicate guard removes test rows sharing gene + name with train; it removed 0 rows in this build. Full design: <a href="/methods/temporal-evaluation/">Temporal evaluation</a> · <a href="/methods/calibration/">Calibration</a>.</p>
+    <div class="items">
+      <div class="item">
+        <h3>Why random splits leak</h3>
+        <p>A variant reclassified after the cutoff was often reclassified using the same predictor scores that appear as features. A random split puts that variant — or its near-duplicates — in both train and test, so the model is graded on evidence it has already seen. The temporal split removes the direct leak. The caveat is stated in the split report itself: post-cutoff reclassifications are themselves partly predictor-influenced, so measured performance is performance against real-world reclassification practice, not against predictor-free ground truth.</p>
+      </div>
+      <div class="item">
+        <h3>Scored subset, stated plainly</h3>
+        <p>The predictors are missense-only precomputed scores, so the model serves a scored subset of the test set: 10,373 of 27,748 test variants carry an AlphaMissense score (37.4%), 10,357 carry both AlphaMissense and REVEL. The adopted final model (GBM+R) requires both scores, so the agent summarises 10,357 variants and declines 17,391. Every metric below names its n. The agent summarises exactly the variants it can score and support with cited evidence, and declines the rest — a decline is a designed output, not an error.</p>
+      </div>
+    </div>
+    <div class="chart-box"><svg viewBox="0 0 920 470" width="100%" role="img"><rect x="110" y="6" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="6" width="8" height="86" rx="4" fill="#424245"/><text x="146" y="36" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">CLINVAR CUTOFF SNAPSHOT</text><text x="146" y="72" font-size="30" font-weight="700" fill="#1d1d1f">2,366,650</text><text x="420" y="68" font-size="13.5" fill="#424245">GRCh38 rows at the freeze · the current snapshot holds 4,578,190</text><path d="M460 94 l0 22 M448 108 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="126" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="126" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="156" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TRAIN — LABELLED AT THE CUTOFF, FROZEN</text><text x="146" y="192" font-size="30" font-weight="700" fill="#1d1d1f">1,103,657</text><text x="420" y="188" font-size="13.5" fill="#424245">240,752 pathogenic · 862,905 benign</text><path d="M460 214 l0 22 M448 228 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="246" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="246" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="276" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TEST — UNCERTAIN AT THE CUTOFF, RECLASSIFIED AFTER IT</text><text x="146" y="312" font-size="30" font-weight="700" fill="#1d1d1f">27,748</text><text x="420" y="308" font-size="13.5" fill="#424245">8,856 pathogenic · 18,892 benign · no test label existed at train time</text><path d="M460 334 l0 22 M448 348 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="366" width="338" height="86" rx="14" fill="#e9f6ee" stroke="#0b7a37"/><text x="134" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#095c2a">SUMMARISED — CITED EVIDENCE</text><text x="134" y="432" font-size="30" font-weight="700" fill="#1d1d1f">10,357</text><text x="300" y="428" font-size="13.5" fill="#424245">37.3% of the test set</text><rect x="472" y="366" width="338" height="86" rx="14" fill="#f5f5f7" stroke="#d2d2d7"/><text x="496" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#424245">DECLINED — INSUFFICIENT EVIDENCE</text><text x="496" y="432" font-size="30" font-weight="700" fill="#1d1d1f">17,391</text><text x="662" y="428" font-size="13.5" fill="#424245">62.7% — remains VUS</text></svg></div>
+  </section>
+
+  <section id="versions">
+    <div class="sec-head"><h2>Versioned results</h2></div>
+    <p>Each model report is a version, kept — including the versions that lost. Metrics are AUROC / ECE / Brier on the temporal test set, recomputed at build time from the stored prediction files and checked against the reports.</p>
+    <div class="table-wrap"><table><thead><tr><th>Version</th><th>Model</th><th>n (test)</th><th>AUROC</th><th>ECE</th><th>Brier</th></tr></thead><tbody>
+      <tr><td>Report 1</td><td>AlphaMissense alone (raw)</td><td data-label="n">10,373</td><td data-label="AUROC">0.921</td><td data-label="ECE">0.040</td><td data-label="Brier">0.113</td></tr>
+      <tr><td>Report 1</td><td>AlphaMissense + Platt (fit on 2024)</td><td data-label="n">10,373</td><td data-label="AUROC">0.921</td><td data-label="ECE">0.157</td><td data-label="Brier">0.141</td></tr>
+      <tr><td>Report 2</td><td>Ensemble (AlphaMissense + gene prior), raw</td><td data-label="n">10,373</td><td data-label="AUROC">0.959</td><td data-label="ECE">0.251</td><td data-label="Brier">0.176</td></tr>
+      <tr><td>Report 2</td><td>Ensemble + isotonic (train holdout)</td><td data-label="n">10,373</td><td data-label="AUROC">0.958</td><td data-label="ECE">0.017</td><td data-label="Brier">0.078</td></tr>
+      <tr><td>Report 3</td><td>From-scratch MLP + isotonic</td><td data-label="n">10,373</td><td data-label="AUROC">0.947</td><td data-label="ECE">0.013</td><td data-label="Brier">0.090</td></tr>
+      <tr><td>Report 4</td><td>M2+R (AlphaMissense + gene prior + REVEL) + isotonic — history</td><td data-label="n">10,357</td><td data-label="AUROC">0.968</td><td data-label="ECE">0.023</td><td data-label="Brier">0.066</td></tr>
+      <tr><td>Report 5</td><td>Gradient boosting + REVEL + isotonic</td><td data-label="n">10,357</td><td data-label="AUROC">0.970</td><td data-label="ECE">0.025</td><td data-label="Brier">0.062</td></tr>
+      <tr><td>Report 5</td><td>Random forest + REVEL + isotonic</td><td data-label="n">10,357</td><td data-label="AUROC">0.970</td><td data-label="ECE">0.024</td><td data-label="Brier">0.063</td></tr>
+      <tr><td>Report 6 — adopted final (2026-10-26)</td><td>GBM+R (gradient boosting [AlphaMissense, gene prior, REVEL]) + isotonic</td><td data-label="n">10,357</td><td data-label="AUROC">0.970</td><td data-label="ECE">0.025</td><td data-label="Brier">0.062</td></tr>
+    </tbody></table></div>
+    <p class="table-note"><strong>Evaluation v3 model adoption, 2026-10-26:</strong> the current adopted model is GBM+R (Report 6), chosen by the decision rule fixed before the head-to-head run — highest isotonic AUROC, ties by Brier then ECE. It has the best AUROC (0.970) and best Brier (0.062) of the field. The trade-off is stated, not hidden: GBM+R's ECE 0.025 is worse than the previously served Model 2's 0.017 — Model 2 stays the best-calibrated row in the table (and worse than M2+R's 0.023). M2+R (Report 4) and Model 2 (Report 2 — the model the live app previously served) remain in the table as labelled history with their real metrics. The Platt row is a calibration failure kept in the record: fitting on 2024 moved ECE from 0.040 to 0.157 at unchanged AUROC.</p>
+    <h3 style="margin-top:26px">Reliability — predicted against observed</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 470" width="100%" role="img"><line x1="80" y1="400" x2="880" y2="400" stroke="#d2d2d7"/><line x1="80" y1="400" x2="80" y2="40" stroke="#d2d2d7"/><line x1="80" y1="400" x2="880" y2="40" stroke="#86868b" stroke-dasharray="5 5"/><text x="856" y="76" font-size="12" fill="#6e6e73">perfect calibration</text><text x="80" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><text x="68" y="404" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0</text><text x="280" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.25</text><text x="68" y="314" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.25</text><text x="480" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.5</text><text x="68" y="224" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.5</text><text x="680" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.75</text><text x="68" y="134" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">0.75</text><text x="880" y="422" text-anchor="middle" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">1</text><text x="68" y="44" text-anchor="end" font-size="12" font-family="'IBM Plex Mono',monospace" fill="#6e6e73">1</text><path d="M278,374 L355,275 L440,211 L520,167 L610,100 L651,62" fill="none" stroke="#b91c1c" stroke-width="2.5"/><circle cx="278" cy="374" r="6" fill="#b91c1c"><title>predicted 0.248 · observed 0.071 · n=4,359</title></circle><text x="278" y="361" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=4,359</text><circle cx="355" cy="275" r="6" fill="#b91c1c"><title>predicted 0.344 · observed 0.348 · n=1,033</title></circle><text x="355" y="262" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=1,033</text><circle cx="440" cy="211" r="6" fill="#b91c1c"><title>predicted 0.450 · observed 0.525 · n=652</title></circle><text x="440" y="198" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=652</text><circle cx="520" cy="167" r="6" fill="#b91c1c"><title>predicted 0.550 · observed 0.648 · n=704</title></circle><text x="520" y="154" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=704</text><circle cx="610" cy="100" r="6" fill="#b91c1c"><title>predicted 0.662 · observed 0.832 · n=1,524</title></circle><text x="610" y="87" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=1,524</text><circle cx="651" cy="62" r="6" fill="#b91c1c"><title>predicted 0.713 · observed 0.940 · n=2,101</title></circle><text x="651" y="49" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#b91c1c">n=2,101</text><circle cx="104" cy="47" r="6" fill="#b91c1c"/><text x="118" y="51" font-size="13" fill="#1d1d1f">AlphaMissense + Platt (fit on 2024) — ECE 0.157</text><path d="M97,394 L198,362 L451,265 L726,128 L867,53" fill="none" stroke="#0b7a37" stroke-width="2.5"/><circle cx="97" cy="394" r="6" fill="#0b7a37"><title>predicted 0.021 · observed 0.016 · n=3,622</title></circle><text x="97" y="381" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=3,622</text><circle cx="198" cy="362" r="6" fill="#0b7a37"><title>predicted 0.147 · observed 0.105 · n=1,448</title></circle><text x="198" y="349" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=1,448</text><circle cx="451" cy="265" r="6" fill="#0b7a37"><title>predicted 0.464 · observed 0.374 · n=757</title></circle><text x="451" y="252" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=757</text><circle cx="726" cy="128" r="6" fill="#0b7a37"><title>predicted 0.808 · observed 0.757 · n=768</title></circle><text x="726" y="115" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=768</text><circle cx="867" cy="53" r="6" fill="#0b7a37"><title>predicted 0.983 · observed 0.964 · n=3,762</title></circle><text x="867" y="40" text-anchor="middle" font-size="11" font-family="'IBM Plex Mono',monospace" fill="#0b7a37">n=3,762</text><circle cx="104" cy="86" r="6" fill="#0b7a37"/><text x="118" y="90" font-size="13" fill="#1d1d1f">Final model, isotonic — ECE 0.025</text><text x="80" y="462" font-size="12.5" fill="#6e6e73">Mean predicted probability (x) against observed fraction pathogenic (y), 10 equal-width bins · point labels are the variants in each bin</text></svg></div>
+    <h3 style="margin-top:26px">Calibration error across the ablation</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 238" width="100%" role="img"><text x="0" y="29.0" font-size="13.5" fill="#1d1d1f">AlphaMissense alone</text><rect x="340" y="10" width="65" height="26" rx="5" fill="#424245"/><text x="415" y="29.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.040 · AUROC 0.921 · Brier 0.113</text><text x="0" y="67.0" font-size="13.5" fill="#1d1d1f">AlphaMissense + Platt (fit on 2024)</text><rect x="340" y="48" width="256" height="26" rx="5" fill="#424245"/><text x="606" y="67.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.157 · AUROC 0.921 · Brier 0.141</text><text x="0" y="105.0" font-size="13.5" fill="#1d1d1f">Ensemble (AM + gene prior) raw</text><rect x="340" y="86" width="410" height="26" rx="5" fill="#b91c1c"/><text x="760" y="105.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.251 · AUROC 0.959 · Brier 0.176</text><text x="0" y="143.0" font-size="13.5" fill="#1d1d1f">Ensemble + isotonic (fit on train holdout)</text><rect x="340" y="124" width="28" height="26" rx="5" fill="#424245"/><text x="378" y="143.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.017 · AUROC 0.958 · Brier 0.078</text><text x="0" y="181.0" font-size="13.5" fill="#1d1d1f">Ensemble + REVEL + isotonic (Model Report 4)</text><rect x="340" y="162" width="38" height="26" rx="5" fill="#424245"/><text x="388" y="181.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.023 · AUROC 0.968 · Brier 0.066</text><text x="0" y="219.0" font-size="13.5" font-weight="700" fill="#1d1d1f">GBM+R + REVEL + isotonic (Model Report 6 — final, adopted)</text><rect x="340" y="200" width="41" height="26" rx="5" fill="#0b7a37"/><text x="391" y="219.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.025 · AUROC 0.971 · Brier 0.062</text></svg></div>
+  </section>
+
+  <section id="per-gene">
+    <div class="sec-head"><h2>Per-gene calibration — worst first</h2></div>
+    <p>The final model's (GBM+R, Report 6) per-gene ECE for the 24 genes with n ≥ 50 scored test variants, ordered worst first. 23 genes sit between 0.005 and 0.154; USH2A at 0.204 is a calibration failure by the project's own standard and leads the table. The adoption was not uniform: USH2A improved from M2+R's 0.290, while MUTYH degraded 0.083 → 0.154 and NF1 moved 0.117 → 0.130. The per-gene tables are inside the downloadable model reports (Reports 4 and 5 carry the earlier models' tables in full; Report 6 carries GBM+R's).</p>
+    <div class="chart-box"><svg viewBox="0 0 920 778" width="100%" role="img"><text x="0" y="26.0" font-size="13.5" font-weight="700" fill="#1d1d1f">USH2A</text><rect x="110" y="10" width="459" height="20" rx="5" fill="#b91c1c"/><text x="579" y="26.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.204 · n = 74</text><text x="0" y="58.0" font-size="13.5" fill="#1d1d1f">MUTYH</text><rect x="110" y="42" width="346" height="20" rx="5" fill="#0b7a37"/><text x="466" y="58.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.154 · n = 86</text><text x="0" y="90.0" font-size="13.5" fill="#1d1d1f">MECP2</text><rect x="110" y="74" width="322" height="20" rx="5" fill="#0b7a37"/><text x="442" y="90.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.143 · n = 61</text><text x="0" y="122.0" font-size="13.5" fill="#1d1d1f">TSC2</text><rect x="110" y="106" width="313" height="20" rx="5" fill="#0b7a37"/><text x="433" y="122.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.139 · n = 65</text><text x="0" y="154.0" font-size="13.5" fill="#1d1d1f">MTOR</text><rect x="110" y="138" width="302" height="20" rx="5" fill="#0b7a37"/><text x="422" y="154.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.134 · n = 62</text><text x="0" y="186.0" font-size="13.5" fill="#1d1d1f">NF1</text><rect x="110" y="170" width="292" height="20" rx="5" fill="#0b7a37"/><text x="412" y="186.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.130 · n = 81</text><text x="0" y="218.0" font-size="13.5" fill="#1d1d1f">MSH2</text><rect x="110" y="202" width="193" height="20" rx="5" fill="#0b7a37"/><text x="314" y="218.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.086 · n = 52</text><text x="0" y="250.0" font-size="13.5" fill="#1d1d1f">BRCA1</text><rect x="110" y="234" width="182" height="20" rx="5" fill="#0b7a37"/><text x="302" y="250.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.081 · n = 138</text><text x="0" y="282.0" font-size="13.5" fill="#1d1d1f">TP53</text><rect x="110" y="266" width="173" height="20" rx="5" fill="#0b7a37"/><text x="293" y="282.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.077 · n = 68</text><text x="0" y="314.0" font-size="13.5" fill="#1d1d1f">DYSF</text><rect x="110" y="298" width="169" height="20" rx="5" fill="#0b7a37"/><text x="289" y="314.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.075 · n = 53</text><text x="0" y="346.0" font-size="13.5" fill="#1d1d1f">SCN1A</text><rect x="110" y="330" width="166" height="20" rx="5" fill="#0b7a37"/><text x="286" y="346.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.074 · n = 83</text><text x="0" y="378.0" font-size="13.5" fill="#1d1d1f">BRCA2</text><rect x="110" y="362" width="130" height="20" rx="5" fill="#0b7a37"/><text x="250" y="378.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.058 · n = 158</text><text x="0" y="410.0" font-size="13.5" fill="#1d1d1f">DMD</text><rect x="110" y="394" width="119" height="20" rx="5" fill="#0b7a37"/><text x="239" y="410.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.053 · n = 97</text><text x="0" y="442.0" font-size="13.5" fill="#1d1d1f">ATM</text><rect x="110" y="426" width="94" height="20" rx="5" fill="#0b7a37"/><text x="214" y="442.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.042 · n = 55</text><text x="0" y="474.0" font-size="13.5" fill="#1d1d1f">NOTCH1</text><rect x="110" y="458" width="92" height="20" rx="5" fill="#0b7a37"/><text x="212" y="474.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.041 · n = 50</text><text x="0" y="506.0" font-size="13.5" fill="#1d1d1f">FBN1</text><rect x="110" y="490" width="83" height="20" rx="5" fill="#0b7a37"/><text x="203" y="506.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.037 · n = 68</text><text x="0" y="538.0" font-size="13.5" fill="#1d1d1f">GCK</text><rect x="110" y="522" width="79" height="20" rx="5" fill="#0b7a37"/><text x="199" y="538.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.035 · n = 71</text><text x="0" y="570.0" font-size="13.5" fill="#1d1d1f">KMT2D</text><rect x="110" y="554" width="76" height="20" rx="5" fill="#0b7a37"/><text x="196" y="570.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.034 · n = 94</text><text x="0" y="602.0" font-size="13.5" fill="#1d1d1f">LDLR</text><rect x="110" y="586" width="74" height="20" rx="5" fill="#0b7a37"/><text x="194" y="602.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.033 · n = 74</text><text x="0" y="634.0" font-size="13.5" fill="#1d1d1f">DNAH11</text><rect x="110" y="618" width="70" height="20" rx="5" fill="#0b7a37"/><text x="190" y="634.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.031 · n = 118</text><text x="0" y="666.0" font-size="13.5" fill="#1d1d1f">ABCA4</text><rect x="110" y="650" width="43" height="20" rx="5" fill="#0b7a37"/><text x="163" y="666.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.019 · n = 86</text><text x="0" y="698.0" font-size="13.5" fill="#1d1d1f">RAI1</text><rect x="110" y="682" width="25" height="20" rx="5" fill="#0b7a37"/><text x="145" y="698.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.011 · n = 94</text><text x="0" y="730.0" font-size="13.5" fill="#1d1d1f">SON</text><rect x="110" y="714" width="20" height="20" rx="5" fill="#0b7a37"/><text x="140" y="730.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.009 · n = 51</text><text x="0" y="762.0" font-size="13.5" fill="#1d1d1f">ADGRV1</text><rect x="110" y="746" width="11" height="20" rx="5" fill="#0b7a37"/><text x="131" y="762.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">ECE 0.005 · n = 130</text></svg></div>
+    <div class="table-wrap"><table><thead><tr><th>Gene</th><th>Scored test variants</th><th>ECE (final model)</th></tr></thead><tbody><tr><td>USH2A</td><td data-label="Scored test variants">74</td><td data-label="ECE (final model)">0.204</td></tr><tr><td>MUTYH</td><td data-label="Scored test variants">86</td><td data-label="ECE (final model)">0.154</td></tr><tr><td>MECP2</td><td data-label="Scored test variants">61</td><td data-label="ECE (final model)">0.143</td></tr><tr><td>TSC2</td><td data-label="Scored test variants">65</td><td data-label="ECE (final model)">0.139</td></tr><tr><td>MTOR</td><td data-label="Scored test variants">62</td><td data-label="ECE (final model)">0.134</td></tr><tr><td>NF1</td><td data-label="Scored test variants">81</td><td data-label="ECE (final model)">0.130</td></tr><tr><td>MSH2</td><td data-label="Scored test variants">52</td><td data-label="ECE (final model)">0.086</td></tr><tr><td>BRCA1</td><td data-label="Scored test variants">138</td><td data-label="ECE (final model)">0.081</td></tr><tr><td>TP53</td><td data-label="Scored test variants">68</td><td data-label="ECE (final model)">0.077</td></tr><tr><td>DYSF</td><td data-label="Scored test variants">53</td><td data-label="ECE (final model)">0.075</td></tr><tr><td>SCN1A</td><td data-label="Scored test variants">83</td><td data-label="ECE (final model)">0.074</td></tr><tr><td>BRCA2</td><td data-label="Scored test variants">158</td><td data-label="ECE (final model)">0.058</td></tr><tr><td>DMD</td><td data-label="Scored test variants">97</td><td data-label="ECE (final model)">0.053</td></tr><tr><td>ATM</td><td data-label="Scored test variants">55</td><td data-label="ECE (final model)">0.042</td></tr><tr><td>NOTCH1</td><td data-label="Scored test variants">50</td><td data-label="ECE (final model)">0.041</td></tr><tr><td>FBN1</td><td data-label="Scored test variants">68</td><td data-label="ECE (final model)">0.037</td></tr><tr><td>GCK</td><td data-label="Scored test variants">71</td><td data-label="ECE (final model)">0.035</td></tr><tr><td>KMT2D</td><td data-label="Scored test variants">94</td><td data-label="ECE (final model)">0.034</td></tr><tr><td>LDLR</td><td data-label="Scored test variants">74</td><td data-label="ECE (final model)">0.033</td></tr><tr><td>DNAH11</td><td data-label="Scored test variants">118</td><td data-label="ECE (final model)">0.031</td></tr><tr><td>ABCA4</td><td data-label="Scored test variants">86</td><td data-label="ECE (final model)">0.019</td></tr><tr><td>RAI1</td><td data-label="Scored test variants">94</td><td data-label="ECE (final model)">0.011</td></tr><tr><td>SON</td><td data-label="Scored test variants">51</td><td data-label="ECE (final model)">0.009</td></tr><tr><td>ADGRV1</td><td data-label="Scored test variants">130</td><td data-label="ECE (final model)">0.005</td></tr></tbody></table></div>
+  </section>
+
+  <section id="decline">
+    <div class="sec-head"><h2>Summarise or decline — the before/after record</h2></div>
+    <p>The agent's contract is cite-or-decline: a summary is issued only where the evidence supports one, and every other variant is declined individually. On the temporal test set the live split is 10,357 summarised (37.3%) against 17,391 declined (62.7%).</p>
+    
+    <h3 style="margin-top:26px">Before / after — the 2026-10-26 model adoption</h3>
+    <p><strong>Before — Model 2 served (logistic, AlphaMissense + gene prior).</strong> The output split the live app actually served until 2026-10-26, as published in <code>docs/validation-dossier.md</code> §4–§5 before the addendum:</p>
+    <div class="chart-box"><div class="donut-flex"><svg viewBox="0 0 230 230" width="230" role="img"><circle cx="115" cy="115" r="84" fill="none" stroke="#0b7a37" stroke-width="30" stroke-dasharray="194.3 527.8" transform="rotate(-90.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#424245" stroke-width="30" stroke-dasharray="327.5 527.8" transform="rotate(44.6 115 115)"/><text x="115" y="111" text-anchor="middle" font-size="30" font-weight="700" fill="#1d1d1f">27,748</text><text x="115" y="135" text-anchor="middle" font-size="12.5" fill="#6e6e73">test variants</text></svg><div class="donut-legend"><div class="donut-row"><i class="dot" style="background:#0b7a37"></i><span class="donut-lab">Summarised — cited evidence</span><b>10,373 · 37.4%</b></div><div class="donut-row"><i class="dot" style="background:#424245"></i><span class="donut-lab">Declined — insufficient evidence, remains VUS</span><b>17,375 · 62.6%</b></div></div></div></div>
+    <p><strong>After — GBM+R live (gradient boosting + REVEL + isotonic; Evaluation v3 model adoption, 2026-10-26).</strong> The cite-or-decline rule did not change (MIN_EVIDENCE = 3, unchanged). The counts shifted only because GBM+R requires a REVEL score in addition to AlphaMissense: 16 variants carry an AlphaMissense score but no REVEL score, so they no longer receive a model probability and are declined like every other unscored variant:</p>
+    <div class="chart-box"><div class="donut-flex"><svg viewBox="0 0 230 230" width="230" role="img"><circle cx="115" cy="115" r="84" fill="none" stroke="#0b7a37" stroke-width="30" stroke-dasharray="194.0 527.8" transform="rotate(-90.0 115 115)"/><circle cx="115" cy="115" r="84" fill="none" stroke="#424245" stroke-width="30" stroke-dasharray="327.8 527.8" transform="rotate(44.4 115 115)"/><text x="115" y="111" text-anchor="middle" font-size="30" font-weight="700" fill="#1d1d1f">27,748</text><text x="115" y="135" text-anchor="middle" font-size="12.5" fill="#6e6e73">test variants</text></svg><div class="donut-legend"><div class="donut-row"><i class="dot" style="background:#0b7a37"></i><span class="donut-lab">Summarised — cited evidence</span><b>10,357 · 37.3%</b></div><div class="donut-row"><i class="dot" style="background:#424245"></i><span class="donut-lab">Declined — insufficient evidence, remains VUS</span><b>17,391 · 62.7%</b></div></div></div></div>
+    <p class="chart-cap">Source: <code>data/processed_v2/MODEL_REPORT_6.md</code> — before 10,373 summarised / 17,375 declined; after 10,357 summarised / 17,391 declined, of 27,748. The after counts are the live counts: the app's <code>/api/meta</code> reports summarised 10,357 / declined 17,391 with model version “v3 gradient boosting (GBM+R)”.</p>
+
+  </section>
+
+  <section id="downloads">
+    <div class="sec-head"><h2>Downloads — the files behind every figure</h2></div>
+    <p>Each file below is copied byte-identical from the project's <code>data/processed_v2/</code> (and the validation dossier from <code>docs/</code>) at build time; the build verifies the copies.</p>
+    <ul>
+      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT.md" download>MODEL_REPORT.md</a> — Report 1: AlphaMissense alone, temporal test</li>
+      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_2.md" download>MODEL_REPORT_2.md</a> — Report 2: ensemble (AlphaMissense + gene prior)</li>
+      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_3.md" download>MODEL_REPORT_3.md</a> — Report 3: from-scratch MLP (does not beat the ensemble)</li>
+      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_4.md" download>MODEL_REPORT_4.md</a> — Report 4: REVEL ablation — the headline M2+R model, with its per-gene table</li>
+      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_5.md" download>MODEL_REPORT_5.md</a> — Report 5: tree ensembles, with the per-gene comparison table</li>
+      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_6.md" download>MODEL_REPORT_6.md</a> — Report 6: the final-model head-to-head and the adoption of GBM+R (2026-10-26)</li>
+      <li><a href="/vus-evidence-agent/assets/SPLIT_REPORT.md" download>SPLIT_REPORT.md</a> — the temporal split report</li>
+      <li><a href="/vus-evidence-agent/assets/FEATURE_REPORT.md" download>FEATURE_REPORT.md</a> — the feature report</li>
+      <li><a href="/vus-evidence-agent/assets/validation-dossier.md" download>validation-dossier.md</a> — the full validation dossier behind this page</li>
+      <li><a href="/vus-evidence-agent/assets/test_predictions.csv" download>test_predictions.csv</a> — per-variant predictions: AlphaMissense raw + Platt</li>
+      <li><a href="/vus-evidence-agent/assets/test_predictions_ensemble.csv" download>test_predictions_ensemble.csv</a> — per-variant predictions: ensemble</li>
+      <li><a href="/vus-evidence-agent/assets/test_predictions_mlp.csv" download>test_predictions_mlp.csv</a> — per-variant predictions: MLP</li>
+      <li><a href="/vus-evidence-agent/assets/test_predictions_revel.csv" download>test_predictions_revel.csv</a> — per-variant predictions: the M2+R model (Model Report 4 record — history, kept and labelled)</li>
+      <li><a href="/vus-evidence-agent/assets/test_predictions_trees.csv" download>test_predictions_trees.csv</a> — per-variant predictions: tree ensembles</li>
+      <li><a href="/vus-evidence-agent/assets/headtohead_20261026_predictions.csv" download>headtohead_20261026_predictions.csv</a> — per-variant predictions for the Model Report 6 head-to-head (allele_id + prob_A Model 2, prob_B M2+R, prob_C GBM+R — the adopted final model and this page's per-gene source — prob_D RF+R; labels and genes join from test_predictions.csv on allele_id)</li>
+    </ul>
+    <p>Not for clinical use.</p>
+    <p>Product: <a href="/vus-evidence-agent/">Variant Evidence Agent</a> · API: <a href="/vus-evidence-agent/api/">API documentation</a> · Methods: <a href="/methods/temporal-evaluation/">Temporal evaluation</a> · <a href="/methods/calibration/">Calibration</a>.</p>
+  </section>
+
+  <footer>
+    <p class="name">Evidra</p>
+    <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
+    <div class="links">
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/methods/evaluation/">Methods — evaluation</a>
+      <a href="/methods/calibration/">Methods — calibration</a>
+      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/tools/">Tools — every usable tool</a>
+      <a href="/">Evidra — home</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>

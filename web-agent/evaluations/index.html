@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>web-agent — evaluations — Evidra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --ink:#1d1d1f;
+    --ink-2:#424245;
+    --muted:#6e6e73;
+    --line:#e6e6e8;
+    --line-strong:#d2d2d7;
+    --accent:#0b7a37;
+    --accent-strong:#095c2a;
+    --accent-bright:#17a34a;
+    --accent-soft:#e9f6ee;
+    --amber:#b45309;
+    --amber-bg:#fdf3e0;
+    --red:#b91c1c;
+    --red-bg:#fdf0f0;
+    --red-line:#f0c4c4;
+    --code-bg:#111613;
+    --code-ink:#e8ede9;
+    --code-mute:#9aa79d;
+    --code-green:#86efac;
+    --code-amber:#fcd34d;
+    --link:#0b7a37;
+    --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
+
+  /* Top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
+  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
+  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  .wordmark:hover{text-decoration:none}
+  .bar-nav{display:flex;gap:24px;margin-left:auto}
+  .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .bar-nav a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
+  @media(min-width:641px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  .subnav{border-top:1px solid var(--line)}
+  .sub-in{max-width:980px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){ .sub-in{padding:0 18px} }
+  .subnav nav{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;padding:9px 0;scrollbar-width:none}
+  .subnav nav::-webkit-scrollbar{display:none}
+  .subnav nav a{color:var(--muted);font-size:12.5px;flex:none}
+  .subnav nav a:hover{color:var(--ink);text-decoration:none}
+
+  /* Buttons */
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:16.5px;font-weight:600;padding:13px 28px;border-radius:980px;line-height:1.2}
+  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--accent);padding:13px 10px;font-weight:500}
+  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+
+  /* Hero */
+  .hero{padding:72px 0 10px}
+  .kicker{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 16px}
+  h1{font-size:clamp(48px,8vw,80px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  h1 span{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .subtitle{font-size:clamp(20px,3.2vw,26px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:22px 0 0;max-width:700px}
+  .subtitle em{font-style:italic}
+  .rule-box{margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px}
+  .rule-box p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+  .rule-box strong{font-weight:700;color:var(--ink)}
+  .hero .cta-row{margin-top:30px}
+  .byline{margin-top:24px;display:flex;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .byline a{color:var(--ink-2)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px 0 0}
+  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
+  .stat b{display:block;font-size:clamp(27px,3.4vw,36px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  /* Sections */
+  section{padding:64px 0 8px;scroll-margin-top:120px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  h2{font-size:clamp(30px,4.6vw,42px);line-height:1.12;letter-spacing:-.025em;margin:0;font-weight:700}
+  h3{font-size:17.5px;line-height:1.3;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  p{margin:0 0 16px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .lead{font-size:19px;line-height:1.6;color:var(--ink-2)}
+  ul{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+  li{margin-bottom:8px}
+  code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--ink)}
+
+  /* Sub-blocks inside a section */
+  .items{margin-top:8px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:16px}
+  .item p:last-child{margin-bottom:0}
+  @media(max-width:560px){ .item{padding:22px 20px} }
+
+  /* Coverage bar */
+  .coverage{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+  .coverage-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13.5px;margin-bottom:14px;color:var(--ink-2)}
+  .coverage-head b{font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
+  .bar i{display:block;height:100%}
+  .bar .reported{background:var(--accent);width:37.3%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.7%}
+  .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* Code / report blocks */
+  .report{margin:18px 0 22px;background:var(--code-bg);color:var(--code-ink);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid #262b27;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--code-mute)}
+  .report-head .pill{display:inline-flex;align-items:center;gap:7px}
+  .pill i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .pill.green i{background:var(--code-green)}
+  .pill.amber i{background:var(--code-amber)}
+  .report pre{margin:0;padding:20px 18px 22px;white-space:pre-wrap;word-break:break-word;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.8px;line-height:1.7;color:var(--code-ink)}
+  .report pre .hl-green{color:var(--code-green);font-weight:600}
+  .report pre .hl-amber{color:var(--code-amber);font-weight:600}
+  .report pre .dim{color:var(--code-mute)}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:-8px}
+  .cmd{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;margin:0 0 18px;overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd pre{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;line-height:1.75;white-space:pre;color:var(--code-ink)}
+  .cmd pre .dim{color:var(--code-mute)}
+
+  /* ECE cards */
+  .ece-track{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:22px 0}
+  @media(max-width:700px){ .ece-track{grid-template-columns:1fr} }
+  .ece-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .ece-card.bad{border-color:var(--red-line)}
+  .ece-card.good{border-color:var(--accent)}
+  .ece-card label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .ece-card b{font-size:31px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ece-card small{display:block;margin-top:9px;font-size:13px;line-height:1.45;color:var(--muted)}
+
+  /* Table */
+  .table-wrap{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:6px;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead th{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:right;padding:14px 18px;border-bottom:1px solid var(--line-strong);color:var(--muted);font-weight:600;background:var(--surface-2)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tbody td:first-child{text-align:left;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14.5px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.final{background:var(--accent-soft)}
+  tbody tr.final td{font-weight:600;color:var(--ink)}
+  tbody tr.final td:first-child{font-weight:700}
+  .badge{display:inline-block;margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  @media(max-width:640px){
+    thead{display:none}
+    tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:none;text-align:right}
+    tbody td:first-child{display:block;text-align:left;font-weight:700;padding-bottom:8px}
+    tbody td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+    tbody td:first-child::before{content:none}
+  }
+  .table-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .table-note strong{color:var(--ink-2)}
+
+  /* Panels */
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px}
+  .panel h3{margin-bottom:10px}
+  .panel p{font-size:15.5px;margin:0}
+  .panel .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
+
+  /* Model analysis charts */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin:18px 0 8px}
+  .chart-box canvas{width:100%;height:auto;display:block}
+  .chart-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+  .chart-controls label{font-size:14px;color:var(--muted)}
+  .chart-controls select{padding:10px 12px;font:inherit;font-size:15px;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);max-width:100%}
+  .chart-controls select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .chart-cap{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);margin:10px 0 22px;line-height:1.55}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:2px 0 6px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* Variant lookup */
+  .lookup-box input{width:100%;padding:14px 18px;font:inherit;font-size:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .lookup-box input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .lookup-status{font-size:14px;color:var(--muted);margin:12px 0 4px;min-height:1.4em}
+
+  footer{margin-top:72px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
+  footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
+  footer p{font-size:14.5px}
+  footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+
+  .chart-box svg{display:block}
+  .chart-box h4{font-size:15px;margin:0 0 6px}
+  .donut-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  @media(max-width:700px){ .donut-pair{grid-template-columns:1fr} }
+  .donut-flex{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .donut-legend{flex:1;min-width:210px}
+  .donut-row{display:flex;align-items:center;gap:6px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .donut-row:last-child{border-bottom:none}
+  .donut-row .donut-lab{flex:1;color:var(--ink-2)}
+  .donut-row b{font-variant-numeric:tabular-nums}
+  .takeaway{font-size:15.5px;color:var(--ink-2);margin:10px 2px 26px}
+  .takeaway strong{color:var(--ink)}
+</style>
+<!-- evidra-build:head:start -->
+<meta name="description" content="web-agent evaluations by Evidra: Evaluation v1.0, the 36-task suite — recovery on 36/36, recovery off 27/36, adversarial 9/9 against 0/9 — with the raw run files downloadable." />
+<link rel="canonical" href="https://umeshlinga.github.io/evidra/web-agent/evaluations/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Evidra" />
+<meta property="og:title" content="web-agent — evaluations — Evidra" />
+<meta property="og:description" content="web-agent evaluations by Evidra: Evaluation v1.0, the 36-task suite — recovery on 36/36, recovery off 27/36, adversarial 9/9 against 0/9 — with the raw run files downloadable." />
+<meta property="og:url" content="https://umeshlinga.github.io/evidra/web-agent/evaluations/" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "web-agent evaluations by Evidra: Evaluation v1.0, the 36-task suite \u2014 recovery on 36/36, recovery off 27/36, adversarial 9/9 against 0/9 \u2014 with the raw run files downloadable.", "name": "web-agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://umeshlinga.github.io/evidra/web-agent/evaluations/"}</script>
+<!-- evidra-build:head:end -->
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-in">
+    <a class="wordmark" href="/">Evidra</a>
+    <nav class="bar-nav" aria-label="Products">
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+    </nav>
+    <a class="bar-btn" href="/">Evidra — all products</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kicker">Evidra · web-agent — proof</p>
+    <h1>web-agent — <span>evaluations</span></h1>
+    <p class="subtitle">Evaluation v1.0 in full: the 36-task recovery ablation, drawn and downloadable.</p>
+  </header>
+
+  <section id="protocol">
+    <div class="sec-head"><h2>Evaluation v1.0 — 36-task suite</h2></div>
+    <p><strong>Version label: Evaluation v1.0 — 36-task suite, recovery ablation.</strong> The same agent runs the identical 36 tasks twice in headless Chromium (Playwright): once with the recovery half of its loop on, once with it off (no re-grounding, no overlay dismissal, no retries — the first failure ends the task). Every step carries an explicit postcondition written against the page; a task passes only when every postcondition holds. Retries are budgeted at most 2 per step. The suite is 27 control tasks and 9 adversarial tasks (the page mutates or obstructs mid-task), in six categories: Forms & wizards (10) · Tables, lists & cart (6) · Adversarial recovery (9) · Widgets & dialogs (5) · Business workflows (3) · Portal navigation (3). Method in full: <a href="/methods/evaluation/">Evaluation method</a>.</p>
+  </section>
+
+  <section id="results">
+    <div class="sec-head"><h2>Results</h2></div>
+    <div class="stats" aria-label="Evaluation v1.0 numbers">
+      <div class="stat"><b>36/36</b><span>Tasks passed with recovery on (the citation gate)</span></div>
+      <div class="stat"><b>27/36</b><span>Tasks passed with recovery off</span></div>
+      <div class="stat"><b>9/9 vs 0/9</b><span>Adversarial tasks passed, recovery on vs off</span></div>
+      <div class="stat"><b>27/27</b><span>Control tasks passed both ways</span></div>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Category</th><th>Tasks</th><th>Recovery on</th><th>Recovery off</th></tr></thead><tbody><tr><td>Forms &amp; wizards</td><td data-label="Tasks">10</td><td data-label="Recovery on">10/10 (100.0%)</td><td data-label="Recovery off">10/10 (100.0%)</td></tr><tr><td>Tables, lists &amp; cart</td><td data-label="Tasks">6</td><td data-label="Recovery on">6/6 (100.0%)</td><td data-label="Recovery off">6/6 (100.0%)</td></tr><tr><td>Adversarial recovery</td><td data-label="Tasks">9</td><td data-label="Recovery on">9/9 (100.0%)</td><td data-label="Recovery off">0/9 (0.0%)</td></tr><tr><td>Widgets &amp; dialogs</td><td data-label="Tasks">5</td><td data-label="Recovery on">5/5 (100.0%)</td><td data-label="Recovery off">5/5 (100.0%)</td></tr><tr><td>Business workflows</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr><tr><td>Portal navigation</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr></tbody></table></div>
+    <h3 style="margin-top:26px">Pass rate by category — recovery on vs off</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 370" width="100%" role="img"><text x="0" y="25.0" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — recovery on</text><rect x="300" y="10" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="25.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10 · 100%</text><text x="0" y="55.0" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — recovery off</text><rect x="300" y="40" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="55.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10 · 100%</text><text x="0" y="85.0" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — recovery on</text><rect x="300" y="70" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="85.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6 · 100%</text><text x="0" y="115.0" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — recovery off</text><rect x="300" y="100" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="115.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6 · 100%</text><text x="0" y="145.0" font-size="13.5" fill="#1d1d1f">Adversarial recovery — recovery on</text><rect x="300" y="130" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="145.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9/9 · 100%</text><text x="0" y="175.0" font-size="13.5" fill="#1d1d1f">Adversarial recovery — recovery off</text><rect x="300" y="160" width="2" height="18" rx="5" fill="#b91c1c"/><text x="312" y="175.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">0/9 · 0%</text><text x="0" y="205.0" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — recovery on</text><rect x="300" y="190" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="205.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5 · 100%</text><text x="0" y="235.0" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — recovery off</text><rect x="300" y="220" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="235.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5 · 100%</text><text x="0" y="265.0" font-size="13.5" fill="#1d1d1f">Business workflows — recovery on</text><rect x="300" y="250" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="265.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text><text x="0" y="295.0" font-size="13.5" fill="#1d1d1f">Business workflows — recovery off</text><rect x="300" y="280" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="295.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text><text x="0" y="325.0" font-size="13.5" fill="#1d1d1f">Portal navigation — recovery on</text><rect x="300" y="310" width="530" height="18" rx="5" fill="#0b7a37"/><text x="840" y="325.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text><text x="0" y="355.0" font-size="13.5" fill="#1d1d1f">Portal navigation — recovery off</text><rect x="300" y="340" width="530" height="18" rx="5" fill="#424245"/><text x="840" y="355.0" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3 · 100%</text></svg></div>
+    <h3 style="margin-top:26px">Every task, both modes</h3>
+    <div class="chart-box"><svg viewBox="0 0 920 1304" width="100%" role="img"><text x="450.0" y="24" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#424245">RECOVERY ON</text><text x="750.0" y="24" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#424245">RECOVERY OFF</text><text x="0" y="60" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">FORMS &amp; WIZARDS</text><text x="0" y="90" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">login</text><rect x="303" y="73" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="90" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="73" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="90" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="120" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">multistep_form</text><rect x="303" y="103" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="120" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><rect x="603" y="103" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="120" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><text x="0" y="150" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">settings_form</text><rect x="303" y="133" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="150" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><rect x="603" y="133" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="150" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><text x="0" y="180" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">checkout_full</text><rect x="303" y="163" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="180" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">11 attempts</text><rect x="603" y="163" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="180" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">11 attempts</text><text x="0" y="210" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">validation_form</text><rect x="303" y="193" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="210" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">10 attempts</text><rect x="603" y="193" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="210" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">10 attempts</text><text x="0" y="240" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">dependent_settings</text><rect x="303" y="223" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="240" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="223" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="240" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="270" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">wizard_backtrack</text><rect x="303" y="253" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="270" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><rect x="603" y="253" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="270" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><text x="0" y="300" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">dependent_dropdowns</text><rect x="303" y="283" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="300" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="283" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="300" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="330" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">accordion_form</text><rect x="303" y="313" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="330" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><rect x="603" y="313" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="330" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">7 attempts</text><text x="0" y="360" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">otp_code_entry</text><rect x="303" y="343" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="360" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><rect x="603" y="343" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="360" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><text x="0" y="390" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">TABLES, LISTS &amp; CART</text><text x="0" y="420" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">table_filter</text><rect x="303" y="403" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="420" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><rect x="603" y="403" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="420" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><text x="0" y="450" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">todo_list</text><rect x="303" y="433" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="450" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><rect x="603" y="433" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="450" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><text x="0" y="480" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">sort_table</text><rect x="303" y="463" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="480" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">1 attempts</text><rect x="603" y="463" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="480" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">1 attempts</text><text x="0" y="510" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">paginated_table</text><rect x="303" y="493" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="510" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><rect x="603" y="493" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="510" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">5 attempts</text><text x="0" y="540" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">cart_update</text><rect x="303" y="523" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="540" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="523" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="540" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="570" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">inline_edit_table</text><rect x="303" y="553" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="570" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="553" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="570" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="600" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">ADVERSARIAL RECOVERY</text><text x="0" y="630" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_label_change</text><rect x="303" y="613" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="630" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="613" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="630" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="660" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_overlay_move</text><rect x="303" y="643" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="660" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="643" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="660" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="690" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_double_label_change</text><rect x="303" y="673" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="690" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6 attempts · ↺ 2</text><rect x="603" y="673" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="690" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="720" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_moved_button</text><rect x="303" y="703" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="720" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · ↺ 1</text><rect x="603" y="703" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="720" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="750" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_banner_reappears</text><rect x="303" y="733" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="750" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="733" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="750" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="780" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_late_overlay</text><rect x="303" y="763" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="780" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3 attempts · ↺ 1</text><rect x="603" y="763" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="780" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="810" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_renamed_field</text><rect x="303" y="793" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="810" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="793" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="810" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts · FAIL</text><text x="0" y="840" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_decoy_button</text><rect x="303" y="823" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="840" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">4 attempts · ↺ 1</text><rect x="603" y="823" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="840" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="870" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">adversarial_rename_under_overlay</text><rect x="303" y="853" width="294" height="24" rx="6" fill="#8fce9f"/><text x="450.0" y="870" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5 attempts · ↺ 2</text><rect x="603" y="853" width="294" height="24" rx="6" fill="#b91c1c"/><text x="750.0" y="870" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts · FAIL</text><text x="0" y="900" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">WIDGETS &amp; DIALOGS</text><text x="0" y="930" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">stacked_modals</text><rect x="303" y="913" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="930" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><rect x="603" y="913" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="930" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><text x="0" y="960" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">delayed_render</text><rect x="303" y="943" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="960" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="943" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="960" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="990" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">date_picker</text><rect x="303" y="973" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="990" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><rect x="603" y="973" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="990" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><text x="0" y="1020" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">autocomplete_select</text><rect x="303" y="1003" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1020" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><rect x="603" y="1003" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1020" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">2 attempts</text><text x="0" y="1050" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">tabbed_panels</text><rect x="303" y="1033" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1050" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="1033" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1050" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="1080" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">BUSINESS WORKFLOWS</text><text x="0" y="1110" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">crm_record_update</text><rect x="303" y="1093" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1110" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="1093" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1110" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="1140" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">vendor_application</text><rect x="303" y="1123" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1140" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">14 attempts</text><rect x="603" y="1123" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1140" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">14 attempts</text><text x="0" y="1170" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">lead_entry</text><rect x="303" y="1153" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1170" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">16 attempts</text><rect x="603" y="1153" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1170" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">16 attempts</text><text x="0" y="1200" font-size="12" font-weight="700" letter-spacing=".06em" fill="#6e6e73">PORTAL NAVIGATION</text><text x="0" y="1230" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">portal_customer_drilldown</text><rect x="303" y="1213" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1230" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><rect x="603" y="1213" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1230" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">3 attempts</text><text x="0" y="1260" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">portal_edit_and_verify</text><rect x="303" y="1243" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1260" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><rect x="603" y="1243" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1260" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">6 attempts</text><text x="0" y="1290" font-size="13" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">portal_settings_flow</text><rect x="303" y="1273" width="294" height="24" rx="6" fill="#0b7a37"/><text x="450.0" y="1290" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text><rect x="603" y="1273" width="294" height="24" rx="6" fill="#0b7a37"/><text x="750.0" y="1290" text-anchor="middle" font-size="12.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#ffffff">4 attempts</text></svg></div>
+    <p>Total attempts: 185 with recovery on, 171 off — identical on the control tasks (148 each), so every extra attempt sits in the adversarial group, where 11 recoveries were spent. With recovery on there are no failures to list; with it off, the nine failures are recorded verbatim on the <a href="/web-agent/">web-agent page</a> and in the downloadable run files.</p>
+  </section>
+
+  <section id="downloads">
+    <div class="sec-head"><h2>Downloads — the raw run files</h2></div>
+    <ul>
+      <li><a href="/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
+      <li><a href="/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>
+      <li><a href="/web-agent/assets/RESULTS.md" download>RESULTS.md</a> — the generated results document for Evaluation v1.0</li>
+    </ul>
+    <p>Each file is copied byte-identical from the lab's own results at build time; the build verifies the copies. Scope, stated plainly: the suite runs against deterministic local fixture pages styled as real product surfaces — the claims are claims about that suite.</p>
+    <p>Product: <a href="/web-agent/">web-agent</a> · Write-up: <a href="/articles/recovery-ablation/">The recovery ablation</a>.</p>
+  </section>
+
+  <footer>
+    <p class="name">Evidra</p>
+    <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
+    <div class="links">
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/methods/evaluation/">Methods — evaluation</a>
+      <a href="/methods/calibration/">Methods — calibration</a>
+      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/tools/">Tools — every usable tool</a>
+      <a href="/">Evidra — home</a>
+    </div>
+  </footer>
+</main>
+<!-- evidra-build:ask-widget:start -->
+
+<div class="ask-evidra" id="ask-evidra">
+  <style>
+    .ask-evidra{position:fixed;left:18px;bottom:18px;z-index:90;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+    .ask-toggle{background:#0b7a37;color:#fff;border:0;border-radius:980px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(20,40,26,.25)}
+    .ask-toggle:hover{background:#095c2a}
+    .ask-panel{display:none;width:min(380px,calc(100vw - 36px));background:#fff;border:1px solid #d2d2d7;border-radius:18px;box-shadow:0 18px 50px rgba(20,40,26,.22);margin-bottom:10px;overflow:hidden}
+    .ask-head{padding:13px 16px;border-bottom:1px solid #e6e6e8;font-weight:700;font-size:15px;color:#1d1d1f}
+    .ask-head span{display:block;font-weight:400;font-size:12.5px;color:#6e6e73;margin-top:2px}
+    .ask-msgs{max-height:320px;overflow-y:auto;padding:12px 14px}
+    .ask-msg{font-size:14px;line-height:1.5;padding:9px 12px;border-radius:12px;margin-bottom:8px;color:#1d1d1f}
+    .ask-q{background:#e9f6ee;text-align:left}
+    .ask-a{background:#f5f5f7}
+    .ask-src{font-size:12.5px;color:#6e6e73;margin:-2px 0 10px 4px}
+    .ask-form{display:flex;gap:8px;padding:10px;border-top:1px solid #e6e6e8}
+    .ask-input{flex:1;padding:10px 12px;font:inherit;font-size:14px;border:1px solid #d2d2d7;border-radius:10px;color:#1d1d1f}
+    .ask-send{background:#0b7a37;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  </style>
+  <div class="ask-panel" role="dialog" aria-label="Ask Evidra">
+    <div class="ask-head">Ask Evidra<span>Answers come only from this site's pages, with the source page named.</span></div>
+    <div class="ask-msgs"></div>
+    <form class="ask-form"><input class="ask-input" type="text" placeholder="Ask about the products, methods, results…" aria-label="Ask about the products, methods, results" /><button class="ask-send" type="submit">Ask</button></form>
+  </div>
+  <button class="ask-toggle" type="button">Ask Evidra</button>
+</div>
+<script src="/assets/ask-evidra.js" defer></script>
+
+<!-- evidra-build:ask-widget:end -->
+</body>
+</html>

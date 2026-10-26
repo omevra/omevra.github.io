@@ -1,0 +1,33 @@
+[GATE] BADINPUT01 STOPPED reason: mean_coverage=0.01x < gate 10.00x (mean_coverage=0.01x pct_mapped=97.42 q30_pct=96.00)
+[GATE] SRR1121840 PASS mean_coverage=10.30x pct_mapped=98.36 q30_pct=96.00
+[GATE] SRR1121841 STOPPED reason: mean_coverage=8.82x < gate 10.00x (mean_coverage=8.82x pct_mapped=98.16 q30_pct=96.00)
+[GATE] SRR1121843 PASS mean_coverage=17.85x pct_mapped=98.53 q30_pct=96.00
+[GATE] SRR1121846 PASS mean_coverage=15.21x pct_mapped=98.54 q30_pct=96.00
+[GATE] SRR1121847 PASS mean_coverage=14.01x pct_mapped=98.44 q30_pct=96.00
+[GATE] SRR1121858 PASS mean_coverage=12.61x pct_mapped=98.69 q30_pct=96.00
+[GATE] SRR1121866 PASS mean_coverage=17.16x pct_mapped=98.55 q30_pct=96.00
+[GATE] SRR1121867 PASS mean_coverage=13.79x pct_mapped=98.56 q30_pct=96.00
+[GATE] SRR1121870 PASS mean_coverage=13.27x pct_mapped=98.64 q30_pct=96.00
+[GATE] SRR1121877 PASS mean_coverage=14.63x pct_mapped=98.40 q30_pct=96.00
+[GATE] SRR1121882 PASS mean_coverage=11.38x pct_mapped=98.69 q30_pct=96.00
+[GATE] SRR1121884 PASS mean_coverage=18.16x pct_mapped=98.51 q30_pct=96.00
+[GATE] SRR1121885 PASS mean_coverage=14.61x pct_mapped=98.51 q30_pct=96.00
+[GATE] SRR1121886 PASS mean_coverage=16.80x pct_mapped=98.30 q30_pct=96.00
+[GATE] SRR1121888 PASS mean_coverage=12.62x pct_mapped=98.60 q30_pct=96.00
+[GATE] SRR1121892 PASS mean_coverage=14.68x pct_mapped=98.50 q30_pct=96.00
+[GATE] SRR1121895 STOPPED reason: mean_coverage=9.03x < gate 10.00x (mean_coverage=9.03x pct_mapped=98.03 q30_pct=96.00)
+[GATE] SRR1121896 PASS mean_coverage=18.99x pct_mapped=98.35 q30_pct=96.00
+[GATE] SRR1121898 PASS mean_coverage=16.53x pct_mapped=98.37 q30_pct=96.00
+[GATE] SRR1121901 PASS mean_coverage=17.08x pct_mapped=98.40 q30_pct=96.00
+[GATE] SRR1121904 PASS mean_coverage=16.31x pct_mapped=98.38 q30_pct=96.00
+[GATE] SRR1121906 PASS mean_coverage=11.16x pct_mapped=98.70 q30_pct=96.00
+[GATE] SRR1121907 PASS mean_coverage=11.06x pct_mapped=97.76 q30_pct=96.00
+[GATE] SRR1121912 PASS mean_coverage=13.03x pct_mapped=98.60 q30_pct=96.00
+[GATE] SRR1121914 PASS mean_coverage=10.40x pct_mapped=98.39 q30_pct=96.00
+[GATE] SRR1121916 PASS mean_coverage=14.35x pct_mapped=98.44 q30_pct=96.00
+[GATE] SRR1121918 STOPPED reason: mean_coverage=9.33x < gate 10.00x (mean_coverage=9.33x pct_mapped=97.59 q30_pct=96.00)
+[GATE] SRR1121922 PASS mean_coverage=10.93x pct_mapped=98.40 q30_pct=96.00
+[GATE] SRR1121923 STOPPED reason: mean_coverage=9.70x < gate 10.00x (mean_coverage=9.70x pct_mapped=98.32 q30_pct=96.00)
+[GATE] SRR1121925 PASS mean_coverage=13.68x pct_mapped=98.52 q30_pct=96.00
+[GATE] SRR1121926 PASS mean_coverage=11.88x pct_mapped=98.53 q30_pct=96.00
+[GATE] SRR1121929 STOPPED reason: mean_coverage=9.99x < gate 10.00x (mean_coverage=9.99x pct_mapped=98.60 q30_pct=96.00)

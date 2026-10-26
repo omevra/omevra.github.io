@@ -120,8 +120,8 @@
   .coverage-head b{font-variant-numeric:tabular-nums}
   .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
   .bar i{display:block;height:100%}
-  .bar .reported{background:var(--accent);width:37.4%}
-  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar .reported{background:var(--accent);width:37.3%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.7%}
   .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
   .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
@@ -230,15 +230,15 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/evidra/">Evidra</a>
+    <a class="wordmark" href="/">Evidra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/evidra/web-agent/">web-agent</a>
-      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
     </nav>
-    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+    <a class="bar-btn" href="/">Evidra — all products</a>
   </div>
 </header>
 
@@ -273,7 +273,7 @@
       </div>
       <div class="item">
         <h3>scripts/run_eval.py — the measurement</h3>
-        <p>Runs the suite twice — recovery on, recovery off — writes <code>results/run_on.json</code> and <code>results/run_off.json</code> plus the JSONL logs, and generates <code>RESULTS.md</code> from the run files. The <a href="/evidra/methods/evaluation/">evaluation method</a> page covers the design and the scoring rules.</p>
+        <p>Runs the suite twice — recovery on, recovery off — writes <code>results/run_on.json</code> and <code>results/run_off.json</code> plus the JSONL logs, and generates <code>RESULTS.md</code> from the run files. The <a href="/methods/evaluation/">evaluation method</a> page covers the design and the scoring rules.</p>
       </div>
       <div class="item">
         <h3>The live application — runner.py and app.py</h3>
@@ -308,7 +308,7 @@
 
   <section id="taxonomy">
     <div class="sec-head"><h2>The failure taxonomy — what breaks, what answers it</h2></div>
-    <p>The loop records exactly three failure classes. The counts below are the recovery-off run's nine failures, classified from the error strings recorded in <code>run_off.json</code> — the same strings <a href="/evidra/articles/recovery-ablation/">the ablation article</a> lists verbatim.</p>
+    <p>The loop records exactly three failure classes. The counts below are the recovery-off run's nine failures, classified from the error strings recorded in <code>run_off.json</code> — the same strings <a href="/articles/recovery-ablation/">the ablation article</a> lists verbatim.</p>
     <div class="table-wrap"><table><thead><tr><th>Failure class</th><th>Off-run failures</th><th>The recovery that answers it</th></tr></thead><tbody>
       <tr><td><code>target_not_found</code></td><td data-label="Off-run failures">4 of 9 — adversarial_double_label_change, adversarial_label_change, adversarial_rename_under_overlay, adversarial_renamed_field</td><td data-label="Recovery">Re-grounding: a fresh snapshot, then the structural fallbacks — the target was renamed or moved, so exact text and id are abandoned on purpose.</td></tr>
       <tr><td><code>action_error</code> (click timeout, 3,000 ms)</td><td data-label="Off-run failures">3 of 9 — adversarial_banner_reappears, adversarial_late_overlay, adversarial_overlay_move</td><td data-label="Recovery">Overlay dismissal, when the error reports another element intercepting pointer events: find a visible button whose text is in the dismiss set (×, Close, Accept, Accept all, Dismiss, Got it, OK, No thanks), click it, then retry the step.</td></tr>
@@ -346,7 +346,7 @@
 
   <section id="scope">
     <div class="sec-head"><h2>Scope</h2></div>
-    <p>The measured suite runs on deterministic local fixture pages in headless Chromium, styled as real product surfaces. The public-page mode is bounded exactly as described above. Results: <a href="/evidra/web-agent/">web-agent</a> · Method: <a href="/evidra/methods/evaluation/">Evaluation</a> · Write-up: <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>.</p>
+    <p>The measured suite runs on deterministic local fixture pages in headless Chromium, styled as real product surfaces. The public-page mode is bounded exactly as described above. Results: <a href="/web-agent/">web-agent</a> · Method: <a href="/methods/evaluation/">Evaluation</a> · Write-up: <a href="/articles/recovery-ablation/">The recovery ablation</a>.</p>
     <p class="table-note">This page describes <code>src/agent.py</code>, <code>src/snapshot.py</code>, <code>src/tasks.py</code>, <code>src/public_mode.py</code> and <code>scripts/run_eval.py</code> in the project, and <code>runner.py</code> / <code>app.py</code> in the live application — the code as it stands.</p>
   </section>
 
@@ -354,19 +354,19 @@
     <p class="name">Evidra</p>
     <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
     <div class="links">
-      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/evidra/web-agent/">web-agent</a>
-      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
-      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
-      <a href="/evidra/methods/calibration/">Methods — calibration</a>
-      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
-      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
-      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
-      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
-      <a href="/evidra/tools/">Tools — every usable tool</a>
-      <a href="/evidra/">Evidra — home</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/methods/evaluation/">Methods — evaluation</a>
+      <a href="/methods/calibration/">Methods — calibration</a>
+      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/tools/">Tools — every usable tool</a>
+      <a href="/">Evidra — home</a>
     </div>
   </footer>
 </main>
@@ -396,7 +396,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Evidra</button>
 </div>
-<script src="/evidra/assets/ask-evidra.js" defer></script>
+<script src="/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

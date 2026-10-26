@@ -130,14 +130,14 @@
 <meta property="og:title" content="Evidra — measured AI systems for genomics and the web" />
 <meta property="og:description" content="Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
 <meta property="og:url" content="https://umeshlinga.github.io/evidra/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Evidra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures.", "name": "Evidra", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://umeshlinga.github.io/evidra/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Evidra is a platform of measured AI systems for genomics and the web \u2014 data in, pipelines run, evidence out, with every result published including failures.", "name": "Evidra", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://umeshlinga.github.io/evidra/"}</script>
 <!-- evidra-build:head:end -->
 </head>
 <body>
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/evidra/">Evidra</a>
+    <a class="wordmark" href="/">Evidra</a>
     <nav class="bar-nav" aria-label="Products">
       <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent</a>
       <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent</a>
@@ -175,12 +175,12 @@
       <div class="product-card">
         <h3>Variant Evidence Agent</h3>
         <p class="desc">Evidence reports for variants of uncertain significance — every claim cited, or the system declines.</p>
-        <p class="metric">AUROC 0.968 · calibration error (ECE) 0.023 · tested on 27,748 ClinVar variants reclassified after its training freeze · 10,373 summarised, 17,375 declined</p>
+        <p class="metric">AUROC 0.970 · calibration error (ECE) 0.025 · tested on 27,748 ClinVar variants reclassified after its training freeze · 10,357 summarised, 17,391 declined</p>
         <p class="who">For variant scientists and genomics researchers.</p>
         <div class="cta-row">
           <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try it live</a>
           <a class="btn ghost" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Batch evidence pack — up to 500 variants at once</a>
-          <a class="btn ghost" href="/evidra/vus-evidence-agent/">How it works ›</a>
+          <a class="btn ghost" href="/vus-evidence-agent/">How it works ›</a>
         </div>
       </div>
       <div class="product-card">
@@ -190,7 +190,7 @@
         <p class="who">For teams evaluating browser agents.</p>
         <div class="cta-row">
           <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
-          <a class="btn ghost" href="/evidra/web-agent/">Full results ›</a>
+          <a class="btn ghost" href="/web-agent/">Full results ›</a>
         </div>
       </div>
       <div class="product-card">
@@ -199,7 +199,7 @@
         <p class="metric">33 samples · 27 passed · 6 stopped at the 10× coverage gate · two runs byte-identical</p>
         <p class="who">For pipeline engineers who need runs they can trust.</p>
         <div class="cta-row">
-          <a class="btn" href="/evidra/ngs-pipeline-atlas/">See the results ›</a>
+          <a class="btn" href="/ngs-pipeline-atlas/">See the results ›</a>
         </div>
       </div>
       <div class="product-card">
@@ -208,7 +208,7 @@
         <p class="metric">Two-gene combinations: hybrid model 0.82 vs 0.57 mean baseline (Pearson Δ; ceiling 0.93) · on unseen single perturbations it trails the mean — published as-is</p>
         <p class="who">For single-cell and ML researchers.</p>
         <div class="cta-row">
-          <a class="btn" href="/evidra/hybrid-perturb-bench/">See the benchmark ›</a>
+          <a class="btn" href="/hybrid-perturb-bench/">See the benchmark ›</a>
         </div>
       </div>
       <div class="product-card">
@@ -217,7 +217,7 @@
         <p class="metric">Citation accuracy 1.00 vs 1.00 after audit — a published tie · decline correctness 36/36 both ways · 17,062 vs 46,225 tokens</p>
         <p class="who">For teams designing multi-agent evidence systems.</p>
         <div class="cta-row">
-          <a class="btn" href="/evidra/multi-agent-evidence/">See the comparison ›</a>
+          <a class="btn" href="/multi-agent-evidence/">See the comparison ›</a>
         </div>
       </div>
     </div>
@@ -234,11 +234,11 @@
       </div>
       <div class="card">
         <h3>Probabilities that mean what they say</h3>
-        <p>Predictions are calibrated, so a “90% pathogenic” output should be right about 90% of the time. On the post-freeze test set the final model reaches AUROC <strong>0.968</strong> with calibration error (ECE) <strong>0.023</strong> — and the calibration record, including where it fails, is published inside the system.</p>
+        <p>Predictions are calibrated, so a “90% pathogenic” output should be right about 90% of the time. On the post-freeze test set the final model (GBM+R, adopted 2026-10-26) reaches AUROC <strong>0.970</strong> with calibration error (ECE) <strong>0.025</strong> — honestly worse than the earlier logistic model’s 0.017, a trade-off stated in full on the product page — and the calibration record, including where it fails, is published inside the system.</p>
       </div>
       <div class="card">
         <h3>Evidence reports — cited, or declined</h3>
-        <p>For each variant, the agent retrieves the records behind a call and writes an evidence summary in which every claim is cited. Where the evidence is not there, it declines. On the test set it reports on <strong>10,373</strong> variants (37.4%) and declines <strong>17,375</strong>.</p>
+        <p>For each variant, the agent retrieves the records behind a call and writes an evidence summary in which every claim is cited. Where the evidence is not there, it declines. On the test set it reports on <strong>10,357</strong> variants (37.3%) and declines <strong>17,391</strong>.</p>
       </div>
       <div class="card">
         <h3>Open it and look inside</h3>
@@ -248,7 +248,7 @@
     <div class="section-cta">
       <div class="cta-row">
         <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
-        <a class="btn ghost" href="/evidra/vus-evidence-agent/">Explore the full system ›</a>
+        <a class="btn ghost" href="/vus-evidence-agent/">Explore the full system ›</a>
       </div>
     </div>
   </section>
@@ -277,9 +277,21 @@
       <svg viewBox="0 0 920 334" width="100%" role="img"><text x="0" y="23.5" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — on</text><rect x="230" y="10" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="23.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10</text><text x="0" y="50.5" font-size="13.5" fill="#1d1d1f">Forms &amp; wizards — off</text><rect x="230" y="37" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="50.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">10/10</text><text x="0" y="77.5" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — on</text><rect x="230" y="64" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="77.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6</text><text x="0" y="104.5" font-size="13.5" fill="#1d1d1f">Tables, lists &amp; cart — off</text><rect x="230" y="91" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="104.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">6/6</text><text x="0" y="131.5" font-size="13.5" fill="#1d1d1f">Adversarial recovery — on</text><rect x="230" y="118" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="131.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">9/9</text><text x="0" y="158.5" font-size="13.5" fill="#1d1d1f">Adversarial recovery — off</text><rect x="230" y="145" width="2" height="15" rx="5" fill="#b91c1c"/><text x="242" y="158.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">0/9</text><text x="0" y="185.5" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — on</text><rect x="230" y="172" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="185.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5</text><text x="0" y="212.5" font-size="13.5" fill="#1d1d1f">Widgets &amp; dialogs — off</text><rect x="230" y="199" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="212.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">5/5</text><text x="0" y="239.5" font-size="13.5" fill="#1d1d1f">Business workflows — on</text><rect x="230" y="226" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="239.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text><text x="0" y="266.5" font-size="13.5" fill="#1d1d1f">Business workflows — off</text><rect x="230" y="253" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="266.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text><text x="0" y="293.5" font-size="13.5" fill="#1d1d1f">Portal navigation — on</text><rect x="230" y="280" width="600" height="15" rx="5" fill="#0b7a37"/><text x="840" y="293.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text><text x="0" y="320.5" font-size="13.5" fill="#1d1d1f">Portal navigation — off</text><rect x="230" y="307" width="600" height="15" rx="5" fill="#424245"/><text x="840" y="320.5" font-size="13.5" font-weight="600" font-family="'IBM Plex Mono',monospace" fill="#1d1d1f">3/3</text></svg>
       <div class="cta-row">
         <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run web-agent live</a>
-        <a class="btn ghost" href="/evidra/web-agent/">See the full results ›</a>
+        <a class="btn ghost" href="/web-agent/">See the full results ›</a>
       </div>
       <p style="margin-top:20px;font-size:15px">Open it and run a task yourself: pick from the 36 tasks — including a CRM record update, a vendor application, a lead-entry flow, and a multi-page CRM portal it navigates end to end — watch every step and screenshot as it works, then switch recovery off and run the same task again. The evaluation view shows every recorded run behind these numbers.</p>
+    </div>
+  </section>
+
+  <!-- EARLY ACCESS -->
+  <section id="early-access">
+    <p class="sec-eyebrow">Early access</p>
+    <h2>Join the early-access list</h2>
+    <p class="sec-sub">The products are free and in early access. Early access is coordinated personally, and the list is kept through LinkedIn — connect there to join, ask questions, and follow new results as they are published.</p>
+    <div class="section-cta">
+      <div class="cta-row">
+        <a class="btn" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Join via LinkedIn</a>
+      </div>
     </div>
   </section>
 
@@ -303,7 +315,7 @@
       </div>
 
       <div class="cta-row">
-        <a class="btn ghost" href="/evidra/ngs-pipeline-atlas/">See the pipeline and the runs ›</a>
+        <a class="btn ghost" href="/ngs-pipeline-atlas/">See the pipeline and the runs ›</a>
       </div>
     </div>
   </section>
@@ -329,24 +341,12 @@
       </div>
 
       <div class="cta-row">
-        <a class="btn ghost" href="/evidra/multi-agent-evidence/">See the architecture and the comparison ›</a>
+        <a class="btn ghost" href="/multi-agent-evidence/">See the architecture and the comparison ›</a>
       </div>
     </div>
   </section>
 
 <!-- evidra-build:mae-panel:end -->
-  <!-- EARLY ACCESS -->
-  <section id="early-access">
-    <p class="sec-eyebrow">Early access</p>
-    <h2>Join the early-access list</h2>
-    <p class="sec-sub">The products are free and in early access. Early access is coordinated personally, and the list is kept through LinkedIn — connect there to join, ask questions, and follow new results as they are published.</p>
-    <div class="section-cta">
-      <div class="cta-row">
-        <a class="btn" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Join via LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
 <!-- evidra-build:contact:start -->
 
   <!-- CONTACT -->
@@ -357,8 +357,8 @@
     <div class="section-cta">
       <div class="cta-row">
         <a class="btn" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Connect on LinkedIn</a>
-        <a class="btn ghost" href="/evidra/tools/">Browse the tools ›</a>
-        <a class="btn ghost" href="/evidra/methods/evaluation/">Read the methods ›</a>
+        <a class="btn ghost" href="/tools/">Browse the tools ›</a>
+        <a class="btn ghost" href="/methods/evaluation/">Read the methods ›</a>
       </div>
     </div>
   </section>
@@ -370,7 +370,7 @@
     <div class="links">
       <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent — live application</a>
       <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a><!-- evidra-build:tools-link:start -->
-      <a href="/evidra/tools/">Tools — every usable tool</a>
+      <a href="/tools/">Tools — every usable tool</a>
 <!-- evidra-build:tools-link:end -->
 
     </div>
@@ -402,7 +402,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Evidra</button>
 </div>
-<script src="/evidra/assets/ask-evidra.js" defer></script>
+<script src="/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

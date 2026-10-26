@@ -13,4 +13,10 @@
   <url><loc>https://umeshlinga.github.io/evidra/tools/</loc></url>
   <url><loc>https://umeshlinga.github.io/evidra/ngs-pipeline-atlas/</loc></url>
   <url><loc>https://umeshlinga.github.io/evidra/multi-agent-evidence/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/vus-evidence-agent/evaluations/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/web-agent/evaluations/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/ngs-pipeline-atlas/evaluations/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/hybrid-perturb-bench/evaluations/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/multi-agent-evidence/evaluations/</loc></url>
+  <url><loc>https://umeshlinga.github.io/evidra/vus-evidence-agent/api/</loc></url>
 </urlset>

@@ -120,8 +120,8 @@
   .coverage-head b{font-variant-numeric:tabular-nums}
   .bar{display:flex;height:14px;overflow:hidden;border-radius:980px;background:var(--surface-2)}
   .bar i{display:block;height:100%}
-  .bar .reported{background:var(--accent);width:37.4%}
-  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.6%}
+  .bar .reported{background:var(--accent);width:37.3%}
+  .bar .declined{background:repeating-linear-gradient(45deg,var(--line-strong) 0 6px,transparent 6px 12px);width:62.7%}
   .bar-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--muted)}
   .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
@@ -230,15 +230,15 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/evidra/">Evidra</a>
+    <a class="wordmark" href="/">Evidra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/evidra/web-agent/">web-agent</a>
-      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
     </nav>
-    <a class="bar-btn" href="/evidra/">Evidra — all products</a>
+    <a class="bar-btn" href="/">Evidra — all products</a>
   </div>
 </header>
 
@@ -252,7 +252,7 @@
   <section id="design">
     <div class="sec-head"><h2>The freeze/test design</h2></div>
     <p>All data is open and pinned by date, because the temporal split depends on it. Classifications are frozen at the Jan 2024 cutoff. The train set is variants labelled at the cutoff and frozen; the test set is only variants that were uncertain at the cutoff and have since been reclassified — no test label existed at train time. Calibration maps are likewise fitted on train data only and judged against the untouched post-freeze test set.</p>
-    <div class="chart-box"><svg viewBox="0 0 920 470" width="100%" role="img"><rect x="110" y="6" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="6" width="8" height="86" rx="4" fill="#424245"/><text x="146" y="36" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">CLINVAR CUTOFF SNAPSHOT</text><text x="146" y="72" font-size="30" font-weight="700" fill="#1d1d1f">2,366,650</text><text x="420" y="68" font-size="13.5" fill="#424245">GRCh38 rows at the freeze · the current snapshot holds 4,578,190</text><path d="M460 94 l0 22 M448 108 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="126" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="126" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="156" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TRAIN — LABELLED AT THE CUTOFF, FROZEN</text><text x="146" y="192" font-size="30" font-weight="700" fill="#1d1d1f">1,103,657</text><text x="420" y="188" font-size="13.5" fill="#424245">240,752 pathogenic · 862,905 benign</text><path d="M460 214 l0 22 M448 228 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="246" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="246" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="276" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TEST — UNCERTAIN AT THE CUTOFF, RECLASSIFIED AFTER IT</text><text x="146" y="312" font-size="30" font-weight="700" fill="#1d1d1f">27,748</text><text x="420" y="308" font-size="13.5" fill="#424245">8,856 pathogenic · 18,892 benign · no test label existed at train time</text><path d="M460 334 l0 22 M448 348 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="366" width="338" height="86" rx="14" fill="#e9f6ee" stroke="#0b7a37"/><text x="134" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#095c2a">SUMMARISED — CITED EVIDENCE</text><text x="134" y="432" font-size="30" font-weight="700" fill="#1d1d1f">10,373</text><text x="300" y="428" font-size="13.5" fill="#424245">37.4% of the test set</text><rect x="472" y="366" width="338" height="86" rx="14" fill="#f5f5f7" stroke="#d2d2d7"/><text x="496" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#424245">DECLINED — INSUFFICIENT EVIDENCE</text><text x="496" y="432" font-size="30" font-weight="700" fill="#1d1d1f">17,375</text><text x="662" y="428" font-size="13.5" fill="#424245">62.6% — remains VUS</text></svg></div>
+    <div class="chart-box"><svg viewBox="0 0 920 470" width="100%" role="img"><rect x="110" y="6" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="6" width="8" height="86" rx="4" fill="#424245"/><text x="146" y="36" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">CLINVAR CUTOFF SNAPSHOT</text><text x="146" y="72" font-size="30" font-weight="700" fill="#1d1d1f">2,366,650</text><text x="420" y="68" font-size="13.5" fill="#424245">GRCh38 rows at the freeze · the current snapshot holds 4,578,190</text><path d="M460 94 l0 22 M448 108 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="126" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="126" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="156" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TRAIN — LABELLED AT THE CUTOFF, FROZEN</text><text x="146" y="192" font-size="30" font-weight="700" fill="#1d1d1f">1,103,657</text><text x="420" y="188" font-size="13.5" fill="#424245">240,752 pathogenic · 862,905 benign</text><path d="M460 214 l0 22 M448 228 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="246" width="700" height="86" rx="14" fill="#ffffff" stroke="#d2d2d7"/><rect x="110" y="246" width="8" height="86" rx="4" fill="#0b7a37"/><text x="146" y="276" font-size="13" font-weight="600" letter-spacing=".04em" fill="#6e6e73">TEST — UNCERTAIN AT THE CUTOFF, RECLASSIFIED AFTER IT</text><text x="146" y="312" font-size="30" font-weight="700" fill="#1d1d1f">27,748</text><text x="420" y="308" font-size="13.5" fill="#424245">8,856 pathogenic · 18,892 benign · no test label existed at train time</text><path d="M460 334 l0 22 M448 348 l12 10 l12 -10" stroke="#86868b" stroke-width="2.5" fill="none"/><rect x="110" y="366" width="338" height="86" rx="14" fill="#e9f6ee" stroke="#0b7a37"/><text x="134" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#095c2a">SUMMARISED — CITED EVIDENCE</text><text x="134" y="432" font-size="30" font-weight="700" fill="#1d1d1f">10,357</text><text x="300" y="428" font-size="13.5" fill="#424245">37.3% of the test set</text><rect x="472" y="366" width="338" height="86" rx="14" fill="#f5f5f7" stroke="#d2d2d7"/><text x="496" y="396" font-size="13" font-weight="600" letter-spacing=".04em" fill="#424245">DECLINED — INSUFFICIENT EVIDENCE</text><text x="496" y="432" font-size="30" font-weight="700" fill="#1d1d1f">17,391</text><text x="662" y="428" font-size="13.5" fill="#424245">62.7% — remains VUS</text></svg></div>
     <p class="chart-cap">Source: <code>data/processed_v2/SPLIT_REPORT.md</code> and <code>docs/validation-dossier.md</code> §2, §5. The cutoff snapshot held 2,366,650 GRCh38 rows; the current snapshot holds 4,578,190. Train: 1,103,657 variants (240,752 pathogenic, 862,905 benign). Test: 27,748 variants (8,856 pathogenic, 18,892 benign).</p>
   </section>
 
@@ -270,11 +270,11 @@
       </div>
       <div class="item">
         <h3>What the design makes visible</h3>
-        <p>The Platt calibration failure only appears because the test set is temporal: a calibration map that does not transfer forward in time can still look fine on a random split. On this test set the failure, and then the isotonic improvement, are both visible — see <a href="/evidra/methods/calibration/">Calibration</a>.</p>
+        <p>The Platt calibration failure only appears because the test set is temporal: a calibration map that does not transfer forward in time can still look fine on a random split. On this test set the failure, and then the isotonic improvement, are both visible — see <a href="/methods/calibration/">Calibration</a>.</p>
       </div>
     </div>
-    <p>Of the 27,748 post-freeze reclassifications, the agent summarises 10,373 (37.4%) with cited evidence and declines 17,375 (62.6%) — a decline is a designed output, not an error.</p>
-    <p>Related method pages: <a href="/evidra/methods/evaluation/">Evaluation</a> · <a href="/evidra/methods/calibration/">Calibration</a>. Product: <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>.</p>
+    <p>Of the 27,748 post-freeze reclassifications, the agent summarises 10,357 (37.3%) with cited evidence and declines 17,391 (62.7%) — a decline is a designed output, not an error.</p>
+    <p>Related method pages: <a href="/methods/evaluation/">Evaluation</a> · <a href="/methods/calibration/">Calibration</a>. Product: <a href="/vus-evidence-agent/">Variant Evidence Agent</a>.</p>
   </section>
 
 <!-- evidra-build:m-arch:start -->
@@ -284,7 +284,7 @@
     <div class="items">
       <div class="item">
         <h3>How the systems are built</h3>
-        <p><a href="/evidra/web-agent/architecture/">web-agent architecture</a> — the state machine, grounding rules, budgets and the public-page rails, from the code. <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent architecture</a> — retrieval, scoring, calibration, and the cite-or-decline gate enforced in code.</p>
+        <p><a href="/web-agent/architecture/">web-agent architecture</a> — the state machine, grounding rules, budgets and the public-page rails, from the code. <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent architecture</a> — retrieval, scoring, calibration, and the cite-or-decline gate enforced in code.</p>
       </div>
     </div>
   </section>
@@ -294,19 +294,19 @@
     <p class="name">Evidra</p>
     <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
     <div class="links">
-      <a href="/evidra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/evidra/web-agent/">web-agent</a>
-      <a href="/evidra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/evidra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/evidra/multi-agent-evidence/">Multi-Agent Evidence</a>
-      <a href="/evidra/methods/evaluation/">Methods — evaluation</a>
-      <a href="/evidra/methods/calibration/">Methods — calibration</a>
-      <a href="/evidra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
-      <a href="/evidra/articles/recovery-ablation/">The recovery ablation</a>
-      <a href="/evidra/web-agent/architecture/">web-agent — architecture</a>
-      <a href="/evidra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
-      <a href="/evidra/tools/">Tools — every usable tool</a>
-      <a href="/evidra/">Evidra — home</a>
+      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/web-agent/">web-agent</a>
+      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/methods/evaluation/">Methods — evaluation</a>
+      <a href="/methods/calibration/">Methods — calibration</a>
+      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/tools/">Tools — every usable tool</a>
+      <a href="/">Evidra — home</a>
     </div>
   </footer>
 </main>
@@ -336,7 +336,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Evidra</button>
 </div>
-<script src="/evidra/assets/ask-evidra.js" defer></script>
+<script src="/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

@@ -3,7 +3,7 @@
  "chunks": [
   {
    "id": "vus-what",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 what it does",
    "keywords": [
     "variant evidence agent",
@@ -16,7 +16,7 @@
   },
   {
    "id": "wa-what",
-   "source": "/evidra/web-agent/",
+   "source": "/web-agent/",
    "title": "web-agent \u2014 what it does",
    "keywords": [
     "web-agent",
@@ -28,7 +28,7 @@
   },
   {
    "id": "wa-headline",
-   "source": "/evidra/web-agent/",
+   "source": "/web-agent/",
    "title": "web-agent \u2014 headline results",
    "keywords": [
     "how many tasks",
@@ -41,7 +41,7 @@
   },
   {
    "id": "wa-off",
-   "source": "/evidra/web-agent/",
+   "source": "/web-agent/",
    "title": "web-agent \u2014 recovery off",
    "keywords": [
     "recovery off",
@@ -52,7 +52,7 @@
   },
   {
    "id": "adv",
-   "source": "/evidra/web-agent/",
+   "source": "/web-agent/",
    "title": "web-agent \u2014 adversarial vs control tasks",
    "keywords": [
     "adversarial",
@@ -64,7 +64,7 @@
   },
   {
    "id": "auroc",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 final model scores",
    "keywords": [
     "auroc",
@@ -72,11 +72,11 @@
     "discrimination",
     "brier"
    ],
-   "answer": "The final model (Ensemble + REVEL + isotonic) reaches AUROC 0.968 on the post-freeze temporal test set, with calibration error (ECE) 0.023 and Brier 0.066. Discrimination and calibration are reported as separate claims for every model variant."
+   "answer": "The final model (GBM+R \u2014 gradient boosting + REVEL + isotonic, adopted 2026-10-26) reaches AUROC 0.970 on the post-freeze temporal test set, with calibration error (ECE) 0.025 and Brier 0.062. The trade-off is stated: its ECE is worse than the previously served Model 2's 0.017 \u2014 Model 2 stays the best-calibrated model in the record. Discrimination and calibration are reported as separate claims for every model variant."
   },
   {
    "id": "ece",
-   "source": "/evidra/methods/calibration/",
+   "source": "/methods/calibration/",
    "title": "Calibration \u2014 ECE of the final model",
    "keywords": [
     "ece",
@@ -84,11 +84,11 @@
     "expected calibration error",
     "final model"
    ],
-   "answer": "The final model's expected calibration error is ECE 0.023 (AUROC 0.968, Brier 0.066). ECE is computed in 10 equal-width bins as the bin-size-weighted average gap between mean predicted probability and observed fraction pathogenic."
+   "answer": "The final model's expected calibration error is ECE 0.025 (AUROC 0.970, Brier 0.062). ECE is computed in 10 equal-width bins as the bin-size-weighted average gap between mean predicted probability and observed fraction pathogenic."
   },
   {
    "id": "universe",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 the test set",
    "keywords": [
     "test set",
@@ -101,7 +101,7 @@
   },
   {
    "id": "summdecl",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 summarised vs declined",
    "keywords": [
     "summarise",
@@ -110,15 +110,15 @@
     "decline",
     "declines",
     "declined",
-    "10,373",
-    "17,375",
+    "10,357",
+    "17,391",
     "insufficient evidence"
    ],
-   "answer": "On the test set the agent summarises 10,373 variants (37.4%) with cited evidence and declines 17,375 (62.6%). A decline \u2014 \u201cinsufficient evidence \u2014 remains VUS\u201d \u2014 is a designed output, not an error."
+   "answer": "On the test set the agent summarises 10,357 variants (37.3%) with cited evidence and declines 17,391 (62.7%). A decline \u2014 \u201cinsufficient evidence \u2014 remains VUS\u201d \u2014 is a designed output, not an error."
   },
   {
    "id": "recovery-how",
-   "source": "/evidra/methods/evaluation/",
+   "source": "/methods/evaluation/",
    "title": "Evaluation method \u2014 how recovery works",
    "keywords": [
     "how does recovery work",
@@ -132,7 +132,7 @@
   },
   {
    "id": "isotonic",
-   "source": "/evidra/methods/calibration/",
+   "source": "/methods/calibration/",
    "title": "Calibration \u2014 isotonic vs Platt",
    "keywords": [
     "isotonic",
@@ -140,11 +140,11 @@
     "platt",
     "calibrated"
    ],
-   "answer": "Two calibration maps are compared: Platt scaling and isotonic regression, each fitted on train data only \u2014 never on the test set. Platt fitted on the training window made probabilities worse on the temporal test (ECE 0.040 uncalibrated \u2192 0.157). Isotonic calibration fitted on the train holdout is the map the final model ships, at ECE 0.023."
+   "answer": "Two calibration maps are compared: Platt scaling and isotonic regression, each fitted on train data only \u2014 never on the test set. Platt fitted on the training window made probabilities worse on the temporal test (ECE 0.040 uncalibrated \u2192 0.157). Isotonic calibration fitted on the train holdout is the map the final model ships, at ECE 0.025."
   },
   {
    "id": "pergene",
-   "source": "/evidra/methods/calibration/",
+   "source": "/methods/calibration/",
    "title": "Calibration \u2014 per-gene, worst first",
    "keywords": [
     "per gene",
@@ -153,11 +153,11 @@
     "ush2a",
     "gene calibration"
    ],
-   "answer": "Calibration is reported per gene for the fifteen genes with n \u2265 50 scored test variants, ordered worst first. Fourteen sit between 0.016 and 0.117; USH2A, at 0.290, is a calibration failure by the project's own standard and stays in the table."
+   "answer": "Calibration is reported per gene for the 24 genes with n \u2265 50 scored test variants, ordered worst first. 23 sit between 0.005 and 0.154; USH2A, at 0.204, is a calibration failure by the project's own standard and stays in the table."
   },
   {
    "id": "temporal-how",
-   "source": "/evidra/methods/temporal-evaluation/",
+   "source": "/methods/temporal-evaluation/",
    "title": "Temporal evaluation \u2014 the freeze/test design",
    "keywords": [
     "temporal",
@@ -172,7 +172,7 @@
   },
   {
    "id": "batch",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 batch pack",
    "keywords": [
     "batch",
@@ -181,11 +181,11 @@
     "multiple variants",
     "set of variants"
    ],
-   "answer": "Submit a set of variants and receive an evidence pack: one cited summary per variant that clears the evidence bar, with each remaining variant declined individually rather than summarised on thin evidence. On the temporal test set the agent summarises 10,373 of 27,748 variants and declines 17,375."
+   "answer": "Submit a set of variants and receive an evidence pack: one cited summary per variant that clears the evidence bar, with each remaining variant declined individually rather than summarised on thin evidence. On the temporal test set the agent summarises 10,357 of 27,748 variants and declines 17,391."
   },
   {
    "id": "lookup-how",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 single lookup",
    "keywords": [
     "look up",
@@ -198,7 +198,7 @@
   },
   {
    "id": "live-evidence",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 live-evidence mode",
    "keywords": [
     "live evidence",
@@ -210,7 +210,7 @@
   },
   {
    "id": "wa-howto",
-   "source": "/evidra/web-agent/",
+   "source": "/web-agent/",
    "title": "web-agent \u2014 how to use",
    "keywords": [
     "how do i use web-agent",
@@ -224,7 +224,7 @@
   },
   {
    "id": "vus-limits",
-   "source": "/evidra/vus-evidence-agent/",
+   "source": "/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 limits",
    "keywords": [
     "limits of the variant",
@@ -238,7 +238,7 @@
   },
   {
    "id": "wa-limits",
-   "source": "/evidra/articles/recovery-ablation/",
+   "source": "/articles/recovery-ablation/",
    "title": "The recovery ablation \u2014 limits",
    "keywords": [
     "web-agent limits",
@@ -251,7 +251,7 @@
   },
   {
    "id": "scoring",
-   "source": "/evidra/methods/evaluation/",
+   "source": "/methods/evaluation/",
    "title": "Evaluation method \u2014 scoring rules",
    "keywords": [
     "scoring",
@@ -264,7 +264,7 @@
   },
   {
    "id": "article-failures",
-   "source": "/evidra/articles/recovery-ablation/",
+   "source": "/articles/recovery-ablation/",
    "title": "The recovery ablation \u2014 the nine failures",
    "keywords": [
     "recovery ablation article",
@@ -277,7 +277,7 @@
   },
   {
    "id": "hybrid-what",
-   "source": "/evidra/hybrid-perturb-bench/",
+   "source": "/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 what it is",
    "keywords": [
     "hybrid-perturb-bench",
@@ -290,7 +290,7 @@
   },
   {
    "id": "hybrid-singles",
-   "source": "/evidra/hybrid-perturb-bench/",
+   "source": "/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 held-out singles result",
    "keywords": [
     "hybrid held-out singles",
@@ -303,7 +303,7 @@
   },
   {
    "id": "hybrid-combos",
-   "source": "/evidra/hybrid-perturb-bench/",
+   "source": "/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 combinations",
    "keywords": [
     "combinations",
@@ -315,7 +315,7 @@
   },
   {
    "id": "gears",
-   "source": "/evidra/hybrid-perturb-bench/",
+   "source": "/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 GEARS comparator",
    "keywords": [
     "gears"
@@ -324,7 +324,7 @@
   },
   {
    "id": "downloads",
-   "source": "/evidra/web-agent/",
+   "source": "/web-agent/",
    "title": "web-agent \u2014 downloads and Evaluation v1.0",
    "keywords": [
     "download",
@@ -338,7 +338,7 @@
   },
   {
    "id": "contact",
-   "source": "/evidra/",
+   "source": "/",
    "title": "Evidra \u2014 contact",
    "keywords": [
     "contact",
@@ -350,7 +350,7 @@
   },
   {
    "id": "methods-overview",
-   "source": "/evidra/methods/evaluation/",
+   "source": "/methods/evaluation/",
    "title": "Methods library \u2014 overview",
    "keywords": [
     "methods",
@@ -361,7 +361,7 @@
   },
   {
    "id": "wa-arch",
-   "source": "/evidra/web-agent/architecture/",
+   "source": "/web-agent/architecture/",
    "title": "web-agent architecture \u2014 the state machine",
    "keywords": [
     "architecture",
@@ -376,7 +376,7 @@
   },
   {
    "id": "wa-rails",
-   "source": "/evidra/web-agent/architecture/",
+   "source": "/web-agent/architecture/",
    "title": "web-agent architecture \u2014 public-page rails",
    "keywords": [
     "public page rails",
@@ -393,7 +393,7 @@
   },
   {
    "id": "vus-arch",
-   "source": "/evidra/vus-evidence-agent/architecture/",
+   "source": "/vus-evidence-agent/architecture/",
    "title": "Variant Evidence Agent architecture \u2014 model vs code",
    "keywords": [
     "architecture",
@@ -404,11 +404,11 @@
     "what does the model decide",
     "variant agent internals"
    ],
-   "answer": "The Variant Evidence Agent's model decides one thing: the calibrated probability, from the stored ensemble prediction. Everything else is enforced in code. Evidence is assembled only from prediction-time records (AlphaMissense, the ClinVar status frozen at the cutoff, the gene prior), each carrying its record id; assess requires at least 3 distinct evidence items and a probability, or the report declines with the fixed verdict \u201cinsufficient evidence \u2014 remains VUS\u201d. Every claim in a report carries its record id \u2014 there is no path for an uncited claim into a report."
+   "answer": "The Variant Evidence Agent's model decides one thing: the calibrated probability, from the stored model prediction (GBM+R since 2026-10-26). Everything else is enforced in code. Evidence is assembled only from prediction-time records (AlphaMissense, the ClinVar status frozen at the cutoff, the gene prior), each carrying its record id; assess requires at least 3 distinct evidence items and a probability, or the report declines with the fixed verdict \u201cinsufficient evidence \u2014 remains VUS\u201d. Every claim in a report carries its record id \u2014 there is no path for an uncited claim into a report."
   },
   {
    "id": "vus-live-arch",
-   "source": "/evidra/vus-evidence-agent/architecture/",
+   "source": "/vus-evidence-agent/architecture/",
    "title": "Variant Evidence Agent architecture \u2014 live-evidence boundaries",
    "keywords": [
     "live evidence boundaries",
@@ -422,7 +422,7 @@
   },
   {
    "id": "vus-batch-arch",
-   "source": "/evidra/vus-evidence-agent/architecture/",
+   "source": "/vus-evidence-agent/architecture/",
    "title": "Variant Evidence Agent architecture \u2014 the batch flow",
    "keywords": [
     "batch architecture",
@@ -435,7 +435,7 @@
   },
   {
    "id": "tools",
-   "source": "/evidra/tools/",
+   "source": "/tools/",
    "title": "Tools \u2014 the directory",
    "keywords": [
     "tools",
@@ -453,7 +453,7 @@
   },
   {
    "id": "literature",
-   "source": "/evidra/tools/",
+   "source": "/tools/",
    "title": "Tools \u2014 literature panel (PubMed)",
    "keywords": [
     "literature",
@@ -466,7 +466,7 @@
   },
   {
    "id": "ngs-what",
-   "source": "/evidra/ngs-pipeline-atlas/",
+   "source": "/ngs-pipeline-atlas/",
    "title": "NGS Pipeline Atlas \u2014 what it is",
    "keywords": [
     "ngs pipeline atlas",
@@ -481,7 +481,7 @@
   },
   {
    "id": "ngs-gates",
-   "source": "/evidra/ngs-pipeline-atlas/",
+   "source": "/ngs-pipeline-atlas/",
    "title": "NGS Pipeline Atlas \u2014 the QC gates and the cohort outcome",
    "keywords": [
     "ngs qc gates",
@@ -496,7 +496,7 @@
   },
   {
    "id": "ngs-repro",
-   "source": "/evidra/ngs-pipeline-atlas/",
+   "source": "/ngs-pipeline-atlas/",
    "title": "NGS Pipeline Atlas \u2014 reproducibility and the sanitize stage",
    "keywords": [
     "ngs reproducibility",
@@ -511,7 +511,7 @@
   },
   {
    "id": "mae-what",
-   "source": "/evidra/multi-agent-evidence/",
+   "source": "/multi-agent-evidence/",
    "title": "Multi-Agent Evidence \u2014 what it is",
    "keywords": [
     "multi-agent evidence",
@@ -525,7 +525,7 @@
   },
   {
    "id": "mae-result",
-   "source": "/evidra/multi-agent-evidence/",
+   "source": "/multi-agent-evidence/",
    "title": "Multi-Agent Evidence \u2014 the comparison result",
    "keywords": [
     "did the multi-agent beat",
@@ -542,7 +542,7 @@
   },
   {
    "id": "mae-critic",
-   "source": "/evidra/multi-agent-evidence/",
+   "source": "/multi-agent-evidence/",
    "title": "Multi-Agent Evidence \u2014 what the critic did, and the failure modes",
    "keywords": [
     "critic rejections",
