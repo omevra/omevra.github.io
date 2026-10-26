@@ -197,6 +197,10 @@
     .rv{opacity:1;transform:none}
     .scroll-cue{display:none}
   }
+
+  /* Live application embed */
+  .app-note{text-align:center;font-size:15px;font-weight:600;color:var(--ink);margin:42px 0 14px}
+  .app-fine{text-align:center;font-size:13.5px;color:var(--muted);margin:14px 0 0}
 </style>
 <!-- evidra-build:head:start -->
 <meta name="description" content="Omevra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
@@ -222,7 +226,7 @@
       <a href="#demo">Demo</a>
       <a href="/omevra/about/">About</a>
     </nav>
-    <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
+    <a class="bar-btn" href="#app">Open the live application</a>
   </div>
 </header>
 
@@ -241,7 +245,7 @@
       <h1>Every variant, <span class="grad">judged by its evidence.</span></h1>
       <p class="house">Omevra reads the evidence behind a genetic variant and shows its working: what supports the call, what is missing, and how far to trust it.</p>
       <div class="cta-row">
-        <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the Variant Evidence Agent live</a>
+        <a class="btn" href="#app">Try the Variant Evidence Agent live</a>
         <a class="btn ghost" href="#evaluations">See the evaluations ›</a>
       </div>
       <p class="hero-meta mono tnum">Frozen temporal test set &nbsp;·&nbsp; Every result published in full</p>
@@ -278,7 +282,7 @@
         </div>
         <div class="metric mono tnum">AUROC 0.970 on the 10,357 scored variants · 37.3% of the 27,748-variant test set · ECE 0.025 · GBM+R (gradient boosting)</div>
         <div class="cta-row">
-          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+          <a class="btn" href="#app">Run it live</a>
           <a class="btn ghost" href="/omevra/vus-evidence-agent/">Methods &amp; results ›</a>
         </div>
       </article>
@@ -298,7 +302,7 @@
         <h3>AI Assistant</h3>
         <p class="desc">Ask questions about your own variants and projects, in plain words. Every answer cites the evidence behind it — and where the evidence is not there, the assistant declines instead of guessing. Cite-or-decline, in conversation.</p>
         <div class="cta-row">
-          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
+          <a class="btn" href="#app">Open the live application</a>
         </div>
       </article>
     </div>
@@ -347,7 +351,7 @@
         <h3>$0</h3>
         <p class="desc">100 variants per month · 1 seat · Evidence packs (PDF, CSV, XLSX) · Saved projects and history for 7 days · Support from the docs.</p>
         <div class="cta-row">
-          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the public demo</a>
+          <a class="btn" href="#app">Open the public demo</a>
         </div>
       </article>
       <article class="p-card rv">
@@ -400,7 +404,7 @@
           <p class="viz-note">36 of 36 tasks with the layer on (95% CI 90.3–100%); 27 of 36 off (95% CI 57.8–87.9%). Adversarial set: <strong class="tnum">9/9</strong> on (95% CI 66.4–100%), <strong class="tnum">0/9</strong> off (95% CI 0–33.6%).</p>
         </div>
         <div class="cta-row">
-          <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+          <a class="btn" href="#app">Run it live</a>
           <a class="btn ghost" href="/omevra/web-agent/">Results ›</a>
         </div>
       </article>
@@ -486,6 +490,17 @@
     </div>
   </section>
 
+  <!-- LIVE APPLICATION -->
+  <section id="app" aria-label="Live application">
+    <p class="sec-eyebrow rv">Live application</p>
+    <h2 class="rv">Run the Variant Evidence Agent — right here</h2>
+    <p class="sec-sub rv">The public demo runs on this page — nothing to install, no account.</p>
+    <p class="app-note">Public demo — please do not upload patient data. Use example or de-identified variants only.</p>
+    <iframe src="https://evidra-variant-evidence-agent.hf.space" title="Omevra Variant Evidence Agent — live application" loading="lazy" style="display:block;width:100%;height:920px;border:1px solid var(--line);border-radius:var(--radius);background:#fff"></iframe>
+    <p class="app-fine">If the application does not load in this frame, <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">open it full-screen</a>.</p>
+    <p class="app-fine">Research Use Only.</p>
+  </section>
+
   <!-- GET STARTED / DEMO -->
   <section class="trial rv" id="demo" aria-label="Get started">
     <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Get started</p>
@@ -500,7 +515,7 @@
       </ul>
     </div>
     <div class="cta-row">
-      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Start free — open the public demo</a>
+      <a class="btn" href="#app">Start free — open the public demo</a>
       <a class="btn line" href="#pricing">See pricing</a>
       <a class="btn line" href="mailto:umesh.linga25@gmail.com?subject=Omevra%20demo%20request">Email to book</a>
       <a class="btn line" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">LinkedIn</a>
@@ -512,8 +527,8 @@
     <p class="name">Omevra</p>
     <p>Measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures. Not for clinical use.</p>
     <div class="links">
-      <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent — live application</a>
-      <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a>
+      <a href="#app">Variant Evidence Agent — live application</a>
+      <a href="#app">web-agent — live application</a>
       <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
       <a href="/omevra/web-agent/">web-agent</a>
       <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
