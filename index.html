@@ -27,132 +27,160 @@
     --line-strong:#d2d2d7;
     --accent:#0b7a37;
     --accent-strong:#095c2a;
+    --accent-deep:#065c28;
     --accent-bright:#17a34a;
     --accent-soft:#e9f6ee;
+    --glass:rgba(255,255,255,.62);
+    --glass-border:rgba(11,122,55,.16);
     --link:#0b7a37;
     --shadow:0 10px 34px rgba(20,40,26,.07),0 2px 8px rgba(20,40,26,.05);
+    --shadow-lg:0 30px 60px rgba(10,30,18,.13),inset 0 1px 0 rgba(255,255,255,.7);
     --radius:22px;
+    --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
   body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--accent);color:#fff}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
   a{color:var(--link);text-decoration:none}
   a:hover{text-decoration:underline}
   .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
-  .wrap{max-width:1024px;margin:0 auto;padding:0 24px}
+  .tnum{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
   @media(max-width:560px){ .wrap{padding:0 18px} body{font-size:16px} }
 
-  /* Top bar */
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
-  .bar-in{max-width:1024px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:28px}
-  @media(max-width:560px){ .bar-in{padding:0 18px;gap:16px} }
-  .wordmark{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
+  /* Scroll reveals — scroll-owned, hand-tuned ease */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .rv[data-d="1"]{transition-delay:.08s} .rv[data-d="2"]{transition-delay:.16s} .rv[data-d="3"]{transition-delay:.24s}
+
+  /* Top bar — floating frosted glass */
+  .topbar{position:sticky;top:14px;z-index:50;max-width:1120px;width:calc(100% - 32px);margin:14px auto 0;
+    background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+    border:1px solid var(--glass-border);border-radius:20px;box-shadow:0 12px 34px rgba(10,30,18,.10),inset 0 1px 0 rgba(255,255,255,.65)}
+  .bar-in{max-width:1080px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:26px}
+  .wordmark{display:inline-flex;align-items:center;gap:10px;font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);flex:none}
   .wordmark:hover{text-decoration:none}
+  .brand-mark{width:38px;height:38px;flex:none;display:block;background:#fff;border:1px solid var(--line);border-radius:9px}
   .bar-nav{display:flex;gap:24px;margin-left:auto}
   .bar-nav a{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
   .bar-nav a:hover{color:var(--ink);text-decoration:none}
-  @media(max-width:640px){ .bar-nav{display:none} }
-  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap}
-  @media(min-width:641px){ .bar-btn{margin-left:0} }
-  .bar-btn:hover{background:var(--accent-strong);text-decoration:none}
+  @media(max-width:680px){ .bar-nav{display:none} }
+  .bar-btn{flex:none;margin-left:auto;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:980px;white-space:nowrap;transition:background .3s var(--ease),transform .3s var(--ease)}
+  @media(min-width:681px){ .bar-btn{margin-left:0} }
+  .bar-btn:hover{background:var(--accent-strong);text-decoration:none;transform:translateY(-1px)}
 
   /* Buttons */
-  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:600;padding:14px 30px;border-radius:980px;line-height:1.2}
-  .btn:hover{background:var(--accent-strong);text-decoration:none}
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:600;padding:14px 30px;border-radius:980px;line-height:1.2;transition:background .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .btn:hover{background:var(--accent-strong);text-decoration:none;transform:translateY(-2px);box-shadow:0 14px 28px rgba(11,122,55,.25)}
   .btn.ghost{background:transparent;color:var(--accent);padding:14px 10px;font-weight:500}
-  .btn.ghost:hover{background:transparent;text-decoration:underline}
+  .btn.ghost:hover{background:transparent;text-decoration:underline;box-shadow:none;transform:none}
   .cta-row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
 
-  /* Hero */
-  .hero{padding:92px 0 30px;text-align:center}
-  .eyebrow{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin:0 0 14px}
-  .eyebrow .prod-no{color:var(--muted);font-weight:500}
-  h1{font-size:clamp(52px,9vw,92px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0}
+  /* Cinematic hero */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:110px 24px 96px;overflow:hidden;background:linear-gradient(180deg,#f2f9f3,#e2efe4)}
+  .cine-bg{position:absolute;inset:-6% 0;z-index:0;will-change:transform}
+  .cine-bg video{width:100%;height:100%;object-fit:cover;display:block}
+  .cine-wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.66) 42%,rgba(255,255,255,.88))}
+  .hero-panel{position:relative;z-index:1;max-width:880px;width:100%;text-align:center;padding:56px 40px 48px;border-radius:32px;
+    background:var(--glass);border:1px solid var(--glass-border);
+    -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);box-shadow:var(--shadow-lg)}
+  @media(max-width:560px){ .hero-panel{padding:40px 20px 36px} }
+  .hero-mark{display:block;width:118px;height:118px;margin:0 auto 20px;background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 8px 22px rgba(10,30,18,.10)}
+  .wordmark-img{width:min(560px,84%);height:auto;display:block;margin:0 auto;border-radius:14px;box-shadow:0 16px 36px rgba(10,30,18,.12)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:26px 0 0}
+  h1{font-size:clamp(44px,7.2vw,76px);line-height:1.04;letter-spacing:-.035em;font-weight:750;margin:16px 0 0}
   h1 .grad{display:block;background:linear-gradient(92deg,var(--accent) 10%,var(--accent-bright) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-  .subtitle{font-size:clamp(20px,3.4vw,27px);line-height:1.4;font-weight:500;color:var(--ink-2);margin:26px auto 0;max-width:700px}
-  .subtitle em{font-style:italic}
-  .hero .cta-row{justify-content:center;margin-top:34px}
-  .rule-panel{margin:44px auto 0;max-width:760px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 30px;text-align:left}
-  .rule-panel p{margin:0;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
-  .rule-panel strong{color:var(--ink);font-weight:700}
+  .house{font-size:clamp(19px,3vw,24px);line-height:1.5;font-weight:500;color:var(--ink-2);margin:22px auto 0;max-width:640px}
+  .house em{font-style:italic}
+  .hero .cta-row{justify-content:center;margin-top:32px}
+  .hero-meta{margin-top:26px;font-size:13.5px;letter-spacing:.06em;color:var(--muted)}
+  .scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:1;width:26px;height:42px;border:2px solid rgba(29,29,31,.35);border-radius:14px}
+  .scroll-cue::after{content:"";display:block;width:5px;height:9px;margin:7px auto 0;border-radius:3px;background:var(--accent);animation:cue 1.8s var(--ease) infinite}
+  @keyframes cue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(10px);opacity:0}100%{transform:translateY(0);opacity:0}}
 
-  /* Stats */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:52px 0 0;text-align:left}
-  @media(max-width:760px){ .stats{grid-template-columns:1fr 1fr} }
-  .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
-  .stat b{display:block;font-size:clamp(28px,3.6vw,38px);line-height:1.05;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-  .stat span{display:block;margin-top:9px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+  /* Proof strip */
+  .proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-44px auto 0;position:relative;z-index:2}
+  @media(max-width:760px){ .proof-strip{grid-template-columns:1fr 1fr} }
+  .proof-item{background:var(--glass);border:1px solid var(--glass-border);border-top:3px solid var(--accent);border-radius:16px;
+    -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+    box-shadow:0 16px 34px rgba(10,30,18,.09),inset 0 1px 0 rgba(255,255,255,.6);padding:20px 18px}
+  .proof-item b{display:block;font-size:clamp(26px,3.4vw,34px);line-height:1.05;font-weight:750;letter-spacing:-.03em}
+  .proof-item span{display:block;margin-top:8px;font-size:13.5px;line-height:1.45;color:var(--muted)}
 
   /* Sections */
   section{padding:96px 0 0}
-  .sec-eyebrow{font-size:14px;font-weight:600;color:var(--accent);margin:0 0 10px;text-align:center}
-  h2{font-size:clamp(36px,5.6vw,54px);line-height:1.08;letter-spacing:-.03em;font-weight:700;margin:0;text-align:center}
+  .sec-eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 12px;text-align:center}
+  h2{font-size:clamp(34px,5.4vw,52px);line-height:1.08;letter-spacing:-.03em;font-weight:750;margin:0;text-align:center}
   .sec-sub{font-size:clamp(18px,2.6vw,21px);line-height:1.5;color:var(--ink-2);text-align:center;max-width:720px;margin:18px auto 0}
-  h3{font-size:19px;line-height:1.3;margin:0 0 9px;font-weight:700;letter-spacing:-.01em}
+  h3{font-size:20px;line-height:1.3;margin:0 0 9px;font-weight:700;letter-spacing:-.01em}
   p{margin:0 0 16px;color:var(--ink-2)}
   p strong, li strong{color:var(--ink)}
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px;text-align:left}
-  @media(max-width:760px){ .cards{grid-template-columns:1fr} }
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 28px 24px}
-  .card p{margin:0;font-size:16px;line-height:1.6}
   .section-cta{display:flex;justify-content:center;margin-top:40px}
 
-  /* Product two */
-  .product-panel{margin-top:44px;background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:48px 44px 42px;text-align:left}
-  @media(max-width:640px){ .product-panel{padding:32px 22px 28px} }
-  .product-panel .lead{font-size:clamp(19px,2.8vw,22px);line-height:1.5;color:var(--ink-2);margin:0 0 14px;max-width:760px}
-  .product-panel .lead strong{color:var(--ink)}
-  .product-panel .cta-row{margin-top:28px}
+  /* Product cards */
+  .products{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px;text-align:left}
+  @media(max-width:760px){ .products{grid-template-columns:1fr} }
+  .p-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 28px 26px;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+  .p-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(10,30,18,.13)}
+  .p-card.feature{grid-column:1 / -1}
+  .p-no{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--accent);margin-bottom:12px}
+  .p-card .desc{margin:0 0 16px;font-size:16px;line-height:1.6}
+  .metric{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:14.5px;line-height:1.55;color:var(--ink-2);margin:0 0 18px}
+  .p-card .cta-row{margin-top:auto}
+  .p-card .btn{font-size:15px;padding:11px 22px}
+  .p-card .btn.ghost{padding:11px 6px}
+  /* Data visuals */
+  .viz{margin:2px 0 18px}
+  .viz-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .viz-row .lbl{flex:none;width:118px;font-size:13.5px;color:var(--ink-2)}
+  .viz-track{flex:1;height:14px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .viz-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-bright));border-radius:8px}
+  .viz-fill.gray{background:#b7b7bc}
+  .viz-val{flex:none;font-size:14px;font-weight:600;min-width:64px;text-align:right}
+  .viz-note{font-size:13.5px;color:var(--muted);margin-top:2px}
+  .stackbar{display:flex;height:22px;border-radius:11px;overflow:hidden;border:1px solid var(--line)}
+  .stackbar .a{background:linear-gradient(90deg,var(--accent),var(--accent-bright));width:37.3%}
+  .stackbar .b{background:#1d1d1f;width:62.7%}
+  .stack-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-size:13.5px;color:var(--ink-2)}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .dot.g{background:var(--accent)} .dot.k{background:#1d1d1f}
+
+  /* Flow + methods */
+  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;text-align:left}
+  @media(max-width:760px){ .flow{grid-template-columns:1fr} }
+  .flow-step{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px 22px}
+  .flow-step b{display:block;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;color:var(--ink)}
+  .flow-step p{margin:0;font-size:15px;line-height:1.55}
+  .method-panel{margin-top:44px;background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:46px 42px 40px;text-align:left}
+  @media(max-width:640px){ .method-panel{padding:32px 22px 28px} }
+  .method-panel .lead{font-size:clamp(19px,2.8vw,22px);line-height:1.5;color:var(--ink-2);margin:0 0 14px;max-width:760px}
+  .method-panel .lead strong{color:var(--ink)}
+  .method-panel .cta-row{margin-top:28px}
+
+  /* Trial CTA */
+  .trial{margin-top:96px;border-radius:32px;padding:64px 32px;text-align:center;color:#fff;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,var(--accent) 0%,var(--accent-deep) 100%);box-shadow:0 30px 60px rgba(11,122,55,.28),inset 0 1px 0 rgba(255,255,255,.35)}
+  .trial::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 85% -20%,rgba(255,255,255,.22),transparent 60%),radial-gradient(500px 260px at 8% 110%,rgba(255,255,255,.14),transparent 60%)}
+  .trial > *{position:relative}
+  .trial h2{color:#fff}
+  .trial p{color:rgba(255,255,255,.88);font-size:19px;max-width:620px;margin:16px auto 30px}
+  .trial .btn{background:#fff;color:var(--accent-deep)}
+  .trial .btn:hover{background:#f5f5f7;box-shadow:0 14px 28px rgba(0,0,0,.22)}
 
   footer{margin-top:110px;border-top:1px solid var(--line-strong);padding:34px 0 48px}
   footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
   footer p{font-size:14.5px;max-width:760px}
   footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
-  /* Platform front door */
-  .platform-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:44px 0 0;text-align:left}
-  @media(max-width:760px){ .platform-flow{grid-template-columns:1fr} }
-  .flow-step{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px 20px}
-  .flow-step b{display:block;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;color:var(--ink)}
-  .flow-step p{margin:0;font-size:15px;line-height:1.55}
-  .product-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px;text-align:left}
-  @media(max-width:760px){ .product-cards{grid-template-columns:1fr} }
-  .product-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 28px 24px;display:flex;flex-direction:column}
-  .product-card h3{font-size:22px}
-  .product-card .desc{margin:0 0 14px;font-size:16px;line-height:1.6;color:var(--ink-2)}
-  .product-card .metric{margin:0 0 12px;font-size:14.5px;line-height:1.55;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .product-card .who{margin:0 0 18px;font-size:14.5px;color:var(--muted)}
-  .product-card .cta-row{margin-top:auto}
-  .product-card .btn{font-size:15px;padding:11px 22px}
-  .product-card .btn.ghost{padding:11px 6px}
-  .hero .flow-line{font-size:clamp(20px,3.4vw,27px);line-height:1.4;font-weight:600;color:var(--ink);margin:22px auto 0;max-width:700px}
-  .hero .platform-line{font-size:17.5px;line-height:1.6;color:var(--ink-2);margin:16px auto 0;max-width:700px}
-/* cine-css:start */
-  .hero{position:relative;min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 24px 72px;overflow:hidden;background:#fff}
-  .cine-bg{position:absolute;inset:0;z-index:0}
-  .cine-bg video{width:100%;height:100%;object-fit:cover;display:block}
-  .cine-wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.68) 45%,rgba(255,255,255,.86))}
-  .hero .hero-mark{position:relative;z-index:1;margin-bottom:22px}
-  .cine-hero-in{position:relative;z-index:1;max-width:880px}
-  .proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 0;text-align:left}
-  @media(max-width:760px){ .proof-strip{grid-template-columns:1fr 1fr} }
-  .proof-item{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:14px;padding:16px 18px;font-size:15px;line-height:1.5;color:var(--ink-2)}
-  .proof-item strong{color:var(--ink)}
-  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;text-align:left}
-  @media(max-width:760px){ .pillars{grid-template-columns:1fr} }
-  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 28px 24px;display:flex;flex-direction:column}
-  .pillar h3{font-size:22px}
-  .pillar p{margin:0 0 18px;font-size:16px;line-height:1.6;color:var(--ink-2)}
-  .pillar .cta-row{margin-top:auto}
-  .logo-video{margin:44px auto 0;text-align:center}
-  .logo-video video{width:min(280px,68vw);height:auto;border-radius:28px;border:1px solid var(--line);background:#fff;display:block;margin:0 auto}
-  .logo-video figcaption{margin-top:12px;font-size:14px;color:var(--muted)}
-/* cine-css:end */
-/* evidra-build:brand-css:start */
-  .wordmark{display:inline-flex;align-items:center;gap:9px}
-  .brand-mark{width:38px;height:38px;flex:none;display:block;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:9px}
-  .hero-mark{display:block;width:132px;height:132px;margin:0 auto 26px;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:30px}
-/* evidra-build:brand-css:end */
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important;transition:none!important}
+    .rv{opacity:1;transform:none}
+    .scroll-cue{display:none}
+  }
 </style>
 <!-- evidra-build:head:start -->
 <meta name="description" content="Omevra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
@@ -170,10 +198,10 @@
 <header class="topbar">
   <div class="bar-in">
     <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
-    <nav class="bar-nav" aria-label="Products">
-      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/omevra/web-agent/">web-agent</a>
-      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+    <nav class="bar-nav" aria-label="Site">
+      <a href="#products">Products</a>
+      <a href="#methods">Methods</a>
+      <a href="#evaluations">Evaluations</a>
       <a href="/omevra/tools/">Tools</a>
     </nav>
     <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
@@ -182,99 +210,156 @@
 
 <main>
   <header class="hero">
-<!-- evidra-build:brand-hero:start -->
-    <img class="hero-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="132" height="132" />
-<!-- evidra-build:brand-hero:end -->
     <div class="cine-bg" aria-hidden="true">
       <video class="cine-bg-video" autoplay muted loop playsinline preload="auto" poster="/omevra/assets/brand/omevra-hero-poster.jpg">
         <source src="/omevra/assets/brand/omevra-hero-bg.mp4" type="video/mp4" />
       </video>
       <div class="cine-wash"></div>
     </div>
-    <div class="cine-hero-in">
-      <p class="eyebrow">Omevra</p>
-      <h1>Every variant, judged by its evidence.</h1>
-      <p class="subtitle">Calibrated variant evidence, measured on a frozen temporal test — every claim cited, or the system declines.</p>
+    <div class="hero-panel">
+      <img class="hero-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="118" height="118" />
+      <img class="wordmark-img" src="/omevra/assets/brand/omevra-wordmark-green.webp" alt="OMEVRA" width="560" />
+      <p class="eyebrow">Evidence-first genomics</p>
+      <h1>Every variant, <span class="grad">judged by its evidence.</span></h1>
+      <p class="house">Omevra says only what the evidence proves — <em>and shows the proof.</em> Where the evidence runs out, it declines instead of guessing.</p>
       <div class="cta-row">
         <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Try the Variant Evidence Agent live</a>
+        <a class="btn ghost" href="#evaluations">See the evaluations ›</a>
       </div>
+      <p class="hero-meta mono tnum">Frozen temporal test &nbsp;·&nbsp; GBM+R &nbsp;·&nbsp; Cite-or-decline</p>
     </div>
+    <div class="scroll-cue" aria-hidden="true"></div>
   </header>
 
   <div class="wrap">
   <!-- PROOF STRIP -->
   <div class="proof-strip" aria-label="Proof points">
-    <div class="proof-item"><strong>27,748 variants</strong> judged on a frozen temporal split</div>
-    <div class="proof-item"><strong>Cite-or-decline:</strong> 17,391 declined rather than guessed</div>
-    <div class="proof-item"><strong>AUROC 0.970 · ECE 0.025</strong> — the final model, as measured</div>
-    <div class="proof-item"><strong>Web Agent 36/36</strong> with recovery on</div>
+    <div class="proof-item rv"><b class="tnum" data-count="27748">27,748</b><span>Variants judged on a frozen temporal split</span></div>
+    <div class="proof-item rv" data-d="1"><b class="tnum" data-count="10357">10,357</b><span>Summarised with cited evidence</span></div>
+    <div class="proof-item rv" data-d="2"><b class="tnum" data-count="17391">17,391</b><span>Declined by cite-or-decline, rather than guessed</span></div>
+    <div class="proof-item rv" data-d="3"><b class="tnum" data-count="0.970" data-decimals="3">0.970</b><span>AUROC · ECE 0.025 — the final model, as measured</span></div>
   </div>
 
-  <!-- ONE PLATFORM -->
-  <section id="platform">
-    <p class="sec-eyebrow">One platform</p>
-    <h2>One platform</h2>
-    <p class="sec-sub">Data in → pipelines run → evidence out. Three kinds of work, one standard: measured results, published with their limits.</p>
-    <figure class="logo-video">
-      <video class="logo-video-el" autoplay muted loop playsinline preload="metadata" loading="lazy" poster="/omevra/assets/brand/omevra-logo-3d.png">
-        <source src="/omevra/assets/brand/omevra-logo-video.mp4" type="video/mp4" />
-      </video>
-      <figcaption>The Omevra mark — the check draws in, the helix grows.</figcaption>
-    </figure>
-    <div class="pillars">
-      <div class="pillar">
-        <h3>Evidence</h3>
-        <p>Variant evidence reports in which every claim is cited to a retrieved record — or the system declines — and a three-agent evidence system measured honestly against its single-agent baseline.</p>
-        <div class="cta-row">
-          <a class="btn ghost" href="/omevra/vus-evidence-agent/">Variant Evidence Agent ›</a>
-          <a class="btn ghost" href="/omevra/multi-agent-evidence/">Multi-Agent Evidence ›</a>
+  <!-- PRODUCTS -->
+  <section id="products">
+    <p class="sec-eyebrow rv">Five products</p>
+    <h2 class="rv">One platform, five measured systems</h2>
+    <p class="sec-sub rv">Data in → pipelines run → evidence out. Every product below is live, and every number on this page is the measured result — including the ones that did not go our way.</p>
+    <div class="products">
+      <article class="p-card feature rv">
+        <div class="p-no">01 — VARIANT EVIDENCE</div>
+        <h3>Variant Evidence Agent</h3>
+        <p class="desc">Paste a variant, or a batch of 500. Each report cites the retrieved record behind every claim — and where the evidence is too thin, the agent declines to answer. No invented probabilities, ever.</p>
+        <div class="viz" role="img" aria-label="Of 27,748 variants, 10,357 summarised and 17,391 declined">
+          <div class="stackbar"><div class="a"></div><div class="b"></div></div>
+          <div class="stack-legend">
+            <span><i class="dot g"></i><strong class="tnum">10,357</strong> summarised (37.3%)</span>
+            <span><i class="dot k"></i><strong class="tnum">17,391</strong> declined (62.7%)</span>
+          </div>
+          <p class="viz-note">The decline bar is the point: a system that will not guess is the only one worth trusting with a variant.</p>
         </div>
-      </div>
-      <div class="pillar">
-        <h3>Pipelines</h3>
-        <p>Reproducible pipelines and honest benchmarks: a bacterial whole-genome pipeline run twice to prove it reproduces, and a perturbation-response benchmark that publishes its negative result.</p>
+        <div class="metric mono tnum">27,748 variants · 3,084 genes · AUROC 0.970 · ECE 0.025 · model GBM+R</div>
         <div class="cta-row">
-          <a class="btn ghost" href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas ›</a>
-          <a class="btn ghost" href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench ›</a>
+          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+          <a class="btn ghost" href="/omevra/vus-evidence-agent/">Methods &amp; results ›</a>
         </div>
-      </div>
-      <div class="pillar">
-        <h3>Agents</h3>
-        <p>An autonomous agent that operates web interfaces end to end — 36/36 tasks passed with recovery on vs 27/36 off, adversarial 9/9 vs 0/9, controls 27/27 both ways.</p>
+      </article>
+
+      <article class="p-card rv">
+        <div class="p-no">02 — AUTONOMOUS AGENT</div>
+        <h3>web-agent</h3>
+        <p class="desc">An agent that operates web interfaces end to end — forms, tables, dialogs, portals — with an evidence layer that watches every step and recovers when a step fails.</p>
+        <div class="viz" role="img" aria-label="36 of 36 tasks with the evidence layer on, 27 of 36 with it off">
+          <div class="viz-row"><span class="lbl">Evidence layer on</span><span class="viz-track"><span class="viz-fill" style="width:100%"></span></span><span class="viz-val tnum">36/36</span></div>
+          <div class="viz-row"><span class="lbl">Evidence layer off</span><span class="viz-track"><span class="viz-fill gray" style="width:75%"></span></span><span class="viz-val tnum">27/36</span></div>
+          <p class="viz-note">Adversarial set: <strong class="tnum">9/9</strong> with the layer on, <strong class="tnum">0/9</strong> without it. That gap is what the layer is for.</p>
+        </div>
         <div class="cta-row">
-          <a class="btn ghost" href="/omevra/web-agent/">web-agent ›</a>
+          <a class="btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
+          <a class="btn ghost" href="/omevra/web-agent/">Results ›</a>
         </div>
-      </div>
+      </article>
+
+      <article class="p-card rv">
+        <div class="p-no">03 — REPRODUCIBLE PIPELINE</div>
+        <h3>NGS Pipeline Atlas</h3>
+        <p class="desc">A bacterial whole-genome pipeline, run end to end on real sequencing data — then run a second time to prove it reproduces. It did, exactly.</p>
+        <div class="metric mono tnum">33 runs · 27 passed QC · 130,614 calls · 81,810 unique sites · second run byte-identical</div>
+        <div class="cta-row">
+          <a class="btn ghost" href="/omevra/ngs-pipeline-atlas/">Explore the atlas ›</a>
+        </div>
+      </article>
+
+      <article class="p-card rv">
+        <div class="p-no">04 — HONEST BENCHMARK</div>
+        <h3>hybrid-perturb-bench</h3>
+        <p class="desc">A perturbation-response benchmark on real single-cell data. The hybrid singles model lost to the simplest baseline — and that result is published here, unchanged.</p>
+        <div class="viz" role="img" aria-label="Hybrid singles 0.537 against the global-mean baseline 0.588">
+          <div class="viz-row"><span class="lbl">Global-mean baseline</span><span class="viz-track"><span class="viz-fill gray" style="width:98%"></span></span><span class="viz-val tnum">0.588</span></div>
+          <div class="viz-row"><span class="lbl">Hybrid singles</span><span class="viz-track"><span class="viz-fill" style="width:89.5%"></span></span><span class="viz-val tnum">0.537</span></div>
+          <p class="viz-note">Below baseline, published as measured. A benchmark that only ever wins is not a benchmark.</p>
+        </div>
+        <div class="cta-row">
+          <a class="btn ghost" href="/omevra/hybrid-perturb-bench/">Read the benchmark ›</a>
+        </div>
+      </article>
+
+      <article class="p-card rv">
+        <div class="p-no">05 — MULTI-AGENT EVIDENCE</div>
+        <h3>Multi-Agent Evidence</h3>
+        <p class="desc">Three agents that check one another's citations before any answer reaches you. Measured against the single-agent baseline, the honest result is a tie — at higher cost.</p>
+        <div class="viz" role="img" aria-label="Citation accuracy 1.00 for both multi-agent and single-agent systems">
+          <div class="viz-row"><span class="lbl">Multi-agent</span><span class="viz-track"><span class="viz-fill" style="width:100%"></span></span><span class="viz-val tnum">1.00</span></div>
+          <div class="viz-row"><span class="lbl">Single-agent</span><span class="viz-track"><span class="viz-fill gray" style="width:100%"></span></span><span class="viz-val tnum">1.00</span></div>
+          <p class="viz-note">A tie, stated plainly. The gain is in auditability, not in accuracy — and that is the claim we make.</p>
+        </div>
+        <div class="cta-row">
+          <a class="btn ghost" href="/omevra/multi-agent-evidence/">Read the evaluation ›</a>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- NUMBERS -->
-  <section id="numbers">
-    <p class="sec-eyebrow">Numbers</p>
-    <h2>The numbers, as measured</h2>
-    <div class="stats" aria-label="Omevra numbers">
-      <div class="stat"><b>27,748</b><span>Variants judged on the frozen temporal test</span></div>
-      <div class="stat"><b>10,357</b><span>Summarised with cited evidence</span></div>
-      <div class="stat"><b>17,391</b><span>Declined by cite-or-decline, rather than guessed</span></div>
-      <div class="stat"><b>0.970</b><span>AUROC — the final model's discrimination</span></div>
-      <div class="stat"><b>0.025</b><span>ECE — the final model's calibration error</span></div>
-      <div class="stat"><b>36/36</b><span>Web Agent tasks passed with recovery on</span></div>
-      <div class="stat"><b>33</b><span>NGS Pipeline Atlas samples — the second full run byte-identical to the first</span></div>
-      <div class="stat"><b>5</b><span>Working products, all live</span></div>
+  <!-- HOW IT WORKS -->
+  <section id="methods">
+    <p class="sec-eyebrow rv">How it works</p>
+    <h2 class="rv">Data in. Pipelines run. Evidence out.</h2>
+    <p class="sec-sub rv">One standard across every product: measure first, publish the result with its limits, and never let a confident-sounding answer outrun its evidence.</p>
+    <div class="flow">
+      <div class="flow-step rv"><b>01 · Data in</b><p>Real data, real scale — thousands of variants, dozens of sequencing runs, full task suites. No toy demonstrations.</p></div>
+      <div class="flow-step rv" data-d="1"><b>02 · Pipelines run</b><p>Governed, reproducible runs with a frozen test set, so a result can be re-checked instead of merely believed.</p></div>
+      <div class="flow-step rv" data-d="2"><b>03 · Evidence out</b><p>Every claim cites its source, or the system declines. Calibration is reported alongside accuracy, because both matter.</p></div>
     </div>
-  </section>
-
-  <!-- CLOSING -->
-  <section id="contact">
-    <p class="sec-eyebrow">Get started</p>
-    <h2>Bring a variant. Get evidence, not a guess.</h2>
-    <p class="sec-sub">Try the live tools, or reach out for collaboration — the fastest route is LinkedIn.</p>
-    <div class="section-cta">
+    <div class="method-panel rv">
+      <p class="lead"><strong>The rule behind everything here is cite-or-decline.</strong> A variant report is only as good as the evidence it can point to. When the evidence is thin, declining is the correct answer — and it is the answer the Variant Evidence Agent gives 17,391 times out of 27,748.</p>
+      <p class="lead">Calibration is reported with the same honesty: the final model discriminates at AUROC 0.970 with a calibration error of ECE 0.025, measured on a frozen temporal test the model never trained on.</p>
       <div class="cta-row">
-        <a class="btn" href="/omevra/tools/">Try the live tools</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">Connect on LinkedIn ›</a>
+        <a class="btn" href="/omevra/methods/temporal-evaluation/">Temporal evaluation ›</a>
+        <a class="btn ghost" href="/omevra/methods/calibration/">Calibration ›</a>
+        <a class="btn ghost" href="/omevra/methods/evaluation/">Evaluation method ›</a>
       </div>
     </div>
+  </section>
+
+  <!-- EVALUATIONS -->
+  <section id="evaluations">
+    <p class="sec-eyebrow rv">Evaluations</p>
+    <h2 class="rv">Measured, published — including the losses</h2>
+    <p class="sec-sub rv">Most product pages show you their best number. Omevra shows you all of them: the wins, the tie, and the model that came in below baseline. That is what makes the wins believable.</p>
+    <div class="section-cta rv">
+      <div class="cta-row">
+        <a class="btn" href="/omevra/tools/">Try every live tool</a>
+        <a class="btn ghost" href="/omevra/methods/evaluation/">How evaluations are run ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIAL CTA -->
+  <section class="trial rv" aria-label="Free trial">
+    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Free trial</p>
+    <h2>Run your last 100 variants through it — free.</h2>
+    <p>Compare the evidence packs against your own calls, on your own data. If the evidence is thinner than you expected, the system will say so.</p>
+    <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Start the trial</a>
   </section>
 
   <footer>
@@ -288,6 +373,8 @@
       <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
       <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
       <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a>
+      <a href="/omevra/methods/calibration/">Calibration</a>
       <a href="/omevra/tools/">Tools — every usable tool</a>
     </div>
   </footer>
@@ -322,5 +409,62 @@
 <script src="/omevra/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var video = document.querySelector('.cine-bg-video');
+  if (reduced && video) { video.removeAttribute('autoplay'); video.pause(); }
+  /* Scroll-owned reveals */
+  var els = document.querySelectorAll('.rv');
+  if (reduced || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  }
+  /* Count-up for proof numbers (final values already in the HTML, so no-JS is safe) */
+  var counters = document.querySelectorAll('[data-count]');
+  function fmt(n, dec){
+    if (dec) return n.toFixed(dec);
+    return Math.round(n).toLocaleString('en-US');
+  }
+  function run(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    var t0 = null, dur = 1400;
+    function step(ts){
+      if (!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 4);
+      el.textContent = fmt(target * eased, dec);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (reduced || !('IntersectionObserver' in window)) {
+    /* leave final values as written */
+  } else {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { run(e.target); cio.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+  /* Gentle scroll parallax on the hero media, scroll-owned only */
+  var bg = document.querySelector('.cine-bg');
+  if (!reduced && bg) {
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function(){
+        var y = Math.min(window.scrollY, window.innerHeight);
+        bg.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
 </body>
 </html>
