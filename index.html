@@ -201,6 +201,27 @@
   /* Live application embed */
   .app-note{text-align:center;font-size:15px;font-weight:600;color:var(--ink);margin:42px 0 14px}
   .app-fine{text-align:center;font-size:13.5px;color:var(--muted);margin:14px 0 0}
+  /* Live application — click-to-load facade */
+  .app-facade{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;text-align:left}
+  .app-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+  .app-bar .dot3{width:11px;height:11px;border-radius:50%;background:var(--line-strong);flex:none}
+  .app-bar span{margin-left:8px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+  .app-body{padding:34px 30px 32px;text-align:center}
+  .app-tag{font-size:clamp(24px,3.6vw,32px);line-height:1.2;font-weight:750;letter-spacing:-.02em;color:var(--ink);margin:0 0 24px}
+  .app-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:760px;margin:0 auto}
+  @media(max-width:760px){ .app-stats{grid-template-columns:1fr} }
+  .app-stat{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px 14px}
+  .app-stat b{display:block;font-size:clamp(20px,2.6vw,25px);line-height:1.1;font-weight:750;letter-spacing:-.02em;color:var(--ink)}
+  .app-stat span{display:block;margin-top:6px;font-size:13px;line-height:1.45;color:var(--muted)}
+  .app-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .app-actions .btn{border:0;cursor:pointer;font-family:inherit}
+  .btn.line-btn{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+  .btn.line-btn:hover{background:var(--accent-soft);box-shadow:none}
+  .app-frame-wrap{position:relative}
+  .app-frame{display:block;width:100%;height:920px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+  @media(max-width:760px){ .app-frame{height:780px} }
+  .app-wake{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:rgba(255,255,255,.92);border-radius:var(--radius);font-size:17px;font-weight:600;color:var(--ink)}
+  .app-wake[hidden]{display:none}
 </style>
 <!-- evidra-build:head:start -->
 <meta name="description" content="Omevra is a platform of measured AI systems for genomics and the web — data in, pipelines run, evidence out, with every result published including failures." />
@@ -496,9 +517,27 @@
     <h2 class="rv">Run the Variant Evidence Agent — right here</h2>
     <p class="sec-sub rv">The public demo runs on this page — nothing to install, no account.</p>
     <p class="app-note">Public demo — please do not upload patient data. Use example or de-identified variants only.</p>
-    <iframe src="https://evidra-variant-evidence-agent.hf.space" title="Omevra Variant Evidence Agent — live application" loading="lazy" style="display:block;width:100%;height:920px;border:1px solid var(--line);border-radius:var(--radius);background:#fff"></iframe>
-    <p class="app-fine">If the application does not load in this frame, <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">open it full-screen</a>.</p>
+    <div class="app-facade" id="app-facade">
+      <div class="app-bar" aria-hidden="true"><span class="dot3"></span><span class="dot3"></span><span class="dot3"></span><span>Variant Evidence Agent — live application</span></div>
+      <div class="app-body">
+        <p class="app-tag">Every variant, judged by its evidence.</p>
+        <div class="app-stats">
+          <div class="app-stat"><b class="tnum">27,748</b><span>variants in the test set</span></div>
+          <div class="app-stat"><b class="tnum">AUROC 0.970</b><span>on the 10,357 scored</span></div>
+          <div class="app-stat"><b class="tnum">3,084</b><span>genes</span></div>
+        </div>
+        <div class="app-actions">
+          <button class="btn" type="button" id="app-launch">Launch the app</button>
+          <button class="btn line-btn" type="button" id="app-example">Try an example — no file needed</button>
+        </div>
+      </div>
+    </div>
+    <div class="app-frame-wrap" id="app-frame-wrap" hidden>
+      <div class="app-wake" id="app-wake">Waking up the app — the first load can take about 30 seconds.</div>
+    </div>
+    <p class="app-fine"><a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the app full-screen</a></p>
     <p class="app-fine">Research Use Only.</p>
+    <p class="app-fine">After a quiet period the app can take up to a minute to wake. It loads on its own — no need to refresh.</p>
   </section>
 
   <!-- GET STARTED / DEMO -->
@@ -635,6 +674,42 @@
         ticking = false;
       });
     }, { passive: true });
+  }
+})();
+</script>
+<script>
+/* Live application — click-to-load. The iframe is created only on first
+   activation (a facade button, or any in-page link to #app), so the
+   homepage never pays the app's load cost up front. */
+(function(){
+  var BASE = 'https://evidra-variant-evidence-agent.hf.space';
+  var facade = document.getElementById('app-facade');
+  var wrap = document.getElementById('app-frame-wrap');
+  var wake = document.getElementById('app-wake');
+  if (!facade || !wrap || !wake) return;
+  var frame = null;
+  function activate(useExample){
+    if (frame) return;
+    frame = document.createElement('iframe');
+    frame.className = 'app-frame';
+    frame.title = 'Omevra Variant Evidence Agent — live application';
+    frame.src = useExample ? BASE + '/?example=demo' : BASE;
+    frame.addEventListener('load', function(){
+      var blank = false;
+      try { blank = (frame.contentWindow.location.href === 'about:blank'); } catch (e) { blank = false; }
+      if (!blank) wake.hidden = true;
+    });
+    wrap.insertBefore(frame, wake);
+    facade.hidden = true;
+    wrap.hidden = false;
+  }
+  document.getElementById('app-launch').addEventListener('click', function(){ activate(false); });
+  document.getElementById('app-example').addEventListener('click', function(){ activate(true); });
+  var links = document.querySelectorAll('a');
+  for (var i = 0; i < links.length; i++) {
+    if (links[i].getAttribute('href') === '#app') {
+      links[i].addEventListener('click', function(){ activate(false); });
+    }
   }
 })();
 </script>
