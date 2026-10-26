@@ -4,7 +4,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
-<link rel="icon" href="data:," />
 <title>Variant Evidence Agent — Evidra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -201,6 +200,11 @@
   footer .name{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px}
   footer p{font-size:14.5px}
   footer .links{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+/* evidra-build:brand-css:start */
+  .wordmark{display:inline-flex;align-items:center;gap:9px}
+  .brand-mark{width:38px;height:38px;flex:none;display:block;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:9px}
+  .hero-mark{display:block;width:132px;height:132px;margin:0 auto 26px;background:#fff;border:1px solid var(--line,#e6e6e8);border-radius:30px}
+/* evidra-build:brand-css:end */
 </style>
 <!-- evidra-build:head:start -->
 <meta name="description" content="Variant Evidence Agent by Evidra: calibrated VUS reclassification (AUROC 0.970, ECE 0.025) on a temporal test of 27,748 variants, with cited evidence or an explicit decline." />
@@ -212,12 +216,19 @@
 <meta property="og:url" content="https://umeshlinga.github.io/evidra/vus-evidence-agent/" />
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "ResearchApplication", "brand": {"@type": "Brand", "name": "Evidra"}, "description": "Variant Evidence Agent by Evidra: calibrated VUS reclassification (AUROC 0.970, ECE 0.025) on a temporal test of 27,748 variants, with cited evidence or an explicit decline.", "name": "Variant Evidence Agent", "operatingSystem": "Web", "publisher": {"@type": "Organization", "name": "Evidra"}, "url": "https://umeshlinga.github.io/evidra/vus-evidence-agent/"}</script>
 <!-- evidra-build:head:end -->
+<!-- evidra-build:brand-head:start -->
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/brand/favicon-48.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/brand/favicon-512.png" />
+<!-- evidra-build:brand-head:end -->
 </head>
 <body>
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/">Evidra</a>
+    <a class="wordmark" href="/"><img class="brand-mark" src="/assets/brand/evidra-logo-3d.webp" alt="Evidra" width="38" height="38" />Evidra</a>
     <nav class="bar-nav" aria-label="Products">
       <a href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Variant Evidence Agent</a>
       <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent</a>
@@ -313,6 +324,9 @@
   </section>
 
 
+  
+  
+  
   
   
   <!-- TEMPORAL SPLIT, DRAWN (evidra-build:temporal) -->
@@ -439,6 +453,9 @@
   </section>
 
 
+  
+  
+  
   
   
   <!-- CALIBRATION, DRAWN (evidra-build:calibration-drawn) -->
