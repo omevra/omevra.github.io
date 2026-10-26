@@ -112,6 +112,7 @@
 
   /* Sections */
   section{padding:96px 0 0}
+  section[id]{scroll-margin-top:96px}
   .sec-eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 12px;text-align:center}
   h2{font-size:clamp(34px,5.4vw,52px);line-height:1.08;letter-spacing:-.03em;font-weight:750;margin:0;text-align:center}
   .sec-sub{font-size:clamp(18px,2.6vw,21px);line-height:1.5;color:var(--ink-2);text-align:center;max-width:720px;margin:18px auto 0}
@@ -172,6 +173,12 @@
   .trial .cta-row{justify-content:center}
   .trial .btn.line{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.75)}
   .trial .btn.line:hover{background:rgba(255,255,255,.12);box-shadow:none}
+  .trial .covers{max-width:620px;margin:0 auto 28px;text-align:left}
+  .trial .covers p{font-size:17px;margin:0 auto 10px}
+  .trial .covers ul{margin:0;padding-left:22px}
+  .trial .covers li{margin-bottom:8px;font-size:17px;line-height:1.55;color:rgba(255,255,255,.92)}
+  .trial .covers li strong{color:#fff}
+  .trial .note{font-size:15px;color:rgba(255,255,255,.78);margin:26px auto 0}
 
   .builder-card{margin:46px auto 0;max-width:900px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px;display:flex;gap:32px;align-items:center;text-align:left}
   .builder-bio{font-size:19px;line-height:1.55;font-weight:600;color:var(--ink);margin:0 0 12px}
@@ -208,11 +215,11 @@
   <div class="bar-in">
     <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Site">
-      <a href="/omevra/vus-evidence-agent/">Product</a>
-      <a href="/omevra/validation/">Validation</a>
-      <a href="/omevra/pricing/">Pricing</a>
-      <a href="/omevra/methods/">Methods</a>
-      <a href="/omevra/capacity/">Capacity</a>
+      <a href="#platform">Product</a>
+      <a href="#validation">Validation</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#use-cases">Use cases</a>
+      <a href="#demo">Demo</a>
       <a href="/omevra/about/">About</a>
     </nav>
     <a class="bar-btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
@@ -252,7 +259,7 @@
   </div>
 
   <!-- PLATFORM -->
-  <section id="products">
+  <section id="platform">
     <p class="sec-eyebrow rv">The platform</p>
     <h2 class="rv">One product, three modules</h2>
     <p class="sec-sub rv">Calibrated variant evidence for research teams. Send a variant list and get cited, calibrated evidence reports — or an honest “not enough evidence.” Every number on this page is a measured result, published with its limits.</p>
@@ -294,6 +301,86 @@
           <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the live application</a>
         </div>
       </article>
+    </div>
+  </section>
+
+  <!-- VALIDATION -->
+  <section id="validation">
+    <p class="sec-eyebrow rv">Validation</p>
+    <h2 class="rv">Tested on the future, not the training set</h2>
+    <p class="sec-sub rv">Most variant tools are tested on data they were tuned on. Omevra’s headline numbers come from a temporal split: the model was fitted on ClinVar as frozen in January 2024, and tested on variants whose classifications were made or changed after that freeze — a test set the model never trained on. A temporal split cannot leak the way a random split does.</p>
+    <div class="method-panel rv">
+      <p class="lead"><strong>AUROC 0.970</strong>, measured on the 10,357 variants the model scored out of the 27,748-variant temporal test set — with a calibration error of <strong>ECE 0.025</strong> on the same scored variants: when the model says 0.80, it is right about 80% of the time.</p>
+      <p class="lead">Coverage is <strong>37.3%</strong>. The model scores the missense variants that carry predictor scores and declines the rest — most of them non-missense variants with no predictor score at all — rather than inventing a probability.</p>
+      <p class="lead">Every claim in an evidence report cites the record retrieved for it. Where the evidence is too thin to support a claim, the system declines — and the decline is shown as a decline, never dressed up as a result. <strong>Cite-or-decline.</strong></p>
+      <div class="cta-row">
+        <a class="btn" href="/omevra/validation/">Read the full validation ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="use-cases">
+    <p class="sec-eyebrow rv">Use cases</p>
+    <h2 class="rv">Built for the VUS problem</h2>
+    <p class="sec-sub rv">Three ways research teams use calibrated, cited variant evidence — and the limits of each, stated plainly.</p>
+    <div class="flow">
+      <div class="flow-step rv"><b>Rare-disease research</b><p>An evidence pack for each candidate variant: a calibrated probability where the evidence supports one, a citation behind every claim, and an explicit decline where it does not — so a researcher starts from the evidence, not from a blank search page.</p></div>
+      <div class="flow-step rv" data-d="1"><b>Cohort VUS triage</b><p>Score a batch list in one run: the borderline band (0.40–0.60) surfaces for human review first, and declines stay visible in the dashboard and the exports — the whole cohort triaged, including the honest “not enough evidence” answers.</p></div>
+      <div class="flow-step rv" data-d="2"><b>Biotech target validation</b><p>Gene-level evidence summaries from the variant record, and reproducible pipeline runs through the Atlas — the same code, run again, returning byte-identical results that a reviewer can verify.</p></div>
+    </div>
+    <div class="section-cta rv">
+      <div class="cta-row">
+        <a class="btn ghost" href="/omevra/use-cases/">See all use cases ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <p class="sec-eyebrow rv">Pricing</p>
+    <h2 class="rv">Plans that scale with your variants</h2>
+    <p class="sec-sub rv">Start free. Upgrade when your lab needs more volume, a shared workspace, or API access. Every plan runs the same calibrated model, validated on a temporal ClinVar split — every claim cited, or an honest decline.</p>
+    <div class="products">
+      <article class="p-card rv">
+        <div class="p-no">FREE</div>
+        <h3>$0</h3>
+        <p class="desc">100 variants per month · 1 seat · Evidence packs (PDF, CSV, XLSX) · Saved projects and history for 7 days · Support from the docs.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Open the public demo</a>
+        </div>
+      </article>
+      <article class="p-card rv">
+        <div class="p-no">RESEARCHER</div>
+        <h3>$79 / month</h3>
+        <p class="desc">5,000 variants per month · 1 seat · Unlimited saved projects and history · Monthly re-check alerts on new ClinVar evidence · Email support.</p>
+        <div class="cta-row">
+          <a class="btn" href="mailto:umesh.linga25@gmail.com?subject=Omevra%20early%20access%20%E2%80%94%20Researcher">Join early access</a>
+        </div>
+      </article>
+      <article class="p-card rv">
+        <div class="p-no">LAB</div>
+        <h3>$499 / month</h3>
+        <p class="desc">50,000 variants per month · 5 seats · Shared team workspace · API access · Weekly re-check alerts on new ClinVar evidence · Email support.</p>
+        <div class="cta-row">
+          <a class="btn" href="mailto:umesh.linga25@gmail.com?subject=Omevra%20early%20access%20%E2%80%94%20Lab">Join early access</a>
+        </div>
+      </article>
+      <article class="p-card rv">
+        <div class="p-no">ENTERPRISE</div>
+        <h3>Custom</h3>
+        <p class="desc">Unlimited variants · Unlimited seats · Shared team workspace · API access with higher limits · Single sign-on (SSO) · Dedicated contact and SLA.</p>
+        <div class="cta-row">
+          <a class="btn" href="#demo">Book a demo</a>
+        </div>
+      </article>
+    </div>
+    <p class="sec-sub rv">Paid plans open with the first pilot cohort. Join early access and pricing is confirmed with you before anything is ever charged.</p>
+    <p class="sec-sub rv">Joining early access is an email, not a sign-up: no account is created and no payment is taken today. Your address is used only to confirm pilot details with you — never sold or shared.</p>
+    <div class="section-cta rv">
+      <div class="cta-row">
+        <a class="btn ghost" href="/omevra/pricing/">Full pricing, credits and FAQ ›</a>
+      </div>
     </div>
   </section>
 
@@ -382,18 +469,6 @@
     </div>
   </section>
 
-  <!-- GET STARTED -->
-  <section class="trial rv" aria-label="Get started">
-    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Get started</p>
-    <h2>Start free. Scale when the work does.</h2>
-    <p>The Variant Evidence Agent runs in public. Open it, run the example variants, and read the evidence pack it returns — every claim cited, every gap shown. Public demo — please do not upload patient data. Use example or de-identified variants only.</p>
-    <div class="cta-row">
-      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Start free — open the public demo</a>
-      <a class="btn line" href="/omevra/pricing/">See pricing</a>
-      <a class="btn line" href="/omevra/contact/">Book a demo</a>
-    </div>
-  </section>
-
   <!-- BUILDER -->
   <section id="builder" aria-label="Built by Umesh Linga">
     <p class="sec-eyebrow rv">The builder</p>
@@ -409,6 +484,28 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- GET STARTED / DEMO -->
+  <section class="trial rv" id="demo" aria-label="Get started">
+    <p class="sec-eyebrow" style="color:rgba(255,255,255,.85)">Get started</p>
+    <h2>Start free. Scale when the work does.</h2>
+    <p>The Variant Evidence Agent runs in public. Open it, run the example variants, and read the evidence pack it returns — every claim cited, every gap shown. Public demo — please do not upload patient data. Use example or de-identified variants only.</p>
+    <div class="covers">
+      <p><strong>Book a demo — a 30-minute call, in three parts:</strong></p>
+      <ul>
+        <li><strong>A live run</strong> on de-identified example variants — your own de-identified list, or the public demo sets.</li>
+        <li><strong>The validation method</strong> — the temporal split, the calibration, and the coverage limits, with the numbers behind them.</li>
+        <li><strong>Pilot terms</strong> — how early access works for the first cohort of labs.</li>
+      </ul>
+    </div>
+    <div class="cta-row">
+      <a class="btn" href="https://evidra-variant-evidence-agent.hf.space" target="_blank" rel="noopener">Start free — open the public demo</a>
+      <a class="btn line" href="#pricing">See pricing</a>
+      <a class="btn line" href="mailto:umesh.linga25@gmail.com?subject=Omevra%20demo%20request">Email to book</a>
+      <a class="btn line" href="https://www.linkedin.com/in/umesh-linga-aa8321293" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="note">What happens when you write: your message goes directly to Umesh Linga. Your name and email address are used only to reply and arrange the demo — never sold, never added to a mailing list, and never shared. That is the only information this page collects.</p>
   </section>
 
   <footer>
@@ -427,6 +524,10 @@
       <a href="/omevra/tools/">Tools — every usable tool</a>
       <a href="/omevra/pricing/">Pricing</a>
       <a href="/omevra/validation/">Validation</a>
+      <a href="/omevra/use-cases/">Use cases</a>
+      <a href="/omevra/methods/">Methods</a>
+      <a href="/omevra/capacity/">Capacity</a>
+      <a href="/omevra/research/">Research</a>
       <a href="/omevra/security/">Security</a>
       <a href="/omevra/terms/">Terms</a>
       <a href="/omevra/privacy/">Privacy</a>
