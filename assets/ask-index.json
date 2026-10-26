@@ -3,7 +3,7 @@
  "chunks": [
   {
    "id": "vus-what",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 what it does",
    "keywords": [
     "variant evidence agent",
@@ -16,7 +16,7 @@
   },
   {
    "id": "wa-what",
-   "source": "/web-agent/",
+   "source": "/omevra/web-agent/",
    "title": "web-agent \u2014 what it does",
    "keywords": [
     "web-agent",
@@ -28,7 +28,7 @@
   },
   {
    "id": "wa-headline",
-   "source": "/web-agent/",
+   "source": "/omevra/web-agent/",
    "title": "web-agent \u2014 headline results",
    "keywords": [
     "how many tasks",
@@ -41,7 +41,7 @@
   },
   {
    "id": "wa-off",
-   "source": "/web-agent/",
+   "source": "/omevra/web-agent/",
    "title": "web-agent \u2014 recovery off",
    "keywords": [
     "recovery off",
@@ -52,7 +52,7 @@
   },
   {
    "id": "adv",
-   "source": "/web-agent/",
+   "source": "/omevra/web-agent/",
    "title": "web-agent \u2014 adversarial vs control tasks",
    "keywords": [
     "adversarial",
@@ -64,7 +64,7 @@
   },
   {
    "id": "auroc",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 final model scores",
    "keywords": [
     "auroc",
@@ -76,7 +76,7 @@
   },
   {
    "id": "ece",
-   "source": "/methods/calibration/",
+   "source": "/omevra/methods/calibration/",
    "title": "Calibration \u2014 ECE of the final model",
    "keywords": [
     "ece",
@@ -88,7 +88,7 @@
   },
   {
    "id": "universe",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 the test set",
    "keywords": [
     "test set",
@@ -101,7 +101,7 @@
   },
   {
    "id": "summdecl",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 summarised vs declined",
    "keywords": [
     "summarise",
@@ -118,7 +118,7 @@
   },
   {
    "id": "recovery-how",
-   "source": "/methods/evaluation/",
+   "source": "/omevra/methods/evaluation/",
    "title": "Evaluation method \u2014 how recovery works",
    "keywords": [
     "how does recovery work",
@@ -132,7 +132,7 @@
   },
   {
    "id": "isotonic",
-   "source": "/methods/calibration/",
+   "source": "/omevra/methods/calibration/",
    "title": "Calibration \u2014 isotonic vs Platt",
    "keywords": [
     "isotonic",
@@ -144,7 +144,7 @@
   },
   {
    "id": "pergene",
-   "source": "/methods/calibration/",
+   "source": "/omevra/methods/calibration/",
    "title": "Calibration \u2014 per-gene, worst first",
    "keywords": [
     "per gene",
@@ -157,7 +157,7 @@
   },
   {
    "id": "temporal-how",
-   "source": "/methods/temporal-evaluation/",
+   "source": "/omevra/methods/temporal-evaluation/",
    "title": "Temporal evaluation \u2014 the freeze/test design",
    "keywords": [
     "temporal",
@@ -172,7 +172,7 @@
   },
   {
    "id": "batch",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 batch pack",
    "keywords": [
     "batch",
@@ -185,7 +185,7 @@
   },
   {
    "id": "lookup-how",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 single lookup",
    "keywords": [
     "look up",
@@ -198,7 +198,7 @@
   },
   {
    "id": "live-evidence",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 live-evidence mode",
    "keywords": [
     "live evidence",
@@ -210,7 +210,7 @@
   },
   {
    "id": "wa-howto",
-   "source": "/web-agent/",
+   "source": "/omevra/web-agent/",
    "title": "web-agent \u2014 how to use",
    "keywords": [
     "how do i use web-agent",
@@ -224,7 +224,7 @@
   },
   {
    "id": "vus-limits",
-   "source": "/vus-evidence-agent/",
+   "source": "/omevra/vus-evidence-agent/",
    "title": "Variant Evidence Agent \u2014 limits",
    "keywords": [
     "limits of the variant",
@@ -238,7 +238,7 @@
   },
   {
    "id": "wa-limits",
-   "source": "/articles/recovery-ablation/",
+   "source": "/omevra/articles/recovery-ablation/",
    "title": "The recovery ablation \u2014 limits",
    "keywords": [
     "web-agent limits",
@@ -251,7 +251,7 @@
   },
   {
    "id": "scoring",
-   "source": "/methods/evaluation/",
+   "source": "/omevra/methods/evaluation/",
    "title": "Evaluation method \u2014 scoring rules",
    "keywords": [
     "scoring",
@@ -264,7 +264,7 @@
   },
   {
    "id": "article-failures",
-   "source": "/articles/recovery-ablation/",
+   "source": "/omevra/articles/recovery-ablation/",
    "title": "The recovery ablation \u2014 the nine failures",
    "keywords": [
     "recovery ablation article",
@@ -277,7 +277,7 @@
   },
   {
    "id": "hybrid-what",
-   "source": "/hybrid-perturb-bench/",
+   "source": "/omevra/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 what it is",
    "keywords": [
     "hybrid-perturb-bench",
@@ -290,7 +290,7 @@
   },
   {
    "id": "hybrid-singles",
-   "source": "/hybrid-perturb-bench/",
+   "source": "/omevra/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 held-out singles result",
    "keywords": [
     "hybrid held-out singles",
@@ -303,7 +303,7 @@
   },
   {
    "id": "hybrid-combos",
-   "source": "/hybrid-perturb-bench/",
+   "source": "/omevra/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 combinations",
    "keywords": [
     "combinations",
@@ -315,7 +315,7 @@
   },
   {
    "id": "gears",
-   "source": "/hybrid-perturb-bench/",
+   "source": "/omevra/hybrid-perturb-bench/",
    "title": "hybrid-perturb-bench \u2014 GEARS comparator",
    "keywords": [
     "gears"
@@ -324,7 +324,7 @@
   },
   {
    "id": "downloads",
-   "source": "/web-agent/",
+   "source": "/omevra/web-agent/",
    "title": "web-agent \u2014 downloads and Evaluation v1.0",
    "keywords": [
     "download",
@@ -338,7 +338,7 @@
   },
   {
    "id": "contact",
-   "source": "/",
+   "source": "/omevra/",
    "title": "Omevra \u2014 contact",
    "keywords": [
     "contact",
@@ -350,7 +350,7 @@
   },
   {
    "id": "methods-overview",
-   "source": "/methods/evaluation/",
+   "source": "/omevra/methods/evaluation/",
    "title": "Methods library \u2014 overview",
    "keywords": [
     "methods",
@@ -361,7 +361,7 @@
   },
   {
    "id": "wa-arch",
-   "source": "/web-agent/architecture/",
+   "source": "/omevra/web-agent/architecture/",
    "title": "web-agent architecture \u2014 the state machine",
    "keywords": [
     "architecture",
@@ -376,7 +376,7 @@
   },
   {
    "id": "wa-rails",
-   "source": "/web-agent/architecture/",
+   "source": "/omevra/web-agent/architecture/",
    "title": "web-agent architecture \u2014 public-page rails",
    "keywords": [
     "public page rails",
@@ -393,7 +393,7 @@
   },
   {
    "id": "vus-arch",
-   "source": "/vus-evidence-agent/architecture/",
+   "source": "/omevra/vus-evidence-agent/architecture/",
    "title": "Variant Evidence Agent architecture \u2014 model vs code",
    "keywords": [
     "architecture",
@@ -408,7 +408,7 @@
   },
   {
    "id": "vus-live-arch",
-   "source": "/vus-evidence-agent/architecture/",
+   "source": "/omevra/vus-evidence-agent/architecture/",
    "title": "Variant Evidence Agent architecture \u2014 live-evidence boundaries",
    "keywords": [
     "live evidence boundaries",
@@ -422,7 +422,7 @@
   },
   {
    "id": "vus-batch-arch",
-   "source": "/vus-evidence-agent/architecture/",
+   "source": "/omevra/vus-evidence-agent/architecture/",
    "title": "Variant Evidence Agent architecture \u2014 the batch flow",
    "keywords": [
     "batch architecture",
@@ -435,7 +435,7 @@
   },
   {
    "id": "tools",
-   "source": "/tools/",
+   "source": "/omevra/tools/",
    "title": "Tools \u2014 the directory",
    "keywords": [
     "tools",
@@ -453,7 +453,7 @@
   },
   {
    "id": "literature",
-   "source": "/tools/",
+   "source": "/omevra/tools/",
    "title": "Tools \u2014 literature panel (PubMed)",
    "keywords": [
     "literature",
@@ -466,7 +466,7 @@
   },
   {
    "id": "ngs-what",
-   "source": "/ngs-pipeline-atlas/",
+   "source": "/omevra/ngs-pipeline-atlas/",
    "title": "NGS Pipeline Atlas \u2014 what it is",
    "keywords": [
     "ngs pipeline atlas",
@@ -481,7 +481,7 @@
   },
   {
    "id": "ngs-gates",
-   "source": "/ngs-pipeline-atlas/",
+   "source": "/omevra/ngs-pipeline-atlas/",
    "title": "NGS Pipeline Atlas \u2014 the QC gates and the cohort outcome",
    "keywords": [
     "ngs qc gates",
@@ -496,7 +496,7 @@
   },
   {
    "id": "ngs-repro",
-   "source": "/ngs-pipeline-atlas/",
+   "source": "/omevra/ngs-pipeline-atlas/",
    "title": "NGS Pipeline Atlas \u2014 reproducibility and the sanitize stage",
    "keywords": [
     "ngs reproducibility",
@@ -511,7 +511,7 @@
   },
   {
    "id": "mae-what",
-   "source": "/multi-agent-evidence/",
+   "source": "/omevra/multi-agent-evidence/",
    "title": "Multi-Agent Evidence \u2014 what it is",
    "keywords": [
     "multi-agent evidence",
@@ -525,7 +525,7 @@
   },
   {
    "id": "mae-result",
-   "source": "/multi-agent-evidence/",
+   "source": "/omevra/multi-agent-evidence/",
    "title": "Multi-Agent Evidence \u2014 the comparison result",
    "keywords": [
     "did the multi-agent beat",
@@ -542,7 +542,7 @@
   },
   {
    "id": "mae-critic",
-   "source": "/multi-agent-evidence/",
+   "source": "/omevra/multi-agent-evidence/",
    "title": "Multi-Agent Evidence \u2014 what the critic did, and the failure modes",
    "keywords": [
     "critic rejections",

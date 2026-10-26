@@ -241,15 +241,15 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/web-agent/">web-agent</a>
-      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
     </nav>
-    <a class="bar-btn" href="/">Omevra — all products</a>
+    <a class="bar-btn" href="/omevra/">Omevra — all products</a>
   </div>
 </header>
 
@@ -263,7 +263,7 @@
   <section id="protocol">
     <div class="sec-head"><h2>Evaluation v1 — temporal split, train frozen Jan 2024</h2></div>
     <p><strong>Version label: Evaluation v1 — temporal split, train frozen Jan 2024.</strong> This page is the proof record for the Variant Evidence Agent: the protocol in full, every versioned result, and the files behind them.</p>
-    <p>All data is open and pinned by date. ClinVar classifications are frozen at the Jan 2024 cutoff: the cutoff snapshot held 2,366,650 GRCh38 rows (the current snapshot holds 4,578,190). The train set is the 1,103,657 variants labelled at the cutoff (240,752 pathogenic, 862,905 benign), frozen. The test set is only the 27,748 variants that were of uncertain significance at the cutoff and have since been reclassified (8,856 pathogenic, 18,892 benign) — no test label existed at train time. Features are joined as of the cutoff where the source allows dating; calibration maps are fitted on train data only (an 80/20 seed-11 split, isotonic fitted on the train holdout) and judged on the untouched test set. The near-duplicate guard removes test rows sharing gene + name with train; it removed 0 rows in this build. Full design: <a href="/methods/temporal-evaluation/">Temporal evaluation</a> · <a href="/methods/calibration/">Calibration</a>.</p>
+    <p>All data is open and pinned by date. ClinVar classifications are frozen at the Jan 2024 cutoff: the cutoff snapshot held 2,366,650 GRCh38 rows (the current snapshot holds 4,578,190). The train set is the 1,103,657 variants labelled at the cutoff (240,752 pathogenic, 862,905 benign), frozen. The test set is only the 27,748 variants that were of uncertain significance at the cutoff and have since been reclassified (8,856 pathogenic, 18,892 benign) — no test label existed at train time. Features are joined as of the cutoff where the source allows dating; calibration maps are fitted on train data only (an 80/20 seed-11 split, isotonic fitted on the train holdout) and judged on the untouched test set. The near-duplicate guard removes test rows sharing gene + name with train; it removed 0 rows in this build. Full design: <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a> · <a href="/omevra/methods/calibration/">Calibration</a>.</p>
     <div class="items">
       <div class="item">
         <h3>Why random splits leak</h3>
@@ -322,43 +322,43 @@
     <div class="sec-head"><h2>Downloads — the files behind every figure</h2></div>
     <p>Each file below is copied byte-identical from the project's <code>data/processed_v2/</code> (and the validation dossier from <code>docs/</code>) at build time; the build verifies the copies.</p>
     <ul>
-      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT.md" download>MODEL_REPORT.md</a> — Report 1: AlphaMissense alone, temporal test</li>
-      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_2.md" download>MODEL_REPORT_2.md</a> — Report 2: ensemble (AlphaMissense + gene prior)</li>
-      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_3.md" download>MODEL_REPORT_3.md</a> — Report 3: from-scratch MLP (does not beat the ensemble)</li>
-      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_4.md" download>MODEL_REPORT_4.md</a> — Report 4: REVEL ablation — the headline M2+R model, with its per-gene table</li>
-      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_5.md" download>MODEL_REPORT_5.md</a> — Report 5: tree ensembles, with the per-gene comparison table</li>
-      <li><a href="/vus-evidence-agent/assets/MODEL_REPORT_6.md" download>MODEL_REPORT_6.md</a> — Report 6: the final-model head-to-head and the adoption of GBM+R (2026-10-26)</li>
-      <li><a href="/vus-evidence-agent/assets/SPLIT_REPORT.md" download>SPLIT_REPORT.md</a> — the temporal split report</li>
-      <li><a href="/vus-evidence-agent/assets/FEATURE_REPORT.md" download>FEATURE_REPORT.md</a> — the feature report</li>
-      <li><a href="/vus-evidence-agent/assets/validation-dossier.md" download>validation-dossier.md</a> — the full validation dossier behind this page</li>
-      <li><a href="/vus-evidence-agent/assets/test_predictions.csv" download>test_predictions.csv</a> — per-variant predictions: AlphaMissense raw + Platt</li>
-      <li><a href="/vus-evidence-agent/assets/test_predictions_ensemble.csv" download>test_predictions_ensemble.csv</a> — per-variant predictions: ensemble</li>
-      <li><a href="/vus-evidence-agent/assets/test_predictions_mlp.csv" download>test_predictions_mlp.csv</a> — per-variant predictions: MLP</li>
-      <li><a href="/vus-evidence-agent/assets/test_predictions_revel.csv" download>test_predictions_revel.csv</a> — per-variant predictions: the M2+R model (Model Report 4 record — history, kept and labelled)</li>
-      <li><a href="/vus-evidence-agent/assets/test_predictions_trees.csv" download>test_predictions_trees.csv</a> — per-variant predictions: tree ensembles</li>
-      <li><a href="/vus-evidence-agent/assets/headtohead_20261026_predictions.csv" download>headtohead_20261026_predictions.csv</a> — per-variant predictions for the Model Report 6 head-to-head (allele_id + prob_A Model 2, prob_B M2+R, prob_C GBM+R — the adopted final model and this page's per-gene source — prob_D RF+R; labels and genes join from test_predictions.csv on allele_id)</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/MODEL_REPORT.md" download>MODEL_REPORT.md</a> — Report 1: AlphaMissense alone, temporal test</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/MODEL_REPORT_2.md" download>MODEL_REPORT_2.md</a> — Report 2: ensemble (AlphaMissense + gene prior)</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/MODEL_REPORT_3.md" download>MODEL_REPORT_3.md</a> — Report 3: from-scratch MLP (does not beat the ensemble)</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/MODEL_REPORT_4.md" download>MODEL_REPORT_4.md</a> — Report 4: REVEL ablation — the headline M2+R model, with its per-gene table</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/MODEL_REPORT_5.md" download>MODEL_REPORT_5.md</a> — Report 5: tree ensembles, with the per-gene comparison table</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/MODEL_REPORT_6.md" download>MODEL_REPORT_6.md</a> — Report 6: the final-model head-to-head and the adoption of GBM+R (2026-10-26)</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/SPLIT_REPORT.md" download>SPLIT_REPORT.md</a> — the temporal split report</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/FEATURE_REPORT.md" download>FEATURE_REPORT.md</a> — the feature report</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/validation-dossier.md" download>validation-dossier.md</a> — the full validation dossier behind this page</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/test_predictions.csv" download>test_predictions.csv</a> — per-variant predictions: AlphaMissense raw + Platt</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/test_predictions_ensemble.csv" download>test_predictions_ensemble.csv</a> — per-variant predictions: ensemble</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/test_predictions_mlp.csv" download>test_predictions_mlp.csv</a> — per-variant predictions: MLP</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/test_predictions_revel.csv" download>test_predictions_revel.csv</a> — per-variant predictions: the M2+R model (Model Report 4 record — history, kept and labelled)</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/test_predictions_trees.csv" download>test_predictions_trees.csv</a> — per-variant predictions: tree ensembles</li>
+      <li><a href="/omevra/vus-evidence-agent/assets/headtohead_20261026_predictions.csv" download>headtohead_20261026_predictions.csv</a> — per-variant predictions for the Model Report 6 head-to-head (allele_id + prob_A Model 2, prob_B M2+R, prob_C GBM+R — the adopted final model and this page's per-gene source — prob_D RF+R; labels and genes join from test_predictions.csv on allele_id)</li>
     </ul>
     <p>Not for clinical use.</p>
-    <p>Product: <a href="/vus-evidence-agent/">Variant Evidence Agent</a> · API: <a href="/vus-evidence-agent/api/">API documentation</a> · Methods: <a href="/methods/temporal-evaluation/">Temporal evaluation</a> · <a href="/methods/calibration/">Calibration</a>.</p>
+    <p>Product: <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a> · API: <a href="/omevra/vus-evidence-agent/api/">API documentation</a> · Methods: <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a> · <a href="/omevra/methods/calibration/">Calibration</a>.</p>
   </section>
 
   <footer>
     <p class="name">Omevra</p>
     <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
     <div class="links">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/web-agent/">web-agent</a>
-      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
-      <a href="/methods/evaluation/">Methods — evaluation</a>
-      <a href="/methods/calibration/">Methods — calibration</a>
-      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
-      <a href="/articles/recovery-ablation/">The recovery ablation</a>
-      <a href="/web-agent/architecture/">web-agent — architecture</a>
-      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
-      <a href="/tools/">Tools — every usable tool</a>
-      <a href="/">Omevra — home</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/omevra/methods/calibration/">Methods — calibration</a>
+      <a href="/omevra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/omevra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/omevra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/omevra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/omevra/tools/">Tools — every usable tool</a>
+      <a href="/omevra/">Omevra — home</a>
     </div>
   </footer>
 </main>
@@ -388,7 +388,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
-<script src="/assets/ask-evidra.js" defer></script>
+<script src="/omevra/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

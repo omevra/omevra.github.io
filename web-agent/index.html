@@ -241,9 +241,9 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
       <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live</a>
     </nav>
     <a class="bar-btn" href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">Run it live</a>
@@ -385,9 +385,9 @@
     <div class="sec-head"><h2>Evaluation v1.0 — 36-task suite</h2></div>
     <p>The current result set on this page is <strong>Evaluation v1.0</strong>: the full 36-task suite, both modes run. The raw outputs ship with this site as downloadable files, byte-identical to the lab's own copies:</p>
     <ul>
-      <li><a href="/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
-      <li><a href="/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>
-      <li><a href="/web-agent/assets/RESULTS.md" download>RESULTS.md</a> — the generated results document</li>
+      <li><a href="/omevra/web-agent/assets/run_on.json" download>results/run_on.json</a> — the recovery-on run file (36/36 passed)</li>
+      <li><a href="/omevra/web-agent/assets/run_off.json" download>results/run_off.json</a> — the recovery-off run file (27/36 passed)</li>
+      <li><a href="/omevra/web-agent/assets/RESULTS.md" download>RESULTS.md</a> — the generated results document</li>
     </ul>
     <h3 style="margin-top:28px">Changelog</h3>
     <p><strong>v1.0</strong> — the 36-task suite, in six categories:</p>
@@ -413,14 +413,14 @@
     <div class="items">
       <div class="item">
         <h3>Methods library</h3>
-        <p><a href="/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
+        <p><a href="/omevra/methods/evaluation/">Evaluation</a> — the ablation design and the scoring rules. <a href="/omevra/methods/calibration/">Calibration</a> — isotonic calibration and per-gene reporting, worst first. <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a> — the freeze/test design behind the variant results.</p>
       </div>
     </div>
 
     <div class="items">
       <div class="item">
         <h3>The recovery ablation — article</h3>
-        <p><a href="/articles/recovery-ablation/">The recovery ablation</a> — what was measured, what recovery does mechanically, the nine recorded failures, and the limits.</p>
+        <p><a href="/omevra/articles/recovery-ablation/">The recovery ablation</a> — what was measured, what recovery does mechanically, the nine recorded failures, and the limits.</p>
       </div>
     </div>
   </section>
@@ -431,7 +431,7 @@
   <section id="architecture">
     <div class="sec-head"><h2>Architecture</h2></div>
     <p>How the agent is built, from the code itself: the observe → ground → act → verify → recover state machine, the grounding rules, the retry budgets and timeouts, the failure taxonomy, and the safety rails that bound the public-page mode.</p>
-    <p><a href="/web-agent/architecture/">web-agent architecture ›</a></p>
+    <p><a href="/omevra/web-agent/architecture/">web-agent architecture ›</a></p>
   </section>
 
 <!-- evidra-build:wa-archlink:end -->
@@ -439,7 +439,7 @@
 
   <section id="proof">
     <div class="sec-head"><h2>Evaluations</h2></div>
-    <p>The standalone proof page for this product: <a href="/web-agent/evaluations/">Evaluations</a> — Evaluation v1.0 in full, with the raw run files as downloads.</p>
+    <p>The standalone proof page for this product: <a href="/omevra/web-agent/evaluations/">Evaluations</a> — Evaluation v1.0 in full, with the raw run files as downloads.</p>
   </section>
 
 <!-- evidra-build:wa-proof:end -->
@@ -448,8 +448,8 @@
     <p>web-agent — an autonomous agent that operates web interfaces, measured on 36 tasks with recovery on and off. Every figure on this page is computed from the evaluation’s raw run files.</p>
     <div class="links">
       <a href="https://evidra-web-agent.hf.space" target="_blank" rel="noopener">web-agent — live application</a>
-      <a href="/vus-evidence-agent/">Variant Evidence Agent — full system</a>
-      <a href="/">Omevra — both products</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent — full system</a>
+      <a href="/omevra/">Omevra — both products</a>
     </div>
   </footer>
 </main>
@@ -479,7 +479,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
-<script src="/assets/ask-evidra.js" defer></script>
+<script src="/omevra/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

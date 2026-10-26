@@ -241,15 +241,15 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/web-agent/">web-agent</a>
-      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
     </nav>
-    <a class="bar-btn" href="/">Omevra — all products</a>
+    <a class="bar-btn" href="/omevra/">Omevra — all products</a>
   </div>
 </header>
 
@@ -280,7 +280,7 @@
 
   <section id="scoring">
     <div class="sec-head"><h2>Scoring and calibration</h2></div>
-    <p>Scoring happens in the project pipeline, not at request time: the probability a report carries is the stored model prediction for that allele (GBM+R — gradient boosting over AlphaMissense, the gene prior and REVEL, isotonic-calibrated — since 2026-10-26), produced by the pipeline described on the product page and joined to the variant when the service starts. Calibration is likewise precomputed and mechanical — <code>vus_agent/calibrate.py</code> holds the maps (Platt scaling by gradient descent; isotonic regression by the pool-adjacent-violators algorithm) and the metrics (ECE in 10 bins, Brier, rank-based AUROC). The standing rule — maps fitted on train data only, error reported per gene — is on the <a href="/methods/calibration/">calibration method</a> page; the split that makes those numbers mean something is on the <a href="/methods/temporal-evaluation/">temporal evaluation</a> page.</p>
+    <p>Scoring happens in the project pipeline, not at request time: the probability a report carries is the stored model prediction for that allele (GBM+R — gradient boosting over AlphaMissense, the gene prior and REVEL, isotonic-calibrated — since 2026-10-26), produced by the pipeline described on the product page and joined to the variant when the service starts. Calibration is likewise precomputed and mechanical — <code>vus_agent/calibrate.py</code> holds the maps (Platt scaling by gradient descent; isotonic regression by the pool-adjacent-violators algorithm) and the metrics (ECE in 10 bins, Brier, rank-based AUROC). The standing rule — maps fitted on train data only, error reported per gene — is on the <a href="/omevra/methods/calibration/">calibration method</a> page; the split that makes those numbers mean something is on the <a href="/omevra/methods/temporal-evaluation/">temporal evaluation</a> page.</p>
   </section>
 
   <section id="gate">
@@ -317,7 +317,7 @@
 
   <section id="scope">
     <div class="sec-head"><h2>Scope</h2></div>
-    <p>A research system, not a certified medical product, and not for clinical use: a calibrated probability is not a clinical classification. Product and results: <a href="/vus-evidence-agent/">Variant Evidence Agent</a> · Methods: <a href="/methods/calibration/">Calibration</a> · <a href="/methods/temporal-evaluation/">Temporal evaluation</a>.</p>
+    <p>A research system, not a certified medical product, and not for clinical use: a calibrated probability is not a clinical classification. Product and results: <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a> · Methods: <a href="/omevra/methods/calibration/">Calibration</a> · <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a>.</p>
     <p class="table-note">This page describes <code>vus_agent/agent.py</code>, <code>vus_agent/calibrate.py</code> and <code>vus_agent/features.py</code> in the project, and <code>app/agent_service.py</code>, <code>app/live_evidence.py</code>, <code>app/batch.py</code> and <code>app/synthesis.py</code> in the live application — the code as it stands.</p>
   </section>
 
@@ -325,19 +325,19 @@
     <p class="name">Omevra</p>
     <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
     <div class="links">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/web-agent/">web-agent</a>
-      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
-      <a href="/methods/evaluation/">Methods — evaluation</a>
-      <a href="/methods/calibration/">Methods — calibration</a>
-      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
-      <a href="/articles/recovery-ablation/">The recovery ablation</a>
-      <a href="/web-agent/architecture/">web-agent — architecture</a>
-      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
-      <a href="/tools/">Tools — every usable tool</a>
-      <a href="/">Omevra — home</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/omevra/methods/calibration/">Methods — calibration</a>
+      <a href="/omevra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/omevra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/omevra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/omevra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/omevra/tools/">Tools — every usable tool</a>
+      <a href="/omevra/">Omevra — home</a>
     </div>
   </footer>
 </main>
@@ -367,7 +367,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
-<script src="/assets/ask-evidra.js" defer></script>
+<script src="/omevra/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>

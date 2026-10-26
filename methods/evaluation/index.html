@@ -241,15 +241,15 @@
 
 <header class="topbar">
   <div class="bar-in">
-    <a class="wordmark" href="/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
+    <a class="wordmark" href="/omevra/"><img class="brand-mark" src="/omevra/assets/brand/omevra-logo-3d.webp" alt="Omevra" width="38" height="38" />Omevra</a>
     <nav class="bar-nav" aria-label="Products">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/web-agent/">web-agent</a>
-      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
     </nav>
-    <a class="bar-btn" href="/">Omevra — all products</a>
+    <a class="bar-btn" href="/omevra/">Omevra — all products</a>
   </div>
 </header>
 
@@ -283,13 +283,13 @@
       </div>
     </div>
     <div class="table-wrap"><table><thead><tr><th>Category</th><th>Tasks</th><th>Recovery on</th><th>Recovery off</th></tr></thead><tbody><tr><td>Forms &amp; wizards</td><td data-label="Tasks">10</td><td data-label="Recovery on">10/10 (100.0%)</td><td data-label="Recovery off">10/10 (100.0%)</td></tr><tr><td>Tables, lists &amp; cart</td><td data-label="Tasks">6</td><td data-label="Recovery on">6/6 (100.0%)</td><td data-label="Recovery off">6/6 (100.0%)</td></tr><tr><td>Adversarial recovery</td><td data-label="Tasks">9</td><td data-label="Recovery on">9/9 (100.0%)</td><td data-label="Recovery off">0/9 (0.0%)</td></tr><tr><td>Widgets &amp; dialogs</td><td data-label="Tasks">5</td><td data-label="Recovery on">5/5 (100.0%)</td><td data-label="Recovery off">5/5 (100.0%)</td></tr><tr><td>Business workflows</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr><tr><td>Portal navigation</td><td data-label="Tasks">3</td><td data-label="Recovery on">3/3 (100.0%)</td><td data-label="Recovery off">3/3 (100.0%)</td></tr></tbody></table></div>
-    <p class="table-note">Result of the current evaluation set: recovery on 36/36, recovery off 27/36; adversarial tasks 9/9 with recovery on and 0/9 with it off; controls 27/27 both ways. Full charts and the per-task record are on the <a href="/web-agent/">web-agent page</a>; the ablation is written up in <a href="/articles/recovery-ablation/">the recovery ablation</a>.</p>
+    <p class="table-note">Result of the current evaluation set: recovery on 36/36, recovery off 27/36; adversarial tasks 9/9 with recovery on and 0/9 with it off; controls 27/27 both ways. Full charts and the per-task record are on the <a href="/omevra/web-agent/">web-agent page</a>; the ablation is written up in <a href="/omevra/articles/recovery-ablation/">the recovery ablation</a>.</p>
   </section>
 
   <section id="scope">
     <div class="sec-head"><h2>Scope</h2></div>
     <p>The evaluation runs against deterministic local fixture pages in headless Chromium — pages styled as real product surfaces (a CRM portal, a store checkout, settings and admin flows) rather than bare HTML. The claims on this site are claims about that suite.</p>
-    <p>Related method pages: <a href="/methods/calibration/">Calibration</a> · <a href="/methods/temporal-evaluation/">Temporal evaluation</a>. Products: <a href="/web-agent/">web-agent</a> · <a href="/vus-evidence-agent/">Variant Evidence Agent</a>.</p>
+    <p>Related method pages: <a href="/omevra/methods/calibration/">Calibration</a> · <a href="/omevra/methods/temporal-evaluation/">Temporal evaluation</a>. Products: <a href="/omevra/web-agent/">web-agent</a> · <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>.</p>
   </section>
 
 <!-- evidra-build:m-arch:start -->
@@ -299,7 +299,7 @@
     <div class="items">
       <div class="item">
         <h3>How the systems are built</h3>
-        <p><a href="/web-agent/architecture/">web-agent architecture</a> — the state machine, grounding rules, budgets and the public-page rails, from the code. <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent architecture</a> — retrieval, scoring, calibration, and the cite-or-decline gate enforced in code.</p>
+        <p><a href="/omevra/web-agent/architecture/">web-agent architecture</a> — the state machine, grounding rules, budgets and the public-page rails, from the code. <a href="/omevra/vus-evidence-agent/architecture/">Variant Evidence Agent architecture</a> — retrieval, scoring, calibration, and the cite-or-decline gate enforced in code.</p>
       </div>
     </div>
   </section>
@@ -309,19 +309,19 @@
     <p class="name">Omevra</p>
     <p>Measured systems, reported with their limits: a calibrated Variant Evidence Agent, web-agent evaluated with a recovery ablation, hybrid-perturb-bench, the NGS Pipeline Atlas, and the Multi-Agent Evidence framework.</p>
     <div class="links">
-      <a href="/vus-evidence-agent/">Variant Evidence Agent</a>
-      <a href="/web-agent/">web-agent</a>
-      <a href="/hybrid-perturb-bench/">hybrid-perturb-bench</a>
-      <a href="/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
-      <a href="/multi-agent-evidence/">Multi-Agent Evidence</a>
-      <a href="/methods/evaluation/">Methods — evaluation</a>
-      <a href="/methods/calibration/">Methods — calibration</a>
-      <a href="/methods/temporal-evaluation/">Methods — temporal evaluation</a>
-      <a href="/articles/recovery-ablation/">The recovery ablation</a>
-      <a href="/web-agent/architecture/">web-agent — architecture</a>
-      <a href="/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
-      <a href="/tools/">Tools — every usable tool</a>
-      <a href="/">Omevra — home</a>
+      <a href="/omevra/vus-evidence-agent/">Variant Evidence Agent</a>
+      <a href="/omevra/web-agent/">web-agent</a>
+      <a href="/omevra/hybrid-perturb-bench/">hybrid-perturb-bench</a>
+      <a href="/omevra/ngs-pipeline-atlas/">NGS Pipeline Atlas</a>
+      <a href="/omevra/multi-agent-evidence/">Multi-Agent Evidence</a>
+      <a href="/omevra/methods/evaluation/">Methods — evaluation</a>
+      <a href="/omevra/methods/calibration/">Methods — calibration</a>
+      <a href="/omevra/methods/temporal-evaluation/">Methods — temporal evaluation</a>
+      <a href="/omevra/articles/recovery-ablation/">The recovery ablation</a>
+      <a href="/omevra/web-agent/architecture/">web-agent — architecture</a>
+      <a href="/omevra/vus-evidence-agent/architecture/">Variant Evidence Agent — architecture</a>
+      <a href="/omevra/tools/">Tools — every usable tool</a>
+      <a href="/omevra/">Omevra — home</a>
     </div>
   </footer>
 </main>
@@ -351,7 +351,7 @@
   </div>
   <button class="ask-toggle" type="button">Ask Omevra</button>
 </div>
-<script src="/assets/ask-evidra.js" defer></script>
+<script src="/omevra/assets/ask-evidra.js" defer></script>
 
 <!-- evidra-build:ask-widget:end -->
 </body>
