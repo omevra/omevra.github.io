@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://omevra.github.io/</loc></url>
+  <url><loc>https://omevra.github.io/benchmark/</loc></url>
   <url><loc>https://omevra.github.io/vus-evidence-agent/</loc></url>
   <url><loc>https://omevra.github.io/vus-evidence-agent/architecture/</loc></url>
   <url><loc>https://omevra.github.io/web-agent/</loc></url>

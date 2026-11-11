@@ -49,11 +49,11 @@
     if (!best || bestScore < 5 || !best._kw) return { declined: true, text: index.decline || DECLINE };
     return { declined: false, text: best.answer, sourceTitle: best.title, sourceUrl: best.source, score: bestScore };
   }
-  root.EvidraAsk = { answerQuestion: answerQuestion, tokenize: tokenize, DECLINE: DECLINE };
-  if (typeof module !== "undefined" && module.exports) { module.exports = root.EvidraAsk; }
+  root.OmevraAsk = { answerQuestion: answerQuestion, tokenize: tokenize, DECLINE: DECLINE };
+  if (typeof module !== "undefined" && module.exports) { module.exports = root.OmevraAsk; }
   if (typeof document === "undefined") return;
   document.addEventListener("DOMContentLoaded", function () {
-    var box = document.getElementById("ask-evidra");
+    var box = document.getElementById("ask-omevra");
     if (!box) return;
     var panel = box.querySelector(".ask-panel");
     var msgs = box.querySelector(".ask-msgs");
