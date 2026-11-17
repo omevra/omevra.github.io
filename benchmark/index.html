@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/favicon-180.png" />
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/brand/favicon-512.png" />
 <!-- evidra-build:brand-head:end -->
-<title>The Rare Disease Evidence Benchmark - Omevra</title>
+<title>Omevra Benchmarks - Variant Evidence for Rare Disease</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -231,17 +231,22 @@
   .part:first-child{margin-top:4px}
   .part-label{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
   .part p:last-child{margin-bottom:0}
+
+  tr.candidate td{background:var(--amber-bg)}
+  .lb td:nth-child(2),.lb td:nth-child(8),.inv td:nth-child(2),.inv td:nth-child(3),.inv td:nth-child(4){text-align:left}
+  .status-note{font-size:13.5px;color:var(--muted)}
+  .cite-box{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:15px;color:var(--ink-2)}
 </style>
 
 <!-- evidra-build:head:start -->
-<meta name="description" content="Omevra's Rare Disease Evidence Benchmark: one family case from reads to diagnosis, scored in four layers, with every ACMG code checked against its cited source. In development, v0 not yet released." />
+<meta name="description" content="Omevra Benchmarks: real, temporal test results for rare disease variant evidence. VariantEvidenceBench is live, with a published leaderboard, calibration, abstention and methodology. Results from runs completed October 2026." />
 <link rel="canonical" href="https://omevra.github.io/benchmark/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Omevra" />
-<meta property="og:title" content="The Rare Disease Evidence Benchmark" />
-<meta property="og:description" content="Omevra's Rare Disease Evidence Benchmark: one family case from reads to diagnosis, scored in four layers, with every ACMG code checked against its cited source. In development, v0 not yet released." />
+<meta property="og:title" content="Omevra Benchmarks" />
+<meta property="og:description" content="Omevra Benchmarks: real, temporal test results for rare disease variant evidence. VariantEvidenceBench is live, with a published leaderboard, calibration, abstention and methodology. Results from runs completed October 2026." />
 <meta property="og:url" content="https://omevra.github.io/benchmark/" />
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "The Rare Disease Evidence Benchmark", "description": "Omevra's Rare Disease Evidence Benchmark: one family case from reads to diagnosis, scored in four layers, with every ACMG code checked against its cited source. In development, v0 not yet released.", "url": "https://omevra.github.io/benchmark/", "isPartOf": {"@type": "WebSite", "name": "Omevra", "url": "https://omevra.github.io/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Omevra Benchmarks", "description": "Omevra Benchmarks: real, temporal test results for rare disease variant evidence. VariantEvidenceBench is live, with a published leaderboard, calibration, abstention and methodology. Results from runs completed October 2026.", "url": "https://omevra.github.io/benchmark/", "isPartOf": {"@type": "WebSite", "name": "Omevra", "url": "https://omevra.github.io/"}}</script>
 <!-- evidra-build:head:end -->
 </head>
 <body>
@@ -262,55 +267,206 @@
   </div>
 </header>
 
+
 <main class="wrap">
   <header class="hero">
-    <p class="kicker">Omevra · Benchmark</p>
-    <h1>The Rare Disease Evidence <span>Benchmark</span></h1>
-    <p class="subtitle">One case is one family. The agent gets the sequencing data, the pedigree and the phenotype, and must find the causal variant and prove it, with a cited source for every ACMG code it applies.</p>
-    <p style="margin-top:18px"><span style="display:inline-block;background:#e8f4ec;color:#0b7a37;font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px">In development · v0 not yet released</span></p>
+    <p class="kicker">Omevra &#183; Benchmarks</p>
+    <h1>Omevra Benchmarks <span>variant evidence for rare disease</span></h1>
+    <p class="subtitle">One live benchmark, run on real data, with the full result published: the scores, the calibration, the coverage, and the declines. No external model results are listed, because none have been run here.</p>
+    <p style="margin-top:18px"><span style="display:inline-block;background:#e8f4ec;color:#0b7a37;font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px">VariantEvidenceBench &#183; Live results</span> <span style="display:inline-block;background:#f5f5f7;color:#424245;font-weight:600;font-size:13px;padding:6px 14px;border-radius:999px">Results from runs completed October 2026</span></p>
+    <div class="stats">
+      <div class="stat"><b>27,748</b><span>variants in the temporal test set, uncertain at the January 2024 freeze and later reclassified</span></div>
+      <div class="stat"><b>0.9705</b><span>AUROC of the live model, on the 10,357 variants it scored</span></div>
+      <div class="stat"><b>37.3%</b><span>coverage of the live model. The rest is declined, not guessed</span></div>
+      <div class="stat"><b>17,391</b><span>variants declined by the live model under the cite-or-decline bar (62.7%)</span></div>
+    </div>
   </header>
 
-  <section id="cases">
-    <div class="items">
-      <div class="item">
-        <h3>What a case contains</h3>
-        <p><strong>Inputs:</strong> reads or a joint VCF for the proband and parents (some cases add siblings), a PED file, and HPO phenotype terms for the proband.</p>
-        <p><strong>Hidden truth:</strong> the causal variant or pair, the inheritance mode (de novo, recessive, compound het, X-linked), the expected ACMG codes, and the records that support each code.</p>
-        <p><strong>Planted traps:</strong> calling artifacts that look pathogenic, such as a false positive in a low-complexity region, or a Mendelian violation caused by a dropout. Catching them is part of the score.</p>
-        <p>Every case is built from public data, so no patient data, IRB or HIPAA is involved. Families are synthetic: known pathogenic variants are spiked into real genome backgrounds, so the right answer is known by construction.</p>
-      </div>
-      <div class="item">
-        <h3>Layer 1 - Calling</h3>
-        <p>Produce or check the calls from reads. Scored with hap.py precision, recall and F1 against the truth set, plus whether each planted trap was caught or missed.</p>
-      </div>
-      <div class="item">
-        <h3>Layer 2 - Family reasoning</h3>
-        <p>Use the pedigree to filter and phase. Scored on the correct inheritance mode, and on correct de novo and compound het calls.</p>
-      </div>
-      <div class="item">
-        <h3>Layer 3 - Evidence</h3>
-        <p>Apply ACMG codes, each one citing a record. Scored on code-level precision and recall. A cited record that does not support its claim counts as a fabrication, not as a near miss.</p>
-      </div>
-      <div class="item">
-        <h3>Layer 4 - Answer</h3>
-        <p>Rank the causal variant, give a calibrated probability, or decline. Scored on top-1 and top-5 rank, calibration (ECE), and correct declines.</p>
-      </div>
-      <div class="item">
-        <h3>Two rules that keep it hard and honest</h3>
-        <p><strong>Temporal truth:</strong> the scoring set only uses labels that appeared after a fixed cutoff, and every agent declares its training cutoff.</p>
-        <p><strong>Rolling rounds:</strong> each new ClinVar release adds fresh cases, scored blind. Older rounds become public practice sets, so the test cannot be memorised and stays hard as models improve.</p>
-      </div>
-      <div class="item">
-        <h3>Data sources</h3>
-        <p>GIAB Ashkenazi trio (HG002, HG003, HG004, v4.2.1 benchmark) for real trio backgrounds and hap.py scoring. Platinum Pedigree (CEPH 1463) for multi-generation inheritance checks. ClinVar dated releases for variants to spike in and for temporal truth. ClinGen expert-panel (VCEP) curations for code-level ACMG truth. MaveDB functional scores for future blind rounds. HPO for phenotype terms.</p>
-        <p>Before any derived case is published, the license of each source is confirmed for redistribution. That check is an open item, and it is stated here rather than assumed.</p>
-      </div>
-      <div class="item">
-        <h3>Status</h3>
-        <p>This benchmark is in development. v0 is not yet released, there is no leaderboard, and no model results are published yet, because none have been run. When the first cases and baseline runs exist, they will be published here in full, including the failures.</p>
-        <p>Rare disease labs and core facilities who want to try v0 as design partners can <a href="/contact/">contact Omevra</a>. Research Use Only.</p>
+  <section id="variantevidencebench">
+    <div class="sec-head"><h2>VariantEvidenceBench</h2></div>
+    <p class="lead">The task: given a variant that was uncertain at a fixed point in time, produce a calibrated probability that it is pathogenic, or decline. The grade comes only from what happened next.</p>
+    <div class="rule-box">
+      <p><strong>Test protocol.</strong> Training data is ClinVar frozen in January 2024, with 1,103,657 labelled rows. The test set is the 27,748 variants that were uncertain at that freeze and were later reclassified: 8,856 pathogenic and 18,892 benign. The labels are the later reclassifications. Labels are evaluation targets only, never features and never evidence.</p>
+    </div>
+
+    <h3 style="margin-top:34px">Leaderboard</h3>
+    <div class="table-wrap">
+      <table class="lb">
+        <thead><tr>
+          <th>Rank</th><th>Configuration</th><th>n scored</th><th>Coverage</th><th>AUROC</th><th>ECE</th><th>Brier</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+          <tr class="final">
+            <td data-label="Rank">1</td>
+            <td>GBM+R [AlphaMissense, gene prior, REVEL] + isotonic</td>
+            <td data-label="n scored">10,357</td>
+            <td data-label="Coverage">37.3%</td>
+            <td data-label="AUROC">0.9705</td>
+            <td data-label="ECE">0.0248</td>
+            <td data-label="Brier">0.0625</td>
+            <td data-label="Status">Live, adopted</td>
+          </tr>
+          <tr>
+            <td data-label="Rank">2</td>
+            <td>Logistic M2+R, tranche T1 [AlphaMissense, gene prior, REVEL] + isotonic</td>
+            <td data-label="n scored">10,357</td>
+            <td data-label="Coverage">37.3%</td>
+            <td data-label="AUROC">0.9676</td>
+            <td data-label="ECE">0.0226</td>
+            <td data-label="Brier">0.0658</td>
+            <td data-label="Status">Candidate T1, not deployed</td>
+          </tr>
+          <tr>
+            <td data-label="Rank">3</td>
+            <td>Model-2 [AlphaMissense, gene prior] + isotonic (original)</td>
+            <td data-label="n scored">10,373</td>
+            <td data-label="Coverage">37.4%</td>
+            <td data-label="AUROC">0.9577</td>
+            <td data-label="ECE">0.0169</td>
+            <td data-label="Brier">0.0775</td>
+            <td data-label="Status">Earlier model, superseded</td>
+          </tr>
+          <tr>
+            <td data-label="Rank">4</td>
+            <td>Tranche T3 [gene prior, gnomAD allele frequency, VEP consequence], for variants with no missense predictor</td>
+            <td data-label="n scored">16,576</td>
+            <td data-label="Coverage">59.7%</td>
+            <td data-label="AUROC">0.9425</td>
+            <td data-label="ECE">0.0279</td>
+            <td data-label="Brier">0.0638</td>
+            <td data-label="Status">Candidate tranche, not deployed</td>
+          </tr>
+          <tr>
+            <td data-label="Rank">5</td>
+            <td>Tranche T2, REVEL only [REVEL, gene prior] + isotonic</td>
+            <td data-label="n scored">666</td>
+            <td data-label="Coverage">2.4%</td>
+            <td data-label="AUROC">0.8283</td>
+            <td data-label="ECE">0.0573</td>
+            <td data-label="Brier">0.1378</td>
+            <td data-label="Status">Adopt with caution, not deployed</td>
+          </tr>
+          <tr class="candidate">
+            <td data-label="Rank">6</td>
+            <td>Candidate full tranche stack (T1 + T2 + T3)</td>
+            <td data-label="n scored">27,615</td>
+            <td data-label="Coverage">99.5%</td>
+            <td data-label="AUROC">0.9561</td>
+            <td data-label="ECE">0.0206</td>
+            <td data-label="Brier">0.0664</td>
+            <td data-label="Status">Candidate, NOT deployed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note"><strong>Coverage</strong> is n scored divided by the full 27,748-variant test set, so rows that score different subsets can be compared on coverage as well as quality. Ranks order the rows by AUROC as published in the model reports. Each row keeps its own n, because a score on a small or differently composed subset is not the same claim as a score on the full set.</p>
+    <div class="rule-box" style="margin-top:18px">
+      <p><strong>Candidate caveat, read before comparing row 6 with row 1.</strong> The overall AUROC, ECE and Brier of the candidate are NOT comparable to the live line as quality claims: they average over a much larger, differently-composed summarised set. The live model only ever scores the both-predictor subset. Row 6 is a coverage candidate under evaluation, not a deployed model and not a quality improvement claim.</p>
+    </div>
+    <p class="table-note" style="margin-top:16px"><strong>Reference baseline, not ranked.</strong> AlphaMissense alone (raw score) on the same temporal test, scored missense variants only: n 10,373, AUROC 0.921, ECE 0.040, Brier 0.113. Source: the earlier single-feature model report in the project record. It is shown so the ensemble rows can be read against the single predictor they build on.</p>
+  </section>
+
+  <section id="safeguards">
+    <div class="sec-head"><h2>Abstention and safeguards</h2></div>
+    <p class="lead">Reported separately from accuracy, and never averaged into AUROC, ECE or Brier. A system that scores everything can look complete while inventing the missing evidence. This benchmark counts the declines as a result in their own right.</p>
+    <div class="coverage">
+      <div class="coverage-head"><span>Live model, full test set</span><b>10,357 scored &#183; 17,391 declined</b></div>
+      <div class="bar" role="img" aria-label="Coverage bar: 37.3 percent scored, 62.7 percent declined"><i class="reported"></i><i class="declined"></i></div>
+      <div class="bar-legend">
+        <span><i class="dot" style="background:var(--accent)"></i>Scored, 37.3%</span>
+        <span><i class="dot" style="background:var(--line-strong)"></i>Declined, 62.7%</span>
       </div>
     </div>
+    <div class="items">
+      <div class="item">
+        <h3>The cite-or-decline bar</h3>
+        <p>The live model gives a probability only where the evidence for that variant meets a minimum bar of 3 evidence items. Below that bar it declines. On this test set it declined 17,391 of 27,748 variants (62.7%). A decline is the correct output where the evidence is thin, and it is published here at the same size as the accuracy numbers.</p>
+      </div>
+      <div class="item">
+        <h3>A failed lookup is never evidence</h3>
+        <p>Where a lookup fails or is impossible for a variant form, that variant receives no probability and declines. A failed or impossible lookup is never dressed up as evidence, and an unobserved record is only used where the lookup itself was actually retrieved.</p>
+      </div>
+      <div class="item">
+        <h3>Fabricated citations count as failure</h3>
+        <p>Every claim in an evidence report must cite a record that supports it. An unsupported or fabricated citation counts as a failure, not as a near miss and not as partial credit.</p>
+      </div>
+      <div class="item">
+        <h3>Kept separate, on purpose</h3>
+        <p>There is no combined score on this page that mixes accuracy with abstention. AUROC, ECE and Brier describe the variants a configuration scored. The decline counts above describe the variants it refused. Both are needed to judge a system, and neither is hidden inside the other.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="inventory">
+    <div class="sec-head"><h2>Benchmark inventory</h2></div>
+    <p>Every benchmark Omevra is building, with its honest status. In-build benchmarks have no scores, and none are shown for them.</p>
+    <div class="table-wrap">
+      <table class="inv">
+        <thead><tr><th>Benchmark</th><th>What it measures</th><th>Status</th><th>Results</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>VariantEvidenceBench</td>
+            <td data-label="What it measures">Calibrated pathogenicity probability, or a decline, for variants uncertain at the January 2024 freeze, graded on later ClinVar reclassifications</td>
+            <td data-label="Status">Live</td>
+            <td data-label="Results">Leaderboard above</td>
+          </tr>
+          <tr>
+            <td>CalibrationBench</td>
+            <td data-label="What it measures">Calibration error (ECE) per gene and per tranche, from the same runs</td>
+            <td data-label="Status">Results from the same runs</td>
+            <td data-label="Results">Per-tranche ECE: T1 0.0226, T2 0.0573, T3 0.0279. Per-gene calibration is computed in the project record for genes with n of 50 or more</td>
+          </tr>
+          <tr>
+            <td>FamilyCaseBench</td>
+            <td data-label="What it measures">One family case, from raw reads to diagnosis, in 4 layers: variant calling with planted artifacts, family reasoning (trios, de novo, compound heterozygous, segregation), ACMG evidence with real citations, and a final ranked answer</td>
+            <td data-label="Status">v0 in build</td>
+            <td data-label="Results">No results yet</td>
+          </tr>
+          <tr>
+            <td>CitationFaithfulnessBench</td>
+            <td data-label="What it measures">Whether every cited record actually supports the claim it is attached to</td>
+            <td data-label="Status">In build</td>
+            <td data-label="Results">No results yet</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">FamilyCaseBench keeps the design published earlier on this page: families are synthetic, known pathogenic variants are placed in real genome backgrounds, and the right answer is known by construction. It publishes no leaderboard until cases and baseline runs exist.</p>
+  </section>
+
+  <section id="methodology">
+    <div class="sec-head"><h2>Methodology and provenance</h2></div>
+    <div class="items">
+      <div class="item">
+        <h3>Data sources</h3>
+        <p><strong>ClinVar</strong>, frozen January 2024 release, for the training labels and for the set of variants uncertain at the freeze. <strong>AlphaMissense</strong> precomputed missense scores. <strong>REVEL</strong> scores, from the public release archived as Zenodo record 7072866. <strong>gnomAD allele frequencies</strong> and VEP most severe consequence, retrieved through Ensembl VEP. One provenance note carried from the run record: Ensembl serves its own gnomAD freeze, so the allele frequencies are Ensembl's served freeze, which is not necessarily the current gnomAD release.</p>
+      </div>
+      <div class="item">
+        <h3>Temporal truth rule</h3>
+        <p>Models are fitted on the frozen January 2024 data only. They are graded on classifications that appeared after that freeze. A refreshed current ClinVar release was not used as a feature or as evidence for any row, because the current classification is the test label, and using it would be label leakage.</p>
+      </div>
+      <div class="item">
+        <h3>Fitting and calibration</h3>
+        <p>Isotonic calibration is fitted only on train holdouts, never on the test set. For the candidate tranches, each tranche uses its own train population, its own gene prior, and isotonic calibration fitted on that tranche's own train holdout. A calibrated probability is mandatory for a variant to be scored at all, and the minimum evidence bar of 3 items applies to every row.</p>
+      </div>
+      <div class="item">
+        <h3>Honest limits</h3>
+        <ul>
+          <li><strong>Labels are partly predictor-influenced.</strong> Post-cutoff reclassification labels are themselves partly influenced by predictor scores. This inflates the apparent performance of all rows, the live row included, and it is stated here rather than corrected away.</li>
+          <li><strong>Small tranches are not interpretable.</strong> The AM-only test cell in the candidate run has n of 16. Its metrics are reported in the run record for completeness and are not interpretable at that size, so no row for it appears in the leaderboard. The T2 row, at n 666, is labelled adopt with caution for the same reason.</li>
+          <li><strong>T3 sees less signal.</strong> Tranche T3 discrimination is inherently weaker than the missense predictor tranches, because allele frequency, consequence and a gene prior cannot see missense-specific signal. Its numbers are published as they are.</li>
+          <li><strong>Coverage and quality trade off.</strong> The live model scores 37.3% of the test set. The candidate stack reaches 99.5% coverage on a differently composed set. Higher coverage is not, by itself, a better model.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="cite">
+    <div class="sec-head"><h2>Data updated and citation</h2></div>
+    <p><strong>Data updated:</strong> results from runs completed October 2026. The test protocol, the frozen training set and the test set are unchanged from those runs. When a new run is published, this page will show its date and keep the earlier results visible.</p>
+    <h3>Suggested citation</h3>
+    <div class="cite-box">Linga, U. (2026). Omevra Benchmarks: VariantEvidenceBench, variant evidence for rare disease. Omevra. https://omevra.github.io/benchmark/</div>
+    <p style="margin-top:16px">Rare disease labs and core facilities who want to work with these benchmarks as design partners can <a href="/contact/">contact Omevra</a>. Research Use Only. Not for clinical use.</p>
   </section>
 
   <footer>
